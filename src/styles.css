@@ -1,0 +1,380 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Shah Junction Luxury Design System
+ * Palette: Olive Green · Dusty Blue · Warm Beige · Soft Cream · Deep Charcoal · Muted Brass
+ * Inspired by authentic Indian & Punjabi hospitality with editorial refinement.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 10px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Curated Palette Tokens */
+  --color-olive-deep: var(--olive-deep);
+  --color-olive: var(--olive);
+  --color-olive-soft: var(--olive-soft);
+  --color-olive-light: var(--olive-light);
+
+  --color-dusty-blue-deep: var(--dusty-blue-deep);
+  --color-dusty-blue: var(--dusty-blue);
+  --color-dusty-blue-soft: var(--dusty-blue-soft);
+  --color-dusty-blue-light: var(--dusty-blue-light);
+
+  --color-warm-beige-deep: var(--warm-beige-deep);
+  --color-warm-beige: var(--warm-beige);
+  --color-warm-beige-light: var(--warm-beige-light);
+
+  --color-soft-cream: var(--soft-cream);
+  --color-soft-cream-pure: var(--soft-cream-pure);
+
+  --color-charcoal-deep: var(--charcoal-deep);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-soft: var(--charcoal-soft);
+  --color-charcoal-light: var(--charcoal-light);
+
+  --color-brass-deep: var(--brass-deep);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-brass-light: var(--brass-light);
+
+  --color-on-dark: var(--on-dark);
+  --color-on-dark-muted: var(--on-dark-muted);
+  --color-line-dark: var(--line-dark);
+
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-gurmukhi: "Noto Serif Gurmukhi", "Noto Sans Gurmukhi", serif;
+  --font-script: "Alex Brush", "Playfair Display", cursive;
+
+  --shadow-card: 0 1px 3px oklch(0.20 0.015 65 / 6%), 0 16px 36px -12px oklch(0.20 0.015 65 / 10%);
+  --shadow-lift: 0 4px 8px oklch(0.20 0.015 65 / 8%), 0 24px 48px -12px oklch(0.20 0.015 65 / 16%);
+  --shadow-brass: 0 0 0 1px oklch(0.70 0.10 82 / 35%), 0 12px 28px -8px oklch(0.70 0.10 82 / 30%);
+  --shadow-olive: 0 0 0 1px oklch(0.38 0.08 135 / 30%), 0 12px 24px -8px oklch(0.38 0.08 135 / 25%);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-fade-up: fade-up 0.9s var(--ease-out-expo) both;
+  --animate-scale-reveal: scale-reveal 1.6s var(--ease-out-expo) both;
+  --animate-scroll-hint: scroll-hint 2.2s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes scale-reveal {
+    from {
+      opacity: 0;
+      transform: scale(1.06);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes hero-ken-burns {
+    0% {
+      opacity: 0.95;
+      transform: scale(1.01);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes hero-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes scroll-hint {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(6px);
+      opacity: 1;
+    }
+  }
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Olive Green */
+  --olive-deep: oklch(0.28 0.07 135);
+  --olive: oklch(0.38 0.08 135);
+  --olive-soft: oklch(0.48 0.07 135);
+  --olive-light: oklch(0.92 0.03 135);
+
+  /* Dusty Blue */
+  --dusty-blue-deep: oklch(0.36 0.06 240);
+  --dusty-blue: oklch(0.52 0.06 240);
+  --dusty-blue-soft: oklch(0.68 0.05 240);
+  --dusty-blue-light: oklch(0.93 0.02 240);
+
+  /* Warm Beige */
+  --warm-beige-deep: oklch(0.88 0.026 85);
+  --warm-beige: oklch(0.935 0.020 85);
+  --warm-beige-light: oklch(0.965 0.014 88);
+
+  /* Soft Cream */
+  --soft-cream: oklch(0.985 0.009 90);
+  --soft-cream-pure: oklch(0.995 0.005 90);
+
+  /* Deep Charcoal */
+  --charcoal-deep: oklch(0.13 0.012 65);
+  --charcoal: oklch(0.18 0.015 65);
+  --charcoal-soft: oklch(0.24 0.016 65);
+  --charcoal-light: oklch(0.32 0.016 65);
+
+  /* Subtle Muted Brass / Gold */
+  --brass-deep: oklch(0.58 0.09 78);
+  --brass: oklch(0.70 0.10 82);
+  --brass-soft: oklch(0.82 0.08 85);
+  --brass-light: oklch(0.93 0.03 88);
+
+  /* Theme mappings */
+  --background: var(--warm-beige);
+  --foreground: var(--charcoal);
+  --card: var(--soft-cream);
+  --card-foreground: var(--charcoal);
+  --popover: var(--soft-cream);
+  --popover-foreground: var(--charcoal);
+  --primary: var(--olive);
+  --primary-foreground: var(--soft-cream-pure);
+  --secondary: var(--warm-beige-deep);
+  --secondary-foreground: var(--charcoal);
+  --muted: var(--warm-beige-deep);
+  --muted-foreground: oklch(0.44 0.02 65);
+  --accent: var(--brass);
+  --accent-foreground: var(--charcoal);
+  --destructive: oklch(0.50 0.18 28);
+  --destructive-foreground: var(--soft-cream);
+  --border: oklch(0.85 0.02 85);
+  --input: oklch(0.85 0.02 85);
+  --ring: var(--brass);
+
+  --on-dark: oklch(0.96 0.01 90);
+  --on-dark-muted: oklch(0.76 0.015 85);
+  --line-dark: oklch(1 0 0 / 10%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  :lang(pa) {
+    font-family: var(--font-gurmukhi);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-brass-soft);
+    color: var(--color-charcoal);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Scroll reveal — toggled by the Reveal component via IntersectionObserver */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Eyebrow label with subtle muted brass rule */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  &::before {
+    content: "";
+    width: 2rem;
+    height: 1px;
+    background: var(--color-brass);
+  }
+}
+
+/* Cinematic overlays for imagery */
+@utility overlay-hero {
+  background:
+    linear-gradient(90deg, oklch(0.12 0.01 65 / 86%) 0%, oklch(0.14 0.015 65 / 58%) 55%, oklch(0.14 0.015 65 / 25%) 100%),
+    linear-gradient(180deg, oklch(0.12 0.01 65 / 45%) 0%, transparent 35%, oklch(0.12 0.01 65 / 80%) 100%);
+}
+
+@utility overlay-soft {
+  background: linear-gradient(180deg, transparent 35%, oklch(0.14 0.015 65 / 75%) 100%);
+}
+
+/* Container */
+@utility container-site {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (min-width: 480px) {
+    padding-inline: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    padding-inline: 2rem;
+  }
+  @media (min-width: 1024px) {
+    padding-inline: 3rem;
+  }
+}
+
+/* Subtle texture for dark sections */
+@utility texture-dark {
+  background-color: var(--color-charcoal);
+  background-image: radial-gradient(oklch(0.70 0.10 82 / 4%) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Subtle texture for olive sections */
+@utility texture-olive {
+  background-color: var(--color-olive-deep);
+  background-image: radial-gradient(oklch(0.70 0.10 82 / 5%) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Hero Luxury Cinematic Animation Utilities */
+@utility hero-ken-burns {
+  animation: hero-ken-burns 18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@utility hero-anim-welcome {
+  animation: hero-fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+@utility hero-anim-heading {
+  animation: hero-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+@utility hero-anim-sub {
+  animation: hero-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+}
+
+@utility hero-anim-desc {
+  animation: hero-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.05s both;
+}
+
+@utility hero-anim-buttons {
+  animation: hero-fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.35s both;
+}
+
+@utility hero-anim-scroll {
+  animation: hero-fade-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) 1.7s both;
+}
+
