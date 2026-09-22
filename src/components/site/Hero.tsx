@@ -1,15 +1,40 @@
+import { useEffect, useCallback } from "react";
 import shahiVillaReal from "@/assets/shahi-villa-real.jpg";
 import { useBooking } from "@/context/BookingContext";
 import { cn } from "@/lib/utils";
 
 interface HeroProps {
-  introState?: "playing" | "fading" | "finished";
+  introState?: "playing" | "finished";
+  setIntroState?: (state: "playing" | "finished") => void;
 }
 
-export function Hero({ introState = "finished" }: HeroProps) {
+export function Hero({ introState = "playing", setIntroState }: HeroProps) {
   const { openBookingModal } = useBooking();
-  const isIntroPlaying = introState === "playing";
-  const isIntroFading = introState === "fading";
+  const isPlaying = introState === "playing";
+
+  const handleSkip = useCallback(() => {
+    if (setIntroState) {
+      setIntroState("finished");
+    }
+  }, [setIntroState]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      if (setIntroState) setIntroState("finished");
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      if (setIntroState) {
+        setIntroState("finished");
+      }
+    }, 6700);
+
+    return () => clearTimeout(timer);
+  }, [setIntroState]);
 
   return (
     <section
@@ -26,7 +51,10 @@ export function Hero({ introState = "finished" }: HeroProps) {
           fetchPriority="high"
           loading="eager"
           decoding="sync"
-          className="size-full object-cover object-[center_40%]"
+          className={cn(
+            "size-full object-cover object-[center_40%] [image-rendering:high-quality] will-change-transform",
+            isPlaying ? "hero-camera-pullback" : "scale-100 translate-y-0"
+          )}
         />
       </div>
 
@@ -36,12 +64,11 @@ export function Hero({ introState = "finished" }: HeroProps) {
         aria-hidden="true"
       />
 
-      {/* 4. Right Side Artistic Watermark (Desktop Only) */}
+      {/* 3. Right Side Artistic Watermark (Desktop Only) */}
       <div
         className={cn(
-          "hidden lg:flex absolute right-8 xl:right-12 top-[55%] xl:top-[58%] z-20 flex-col items-end text-right pointer-events-none select-none transition-opacity duration-1000 ease-out",
-          isIntroPlaying && "opacity-0",
-          isIntroFading && "opacity-100 duration-1200 delay-200",
+          "hidden lg:flex absolute right-8 xl:right-12 top-[55%] xl:top-[58%] z-20 flex-col items-end text-right pointer-events-none select-none",
+          isPlaying ? "hero-anim-watermark" : "opacity-100"
         )}
         aria-hidden="true"
       >
@@ -53,36 +80,41 @@ export function Hero({ introState = "finished" }: HeroProps) {
         <span className="h-px w-10 bg-[#dfb76c]/60 mt-1.5" />
       </div>
 
-      {/* 5. Clean, Streamlined Sky Text Block */}
-      <div
-        className={cn(
-          "container-site relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center px-4 sm:px-6 pt-[max(env(safe-area-inset-top,0px),4.25rem)] sm:pt-18 lg:pt-14 xl:pt-16 transition-all duration-1000 ease-out",
-          isIntroPlaying && "opacity-0 pointer-events-none translate-y-3",
-          isIntroFading && "opacity-100 translate-y-0 duration-1200 delay-150",
-        )}
-      >
-        {/* Step 1: “WELCOME TO” */}
-        <div className="hero-anim-welcome inline-flex items-center gap-2.5 sm:gap-3 text-brass-light">
-          <span className="h-px w-6 sm:w-12 bg-brass-light/70 shadow-sm" aria-hidden="true" />
-          <span className="text-[0.6rem] sm:text-xs font-semibold tracking-[0.42em] sm:tracking-[0.55em] uppercase text-brass-light drop-shadow-sm">
-            WELCOME TO
-          </span>
-          <span className="h-px w-6 sm:w-12 bg-brass-light/70 shadow-sm" aria-hidden="true" />
+      {/* 4. Clean, Streamlined Sky Text Block with Staggered Entrance */}
+      <div className="container-site relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center px-4 sm:px-6 pt-[max(env(safe-area-inset-top,0px),4.25rem)] sm:pt-18 lg:pt-14 xl:pt-16">
+        {/* Step 1 & 2: “WELCOME TO” + “SHAHI JUNCTION VILLA” Headline Block */}
+        <div className={cn("flex flex-col items-center text-center", isPlaying ? "hero-anim-headline" : "opacity-100")}>
+          <div className="inline-flex items-center gap-2.5 sm:gap-3 text-brass-light">
+            <span className="h-px w-6 sm:w-12 bg-brass-light/70 shadow-sm" aria-hidden="true" />
+            <span className="text-[0.6rem] sm:text-xs font-semibold tracking-[0.42em] sm:tracking-[0.55em] uppercase text-brass-light drop-shadow-sm">
+              WELCOME TO
+            </span>
+            <span className="h-px w-6 sm:w-12 bg-brass-light/70 shadow-sm" aria-hidden="true" />
+          </div>
+
+          <h1 className="mt-1 sm:mt-1.5 font-display text-2xl sm:text-4xl lg:text-[2.65rem] xl:text-[3.15rem] font-bold uppercase tracking-[0.1em] sm:tracking-[0.14em] text-white leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)] break-words">
+            <span className="block sm:inline">SHAHI </span>
+            <span className="block sm:inline">JUNCTION VILLA</span>
+          </h1>
         </div>
 
-        {/* Step 2: Main Heading */}
-        <h1 className="mt-1 sm:mt-1.5 hero-anim-heading font-display text-2xl sm:text-4xl lg:text-[2.65rem] xl:text-[3.15rem] font-bold uppercase tracking-[0.1em] sm:tracking-[0.14em] text-white leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)] break-words">
-          <span className="block sm:inline">SHAHI </span>
-          <span className="block sm:inline">JUNCTION VILLA</span>
-        </h1>
-
         {/* Step 3: Subheading in luxury calligraphy script */}
-        <p className="mt-0.5 sm:mt-1 hero-anim-sub font-script text-lg sm:text-2xl lg:text-[1.85rem] text-[#dfb76c] tracking-wide leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+        <p
+          className={cn(
+            "mt-0.5 sm:mt-1 font-script text-lg sm:text-2xl lg:text-[1.85rem] text-[#dfb76c] tracking-wide leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]",
+            isPlaying ? "hero-anim-sub" : "opacity-100"
+          )}
+        >
           Where Every Celebration Becomes a Memory
         </p>
 
         {/* Step 4: Streamlined Action Buttons */}
-        <div className="mt-3 sm:mt-4 hero-anim-buttons flex items-center justify-center gap-3 sm:gap-4 w-auto">
+        <div
+          className={cn(
+            "mt-3 sm:mt-4 flex items-center justify-center gap-3 sm:gap-4 w-auto",
+            isPlaying ? "hero-anim-buttons" : "opacity-100"
+          )}
+        >
           {/* Button 1: Deep Maroon/Crimson Pill */}
           <button
             type="button"
@@ -104,14 +136,13 @@ export function Hero({ introState = "finished" }: HeroProps) {
         </div>
       </div>
 
-      {/* 6. Scroll Indicator */}
+      {/* 5. Scroll Indicator */}
       <a
         href="#about"
         aria-label="Scroll to explore Shahi Junction Villa"
         className={cn(
-          "hero-anim-scroll absolute bottom-3 sm:bottom-4 inset-x-0 mx-auto w-fit z-20 flex flex-col items-center gap-0.5 text-white/80 hover:text-brass-light transition-colors duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]",
-          isIntroPlaying && "opacity-0 pointer-events-none",
-          isIntroFading && "opacity-100 duration-1200 delay-300",
+          "absolute bottom-3 sm:bottom-4 inset-x-0 mx-auto w-fit z-20 flex flex-col items-center gap-0.5 text-white/80 hover:text-brass-light transition-colors duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]",
+          isPlaying ? "hero-anim-scroll" : "opacity-100"
         )}
       >
         <span className="text-[0.56rem] sm:text-[0.6rem] font-medium tracking-[0.3em] uppercase">

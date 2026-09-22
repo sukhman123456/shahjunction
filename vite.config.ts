@@ -166,6 +166,113 @@ function generateTransparentPng(inputPath: string, outPath1: string, outPath2: s
     fs.writeFileSync(outPath1, finalPng);
     fs.writeFileSync(outPath2, finalPng);
     console.log("[palace-plugin] Successfully generated transparent PNG! Bytes:", finalPng.length);
+
+    // Identify distinct vertical sections in the logo
+    const rowCounts: number[] = [];
+    for (let y = 0; y < height; y++) {
+      let count = 0;
+      const start = y * outScanlineLength;
+      for (let x = 0; x < width; x++) {
+        if (outDecompressed[start + 1 + x * 4 + 3] > 20) count++;
+      }
+      rowCounts.push(count);
+    }
+
+    const intervals: Array<{ start: number; end: number; maxCount: number }> = [];
+    let inSection = false;
+    let segStart = 0;
+    let maxC = 0;
+    for (let y = 0; y < height; y++) {
+      if (rowCounts[y] > 10) {
+        if (!inSection) {
+          inSection = true;
+          segStart = y;
+          maxC = rowCounts[y];
+        } else {
+          maxC = Math.max(maxC, rowCounts[y]);
+        }
+      } else {
+        if (inSection) {
+          inSection = false;
+          intervals.push({ start: segStart, end: y - 1, maxCount: maxC });
+        }
+      }
+    }
+    if (inSection) intervals.push({ start: segStart, end: height - 1, maxCount: maxC });
+
+    console.log("[palace-plugin] LOGO SECTIONS FOUND:", JSON.stringify(intervals));
+
+    function slicePng(y1: number, y2: number) {
+      // Find minX, maxX in this y range
+      let minX = width;
+      let maxX = 0;
+      for (let y = y1; y <= y2; y++) {
+        const start = y * outScanlineLength;
+        for (let x = 0; x < width; x++) {
+          if (outDecompressed[start + 1 + x * 4 + 3] > 20) {
+            minX = Math.min(minX, x);
+            maxX = Math.max(maxX, x);
+          }
+        }
+      }
+      // Add small 8px padding
+      minX = Math.max(0, minX - 8);
+      maxX = Math.min(width - 1, maxX + 8);
+      y1 = Math.max(0, y1 - 4);
+      y2 = Math.min(height - 1, y2 + 4);
+
+      const cropW = maxX - minX + 1;
+      const cropH = y2 - y1 + 1;
+      const cropScanline = 1 + cropW * 4;
+      const cropDecompressed = Buffer.alloc(cropH * cropScanline);
+
+      for (let y = 0; y < cropH; y++) {
+        const srcY = y1 + y;
+        const inStart = srcY * outScanlineLength + 1 + minX * 4;
+        const outStart = y * cropScanline;
+        cropDecompressed[outStart] = 0;
+        outDecompressed.copy(cropDecompressed, outStart + 1, inStart, inStart + cropW * 4);
+      }
+
+      const cropIdat = zlib.deflateSync(cropDecompressed);
+      const cropIhdr = Buffer.alloc(13);
+      cropIhdr.writeUInt32BE(cropW, 0);
+      cropIhdr.writeUInt32BE(cropH, 4);
+      cropIhdr.writeUInt8(8, 8);
+      cropIhdr.writeUInt8(6, 9);
+      cropIhdr.writeUInt8(0, 10);
+      cropIhdr.writeUInt8(0, 11);
+      cropIhdr.writeUInt8(0, 12);
+
+      return Buffer.concat([
+        pngHeader,
+        makeChunk("IHDR", cropIhdr),
+        makeChunk("IDAT", cropIdat),
+        makeChunk("IEND", Buffer.alloc(0)),
+      ]);
+    }
+
+    if (intervals.length >= 3) {
+      // 0: SJ Monogram, 1: SHAH JUNCTION, 2: VILLA
+      const sjPng = slicePng(intervals[0].start, intervals[0].end);
+      const shahJunctionPng = slicePng(intervals[1].start, intervals[1].end);
+      const villaPng = slicePng(intervals[2].start, intervals[2].end);
+
+      const assetsDir = path.dirname(outPath1);
+      const publicDir = path.dirname(outPath2);
+
+      fs.writeFileSync(path.join(assetsDir, "logo-sj-monogram.png"), sjPng);
+      fs.writeFileSync(path.join(publicDir, "logo-sj-monogram.png"), sjPng);
+
+      fs.writeFileSync(path.join(assetsDir, "logo-shah-junction-text.png"), shahJunctionPng);
+      fs.writeFileSync(path.join(publicDir, "logo-shah-junction-text.png"), shahJunctionPng);
+
+      fs.writeFileSync(path.join(assetsDir, "logo-villa-text.png"), villaPng);
+      fs.writeFileSync(path.join(publicDir, "logo-villa-text.png"), villaPng);
+
+      console.log("[palace-plugin] Successfully exported sliced logo assets: logo-sj-monogram.png, logo-shah-junction-text.png, logo-villa-text.png!");
+    }
+
     return true;
   } catch (err) {
     console.error("[palace-plugin] Failed to generate transparent PNG in node:", err);

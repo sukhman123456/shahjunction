@@ -11,6 +11,7 @@ import { FinalCta } from "@/components/site/FinalCta";
 import { Footer } from "@/components/site/Footer";
 import { Gallery } from "@/components/site/Gallery";
 import { Hero } from "@/components/site/Hero";
+import { CinematicIntro } from "@/components/site/CinematicIntro";
 import { Location } from "@/components/site/Location";
 import { Navbar } from "@/components/site/Navbar";
 import { Occasions } from "@/components/site/Occasions";
@@ -18,7 +19,6 @@ import { RestaurantSection } from "@/components/site/RestaurantSection";
 import { DigitalMenu } from "@/components/site/DigitalMenu";
 import { Reviews } from "@/components/site/Reviews";
 import { VenueShowcase } from "@/components/site/VenueShowcase";
-import { CinematicIntro } from "@/components/site/CinematicIntro";
 import { BookingProvider } from "@/context/BookingContext";
 import { business } from "@/lib/business";
 
@@ -79,19 +79,17 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [introState, setIntroState] = useState<"playing" | "fading" | "finished">("playing");
+  const [introState, setIntroState] = useState<"playing" | "finished">("playing");
 
   return (
     <BookingProvider>
-      {/* Cinematic Opening Intro Animation */}
-      {introState !== "finished" && (
-        <CinematicIntro introState={introState} setIntroState={setIntroState} />
+      {introState === "playing" && (
+        <CinematicIntro onComplete={() => setIntroState("finished")} />
       )}
-
       <Navbar introState={introState} />
       <main>
-        {/* 1. Cinematic Palace Hero */}
-        <Hero introState={introState} />
+        {/* 1. Cinematic Palace Hero with Seamless Camera Pull-Back & Staggered Reveal */}
+        <Hero introState={introState} setIntroState={setIntroState} />
 
         {/* 2. The Experience / About */}
         <About />
