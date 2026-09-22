@@ -1,11 +1,29 @@
+import { useState, useEffect } from "react";
 import { RESERVATION_CONTACT } from "@/lib/reservations";
 import { business } from "@/lib/business";
+import { cn } from "@/lib/utils";
 
 export function FloatingContact() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 250);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <aside
       aria-label="Quick Social & WhatsApp Contact"
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-center gap-2.5 sm:gap-3 print:hidden select-none pointer-events-auto"
+      className={cn(
+        "fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-center gap-2.5 sm:gap-3 print:hidden select-none transition-all duration-500 ease-out",
+        scrolled
+          ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+          : "opacity-0 translate-y-6 scale-90 pointer-events-none"
+      )}
     >
       {/* ==================================================================== */}
       {/* 1. INSTAGRAM FLOATING BUTTON                                         */}

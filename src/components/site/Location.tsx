@@ -173,9 +173,7 @@ export function Location() {
 
             <div className="flex flex-col gap-3.5 border-t border-border bg-soft-cream p-4 sm:p-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-3">
-                <span className="flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-full bg-olive text-soft-cream shadow-sm">
-                  <PalaceMark className="size-5 sm:size-6 text-soft-cream" />
-                </span>
+                <PalaceMark className="size-10 sm:size-11 shrink-0" />
                 <div>
                   <p className="font-display text-base sm:text-lg font-semibold text-charcoal">{business.name}</p>
                   <p className="text-xs text-muted-foreground">{business.plusCode}</p>

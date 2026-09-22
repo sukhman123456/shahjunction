@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 import { BookingProvider } from "@/context/BookingContext";
 
 import appCss from "../styles.css?url";
+import shahJunctionLogo from "@/assets/shah-junction-villa-logo.jpg";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -80,7 +81,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Shahi Junction Villa | Marriage Palace & Wedding Resort in Punjab" },
       { property: "og:site_name", content: "Shahi Junction Villa" },
-      { property: "og:type", content: "website" },
+      { property: "og:image", content: shahJunctionLogo },
+      { name: "twitter:image", content: shahJunctionLogo },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#1f1c19" },
     ],
@@ -95,7 +97,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/shah-junction-villa-logo.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/shah-junction-villa-logo.png" },
+      {
+        rel: "preload",
+        href: "/shah-junction-villa-logo.png",
+        as: "image",
+        type: "image/png",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -109,6 +118,22 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              /* Zero first-paint flash: immediately conceal viewport behind luxury darkness */
+              #shah-cinematic-intro {
+                position: fixed !important;
+                inset: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                height: 100dvh !important;
+                z-index: 999999 !important;
+                background-color: #050403 !important;
+              }
+            `,
+          }}
+        />
       </head>
       <body>
         {children}

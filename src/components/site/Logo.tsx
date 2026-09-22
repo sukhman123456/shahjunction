@@ -1,57 +1,91 @@
 import { cn } from "@/lib/utils";
+import { useTransparentLogo } from "@/lib/transparentLogo";
+import fallbackLogoPng from "@/assets/shah-junction-villa-logo.png";
 
-/** Golden lotus & mandala-inspired emblem matching reference design */
+/** Golden emblem mark for location / small badge */
 export function PalaceMark({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 48 48"
-      aria-hidden="true"
-      className={cn("size-9 sm:size-10 shrink-0 text-brass", className)}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {/* Central stylized lotus petal */}
-      <path d="M24 6 C21 16 18 24 24 38 C30 24 27 16 24 6 Z" fill="currentColor" fillOpacity="0.15" />
-      <path d="M24 10 L24 34" strokeWidth="1" opacity="0.8" />
-      
-      {/* Left petal */}
-      <path d="M22 20 C14 18 8 25 10 33 C14 36 19 32 22 28" fill="currentColor" fillOpacity="0.1" />
-      <path d="M12 28 C16 27 19 28 21 30" strokeWidth="1" opacity="0.6" />
-      
-      {/* Right petal */}
-      <path d="M26 20 C34 18 40 25 38 33 C34 36 29 32 26 28" fill="currentColor" fillOpacity="0.1" />
-      <path d="M36 28 C32 27 29 28 27 30" strokeWidth="1" opacity="0.6" />
+  const { logoSrc } = useTransparentLogo();
+  const activeSrc = logoSrc.startsWith("data:") ? logoSrc : fallbackLogoPng;
 
-      {/* Decorative base curves */}
-      <path d="M17 38 C21 41 27 41 31 38" strokeWidth="1.2" />
-      <path d="M12 36 C8 37 6 40 8 42 C12 43 16 41 18 39" strokeWidth="1" />
-      <path d="M36 36 C40 37 42 40 40 42 C36 43 32 41 30 39" strokeWidth="1" />
-    </svg>
+  return (
+    <div
+      className={cn(
+        "relative shrink-0 overflow-hidden flex items-center justify-center select-none",
+        className
+      )}
+    >
+      <img
+        src={activeSrc}
+        alt="Shah Junction Crest"
+        className="size-full object-contain pointer-events-none drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]"
+      />
+    </div>
   );
 }
 
-export function Logo({ tone = "light" }: { tone?: "light" | "dark"; compact?: boolean }) {
+interface LogoProps {
+  tone?: "light" | "dark";
+  compact?: boolean;
+  className?: string;
+  variant?: "brand" | "emblem";
+  onClick?: () => void;
+}
+
+export function Logo({
+  compact = false,
+  className,
+  variant = "brand",
+  onClick,
+}: LogoProps) {
+  const { logoSrc } = useTransparentLogo();
+  const activeSrc = logoSrc.startsWith("data:") ? logoSrc : fallbackLogoPng;
+
+  if (variant === "emblem") {
+    return (
+      <a
+        href="#home"
+        onClick={onClick}
+        className={cn(
+          "group inline-flex items-center transition-transform duration-300 hover:scale-105 focus-visible:outline-hidden shrink-0 select-none",
+          className
+        )}
+        aria-label="Shah Junction Villa — Home"
+      >
+        <PalaceMark
+          className={cn(
+            compact ? "size-9 sm:size-10" : "size-11 sm:size-12"
+          )}
+        />
+      </a>
+    );
+  }
+
   return (
     <a
       href="#home"
+      onClick={onClick}
       className={cn(
-        "group inline-flex items-center gap-2.5 sm:gap-3 transition-colors focus-visible:outline-hidden shrink-0",
-        tone === "light" ? "text-on-dark" : "text-charcoal",
+        "group relative inline-flex items-center shrink-0 transition-transform duration-300 hover:scale-[1.03] focus-visible:outline-hidden select-none py-0.5",
+        className
       )}
-      aria-label="Shahi Junction Villa — Home"
+      aria-label="Shah Junction Villa — Where Comfort Meets Luxury"
     >
-      <PalaceMark className="size-7 sm:size-9 lg:size-10 text-brass transition-transform duration-500 group-hover:scale-105 drop-shadow-sm" />
-      <div className="flex flex-col text-left leading-tight">
-        <span className="font-display text-[0.8rem] sm:text-[0.95rem] lg:text-[1.05rem] font-bold tracking-[0.16em] sm:tracking-[0.18em] uppercase text-white drop-shadow-sm">
-          SHAHI JUNCTION VILLA
-        </span>
-        <span className="text-[0.46rem] sm:text-[0.54rem] lg:text-[0.6rem] font-medium tracking-[0.22em] sm:tracking-[0.26em] uppercase text-brass-light drop-shadow-sm">
-          CELEBRATIONS BEYOND ORDINARY
-        </span>
-      </div>
+      {/* 
+        Clean Transparent Official Logo (Exact Graphic & Text Only, No Extra Labels)
+      */}
+      <img
+        src={activeSrc}
+        alt="Shah Junction Villa — Where Comfort Meets Luxury"
+        className={cn(
+          "object-contain w-auto transition-all duration-300 pointer-events-none select-none",
+          compact
+            ? "h-11 sm:h-12 md:h-13 max-h-[52px]"
+            : "h-13 sm:h-15 md:h-16 lg:h-18 max-h-[72px]",
+          "drop-shadow-[0_2px_14px_rgba(212,175,55,0.45)] group-hover:drop-shadow-[0_4px_22px_rgba(212,175,55,0.85)]"
+        )}
+        loading="eager"
+        decoding="sync"
+      />
     </a>
   );
 }

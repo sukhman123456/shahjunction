@@ -17,6 +17,7 @@ import { RestaurantSection } from "@/components/site/RestaurantSection";
 import { DigitalMenu } from "@/components/site/DigitalMenu";
 import { Reviews } from "@/components/site/Reviews";
 import { VenueShowcase } from "@/components/site/VenueShowcase";
+import { CinematicIntro } from "@/components/site/CinematicIntro";
 import { BookingProvider } from "@/context/BookingContext";
 import { business } from "@/lib/business";
 
@@ -79,6 +80,9 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <BookingProvider>
+      {/* Cinematic Opening Intro Animation */}
+      <CinematicIntro />
+
       <Navbar />
       <main>
         {/* 1. Cinematic Palace Hero */}

@@ -27,18 +27,6 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      {/* 3. Left Side Page Counter (Desktop Only - Matching Reference Image 1) */}
-      <div
-        className="hidden lg:flex absolute left-8 xl:left-12 top-[36%] z-20 flex-col items-start gap-3.5 text-[0.72rem] font-mono text-white/50 tracking-widest pointer-events-none select-none"
-        aria-hidden="true"
-      >
-        <div className="flex items-center gap-2 text-brass-light font-bold">
-          <span className="h-5 w-0.5 bg-brass-light" />
-          <span>01</span>
-        </div>
-        <span className="pl-2.5">02</span>
-        <span className="pl-2.5">03</span>
-      </div>
 
       {/* 4. Right Side Artistic Watermark (Desktop Only - Matching Reference Image 1) */}
       <div
