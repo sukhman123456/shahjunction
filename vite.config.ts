@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
+import child_process from "node:child_process";
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // CRC32 table for valid PNG generation
@@ -88,6 +89,8 @@ function generateTransparentPng(inputPath: string, outPath1: string, outPath2: s
 
       const outStart = y * outScanlineLength;
       outDecompressed[outStart] = 0;
+      const marginX = Math.round(width * 0.05);
+      const marginY = Math.round(height * 0.05);
       for (let x = 0; x < width; x++) {
         const inPx = x * bytesPerPixel;
         const r = currRow[inPx];
@@ -95,13 +98,36 @@ function generateTransparentPng(inputPath: string, outPath1: string, outPath2: s
         const b = currRow[inPx + 2];
         const inA = colorType === 6 ? currRow[inPx + 3] : 255;
         const maxVal = Math.max(r, g, b);
-        let outA = inA;
-        if (maxVal <= 46) {
-          outA = 0;
-        } else if (maxVal < 92) {
-          const t = (maxVal - 46) / 46;
-          outA = Math.round(Math.pow(t, 1.4) * inA);
+        const minVal = Math.min(r, g, b);
+        const saturation = maxVal - minVal;
+
+        if (x < marginX || x > width - marginX || y < marginY || y > height - marginY) {
+          outDecompressed[outStart + 1 + x * 4] = 0;
+          outDecompressed[outStart + 1 + x * 4 + 1] = 0;
+          outDecompressed[outStart + 1 + x * 4 + 2] = 0;
+          outDecompressed[outStart + 1 + x * 4 + 3] = 0;
+          continue;
         }
+
+        let outA = inA;
+        if (maxVal <= 56) {
+          outA = 0;
+        } else if (saturation < 14 && maxVal < 90) {
+          outA = 0;
+        } else if (maxVal < 105) {
+          const t = (maxVal - 56) / 49;
+          outA = Math.round(Math.pow(t, 1.6) * inA);
+        }
+
+        const distFromLeft = x - marginX;
+        const distFromRight = width - marginX - x;
+        const distFromTop = y - marginY;
+        const distFromBottom = height - marginY - y;
+        const edgeDist = Math.min(distFromLeft, distFromRight, distFromTop, distFromBottom);
+        if (edgeDist < 20) {
+          outA = Math.round(outA * (edgeDist / 20));
+        }
+
         const outPx = outStart + 1 + x * 4;
         outDecompressed[outPx] = r;
         outDecompressed[outPx + 1] = g;
@@ -200,22 +226,27 @@ function copyPalaceAssetsPlugin() {
         console.log("[palace-plugin] Synced palace-gate.jpg");
       }
 
-      // Latest Shah Junction Villa Luxury Brand Logo
-      const logoPngCandidates = [
-        path.join("C:/Users/hp/.gemini/antigravity-ide/brain/5a337712-e05a-48f2-af0e-a25cf857fda4/.user_uploaded", "media_1790088831247.png"),
-      ];
-      for (const cand of logoPngCandidates) {
-        if (fs.existsSync(cand)) {
-          fs.copyFileSync(cand, path.join(assetsDir, "shah-junction-villa-logo.jpg"));
-          fs.copyFileSync(cand, path.join(publicDir, "shah-junction-villa-logo.jpg"));
-          // Generate true transparent PNG
-          generateTransparentPng(
-            cand,
-            path.join(assetsDir, "shah-junction-villa-logo.png"),
-            path.join(publicDir, "shah-junction-villa-logo.png")
-          );
-          console.log("[palace-plugin] Processed latest logo into transparent PNG from " + cand);
-          break;
+      // User-Approved Option 2: Royal Filigree SJ Monogram & Wordmark
+      const chosenLogoJpg = "C:/Users/hp/.gemini/antigravity-ide/brain/5a337712-e05a-48f2-af0e-a25cf857fda4/shahi_name_logo_v2_1790094571627.jpg";
+      if (fs.existsSync(chosenLogoJpg)) {
+        fs.copyFileSync(chosenLogoJpg, path.join(assetsDir, "shah-junction-villa-logo.jpg"));
+        fs.copyFileSync(chosenLogoJpg, path.join(publicDir, "shah-junction-villa-logo.jpg"));
+
+        const tempPng = path.join(assetsDir, "temp-raw-logo.png");
+        try {
+          const psCmd = `powershell -NoProfile -Command "Add-Type -AssemblyName System.Drawing; $b = [System.Drawing.Bitmap]::FromFile('${chosenLogoJpg}'); $b.Save('${tempPng}', [System.Drawing.Imaging.ImageFormat]::Png); $b.Dispose()"`;
+          child_process.execSync(psCmd);
+          if (fs.existsSync(tempPng)) {
+            generateTransparentPng(
+              tempPng,
+              path.join(assetsDir, "shah-junction-villa-logo.png"),
+              path.join(publicDir, "shah-junction-villa-logo.png")
+            );
+            fs.unlinkSync(tempPng);
+            console.log("[palace-plugin] Successfully processed chosen Option 2 logo into transparent PNG!");
+          }
+        } catch (e) {
+          console.error("[palace-plugin] Error converting JPG to PNG:", e);
         }
       }
     } catch (err) {

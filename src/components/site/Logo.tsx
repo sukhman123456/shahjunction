@@ -1,12 +1,8 @@
 import { cn } from "@/lib/utils";
-import { useTransparentLogo } from "@/lib/transparentLogo";
-import fallbackLogoPng from "@/assets/shah-junction-villa-logo.png";
+import logoPng from "@/assets/shah-junction-villa-logo.png";
 
 /** Golden emblem mark for location / small badge */
 export function PalaceMark({ className }: { className?: string }) {
-  const { logoSrc } = useTransparentLogo();
-  const activeSrc = logoSrc.startsWith("data:") ? logoSrc : fallbackLogoPng;
-
   return (
     <div
       className={cn(
@@ -15,7 +11,7 @@ export function PalaceMark({ className }: { className?: string }) {
       )}
     >
       <img
-        src={activeSrc}
+        src={logoPng}
         alt="Shah Junction Crest"
         className="size-full object-contain pointer-events-none drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]"
       />
@@ -37,9 +33,6 @@ export function Logo({
   variant = "brand",
   onClick,
 }: LogoProps) {
-  const { logoSrc } = useTransparentLogo();
-  const activeSrc = logoSrc.startsWith("data:") ? logoSrc : fallbackLogoPng;
-
   if (variant === "emblem") {
     return (
       <a
@@ -74,7 +67,7 @@ export function Logo({
         Clean Transparent Official Logo (Exact Graphic & Text Only, No Extra Labels)
       */}
       <img
-        src={activeSrc}
+        src={logoPng}
         alt="Shah Junction Villa — Where Comfort Meets Luxury"
         className={cn(
           "object-contain w-auto transition-all duration-300 pointer-events-none select-none",

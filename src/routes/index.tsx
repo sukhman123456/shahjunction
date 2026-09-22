@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { About } from "@/components/site/About";
 import { AvailabilitySection } from "@/components/site/AvailabilitySection";
@@ -78,15 +79,19 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [introState, setIntroState] = useState<"playing" | "fading" | "finished">("playing");
+
   return (
     <BookingProvider>
       {/* Cinematic Opening Intro Animation */}
-      <CinematicIntro />
+      {introState !== "finished" && (
+        <CinematicIntro introState={introState} setIntroState={setIntroState} />
+      )}
 
-      <Navbar />
+      <Navbar introState={introState} />
       <main>
         {/* 1. Cinematic Palace Hero */}
-        <Hero />
+        <Hero introState={introState} />
 
         {/* 2. The Experience / About */}
         <About />

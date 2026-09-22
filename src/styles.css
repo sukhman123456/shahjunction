@@ -150,6 +150,10 @@
   }
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 :root {
   --radius: 0.25rem;
 
@@ -379,7 +383,7 @@
 }
 
 /* ==========================================================================
-   Shah Junction Villa Logo-Matched Motion Graphics Intro Keyframes
+   Shah Junction Villa — Ultra-Professional Luxury Brand Film Intro Keyframes
    ========================================================================== */
 
 #shah-cinematic-intro {
@@ -389,200 +393,82 @@
   height: 100vh;
   height: 100dvh;
   z-index: 999999;
-  background-color: #050403;
+  background-color: transparent;
+  pointer-events: auto;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 0.0s - 4.5s: Soft warm golden volumetric backlight pulsing behind the logo */
-@keyframes intro-pulse-backlight {
+#shah-cinematic-intro.is-fading {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+#shah-cinematic-intro.is-fading .intro-logo-container {
+  transform: translateY(-10px) scale(0.98) !important;
+  opacity: 0 !important;
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Phase 1: Volumetric Golden Ambient Glow behind logo */
+@keyframes intro-bg-glow-pulse {
   0% {
-    opacity: 0;
-    transform: scale(0.65);
-  }
-  12% {
-    opacity: 0.35;
-    transform: scale(0.80);
-  }
-  40% {
     opacity: 0.65;
-    transform: scale(0.96);
-  }
-  80% {
-    opacity: 0.85;
-    transform: scale(1.04);
+    transform: scale(0.94);
   }
   100% {
-    opacity: 0.75;
+    opacity: 0.95;
     transform: scale(1.06);
   }
 }
 
-/* 0.5s - 1.4s: Subtle gold line-draw along the REAL roof & window contours */
-@keyframes intro-contour-draw {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 0.95;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0.3;
-  }
-}
-
-/* 0.5s - 1.4s: Logo Roof & Modern Villa Facade Build */
-@keyframes intro-part-roof-villa {
+/* Phase 2: Smooth, Prestigious Logo Emergence (Starts gracefully at 0.25s) */
+@keyframes intro-logo-smooth-emerge {
   0% {
     opacity: 0;
-    transform: translateY(8px);
-    filter: brightness(0.5) blur(6px);
+    transform: translateY(16px) scale(0.95);
+    filter: brightness(0.65) drop-shadow(0 0 10px rgba(212, 175, 55, 0));
   }
-  30% {
-    opacity: 0.5;
+  65% {
+    opacity: 0.92;
+    filter: brightness(1.08) drop-shadow(0 8px 30px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 24px rgba(212, 175, 55, 0.38));
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
-    filter: brightness(1) blur(0px);
+    transform: translateY(0) scale(1.0);
+    filter: brightness(1.0) drop-shadow(0 8px 32px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.32));
   }
 }
 
-/* 1.4s - 2.2s: Actual SJ Monogram Reveal */
-@keyframes intro-part-sj-monogram {
+/* Phase 3: Subtle Studio Light Sweep across Logo (1.8s - 2.8s) */
+@keyframes intro-metallic-glint-clean {
   0% {
-    opacity: 0;
-    transform: scale(0.95);
-    filter: brightness(0.4) blur(8px);
-  }
-  45% {
-    opacity: 0.75;
-    filter: brightness(1.25) blur(1px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: brightness(1) blur(0px);
-  }
-}
-
-/* 2.2s - 2.8s: Actual Landscape & Palm Trees Reveal */
-@keyframes intro-part-landscape {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-    filter: blur(4px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0px);
-  }
-}
-
-/* 2.8s - 3.3s: Actual Gold Underline / Swoosh Ribbon Draw */
-@keyframes intro-part-underline-draw {
-  0% {
-    clip-path: inset(0 100% 0 0);
+    transform: translateX(-150%) skewX(-24deg);
     opacity: 0;
   }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    clip-path: inset(0 0% 0 0);
-    opacity: 1;
-  }
-}
-
-/* 3.3s - 3.55s: Actual "SHAH JUNCTION" Typography Reveal */
-@keyframes intro-part-shah-junction {
-  0% {
-    opacity: 0;
-    transform: translateY(6px) scale(0.98);
-    filter: brightness(1.35) blur(4px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: brightness(1) blur(0px);
-  }
-}
-
-/* 3.55s - 3.75s: Actual "— VILLA —" Typography Reveal */
-@keyframes intro-part-villa {
-  0% {
-    opacity: 0;
-    transform: translateY(4px) scale(0.98);
-    filter: brightness(1.3) blur(3px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: brightness(1) blur(0px);
-  }
-}
-
-/* 3.75s - 3.95s: Actual "WHERE COMFORT MEETS LUXURY" Tagline Reveal */
-@keyframes intro-part-tagline {
-  0% {
-    opacity: 0;
-    transform: translateY(3px);
-    filter: blur(2px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0px);
-  }
-}
-
-/* 3.9s - 4.5s: Complete Unified Logo Lock */
-@keyframes intro-full-logo-lock {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* 3.9s - 4.5s: Realistic metallic gold specular light sweep */
-@keyframes intro-specular-sweep-final {
-  0% {
-    transform: translateX(-140%) skewX(-24deg);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.95;
-  }
-  80% {
-    opacity: 0.95;
-  }
-  100% {
-    transform: translateX(150%) skewX(-24deg);
-    opacity: 0;
-  }
-}
-
-/* 0.0s - 4.5s: Subtle Camera Push-in 100% -> 103% */
-@keyframes intro-camera-push {
-  0% {
-    transform: scale(1);
+  20% {
+    opacity: 0.85;
   }
   75% {
-    transform: scale(1.005);
+    opacity: 0.85;
   }
   100% {
-    transform: scale(1.03);
+    transform: translateX(160%) skewX(-24deg);
+    opacity: 0;
   }
 }
 
-/* Subtle fade in for the skip button */
-@keyframes intro-skip-reveal {
+/* Subtle camera hold drift */
+@keyframes intro-logo-subtle-hold {
+  0% {
+    transform: scale(1.0);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+/* Discreet Skip button */
+@keyframes intro-skip-clean-fade {
   0% {
     opacity: 0;
     transform: translateY(6px);
@@ -590,6 +476,15 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #shah-cinematic-intro,
+  #shah-cinematic-intro * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

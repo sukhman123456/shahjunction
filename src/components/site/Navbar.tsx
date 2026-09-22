@@ -19,11 +19,17 @@ const whatsappUrl = `https://wa.me/918728060036?text=${encodeURIComponent(
   "Hello Shahi Junction Villa, I would like to enquire about booking an event / checking dates."
 )}`;
 
-export function Navbar() {
+interface NavbarProps {
+  introState?: "playing" | "fading" | "finished";
+}
+
+export function Navbar({ introState = "finished" }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const { openBookingModal } = useBooking();
+  const isIntroPlaying = introState === "playing";
+  const isIntroFading = introState === "fading";
 
   useEffect(() => {
     const onScroll = () => {
@@ -56,7 +62,9 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 h-16 lg:h-20 transition-all duration-300 ease-out",
+          "fixed inset-x-0 top-0 z-50 h-16 lg:h-20 transition-all duration-700 ease-out",
+          isIntroPlaying && "opacity-0 pointer-events-none -translate-y-3",
+          isIntroFading && "opacity-100 translate-y-0 duration-1000 ease-out delay-200",
           open
             ? "bg-[#13110e] border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.85)]"
             : scrolled

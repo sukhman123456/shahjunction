@@ -1,14 +1,22 @@
 import shahiVillaReal from "@/assets/shahi-villa-real.jpg";
 import { useBooking } from "@/context/BookingContext";
+import { cn } from "@/lib/utils";
 
-export function Hero() {
+interface HeroProps {
+  introState?: "playing" | "fading" | "finished";
+}
+
+export function Hero({ introState = "finished" }: HeroProps) {
   const { openBookingModal } = useBooking();
+  const isIntroPlaying = introState === "playing";
+  const isIntroFading = introState === "fading";
+
   return (
     <section
       id="home"
       className="relative flex h-screen min-h-[560px] w-full items-start justify-center overflow-hidden bg-[#0c1420] text-on-dark"
     >
-      {/* 1. Authentic Shahi Junction Villa Hero Image */}
+      {/* 1. Authentic Shahi Junction Villa Hero Image (Single Live Source of Truth) */}
       <div className="absolute inset-0 size-full overflow-hidden pointer-events-none">
         <img
           src={shahiVillaReal}
@@ -16,8 +24,9 @@ export function Hero() {
           width={1920}
           height={1080}
           fetchPriority="high"
-          decoding="async"
-          className="size-full object-cover object-[center_40%] will-change-transform hero-ken-burns"
+          loading="eager"
+          decoding="sync"
+          className="size-full object-cover object-[center_40%]"
         />
       </div>
 
@@ -27,10 +36,13 @@ export function Hero() {
         aria-hidden="true"
       />
 
-
-      {/* 4. Right Side Artistic Watermark (Desktop Only - Matching Reference Image 1) */}
+      {/* 4. Right Side Artistic Watermark (Desktop Only) */}
       <div
-        className="hidden lg:flex absolute right-8 xl:right-12 top-[55%] xl:top-[58%] z-20 flex-col items-end text-right pointer-events-none select-none"
+        className={cn(
+          "hidden lg:flex absolute right-8 xl:right-12 top-[55%] xl:top-[58%] z-20 flex-col items-end text-right pointer-events-none select-none transition-opacity duration-1000 ease-out",
+          isIntroPlaying && "opacity-0",
+          isIntroFading && "opacity-100 duration-1200 delay-200",
+        )}
         aria-hidden="true"
       >
         <p className="font-script text-xl xl:text-2xl text-[#dfb76c] drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] leading-tight">
@@ -41,8 +53,14 @@ export function Hero() {
         <span className="h-px w-10 bg-[#dfb76c]/60 mt-1.5" />
       </div>
 
-      {/* 5. Clean, Streamlined Sky Text Block — Perfectly sized so it never crowds or covers the villa */}
-      <div className="container-site relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center px-4 sm:px-6 pt-16 sm:pt-18 lg:pt-14 xl:pt-16">
+      {/* 5. Clean, Streamlined Sky Text Block */}
+      <div
+        className={cn(
+          "container-site relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center px-4 sm:px-6 pt-16 sm:pt-18 lg:pt-14 xl:pt-16 transition-all duration-1000 ease-out",
+          isIntroPlaying && "opacity-0 pointer-events-none translate-y-3",
+          isIntroFading && "opacity-100 translate-y-0 duration-1200 delay-150",
+        )}
+      >
         {/* Step 1: “WELCOME TO” */}
         <div className="hero-anim-welcome inline-flex items-center gap-2.5 sm:gap-3 text-brass-light">
           <span className="h-px w-6 sm:w-12 bg-brass-light/70 shadow-sm" aria-hidden="true" />
@@ -63,7 +81,7 @@ export function Hero() {
           Where Every Celebration Becomes a Memory
         </p>
 
-        {/* Step 4: Streamlined Action Buttons — Side-by-side on all screens for maximum vertical space */}
+        {/* Step 4: Streamlined Action Buttons */}
         <div className="mt-3 sm:mt-4 hero-anim-buttons flex items-center justify-center gap-3 sm:gap-4 w-auto">
           {/* Button 1: Deep Maroon/Crimson Pill */}
           <button
@@ -86,11 +104,15 @@ export function Hero() {
         </div>
       </div>
 
-      {/* 6. Scroll Indicator (Floating over the red carpet runner) */}
+      {/* 6. Scroll Indicator */}
       <a
         href="#about"
         aria-label="Scroll to explore Shahi Junction Villa"
-        className="hero-anim-scroll absolute bottom-3 sm:bottom-4 inset-x-0 mx-auto w-fit z-20 flex flex-col items-center gap-0.5 text-white/80 hover:text-brass-light transition-colors duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
+        className={cn(
+          "hero-anim-scroll absolute bottom-3 sm:bottom-4 inset-x-0 mx-auto w-fit z-20 flex flex-col items-center gap-0.5 text-white/80 hover:text-brass-light transition-colors duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]",
+          isIntroPlaying && "opacity-0 pointer-events-none",
+          isIntroFading && "opacity-100 duration-1200 delay-300",
+        )}
       >
         <span className="text-[0.56rem] sm:text-[0.6rem] font-medium tracking-[0.3em] uppercase">
           SCROLL TO EXPLORE
