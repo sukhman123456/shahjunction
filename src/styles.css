@@ -383,15 +383,15 @@ html {
 }
 
 /* ==========================================================================
-   Shah Junction Villa — Cinematic Camera Pull-Back / Zoom-Out Intro
-   Sequence:
-   1. Extreme Close-Up (Upper dome & sky, no text on building): 0.0s - 0.5s
-   2. Cinematic Camera Pull-Back / Zoom-Out: 0.5s - 3.65s
-   3. Perfect Final Frame Reached & Settled: 3.65s - 4.0s
-   4. Existing SJ Logo Appears (soft opacity + blur-to-sharp): 4.0s - 4.9s
-   5. Typography Revealed Underneath (SHAH JUNCTION VILLA + tagline): 4.9s - 5.6s
-   6. Final Hold of Complete Branding: 5.6s - 6.7s
-   7. Smooth Crossfade into Live Homepage: 6.7s - 7.6s
+   Shah Junction Villa — High-Quality Luxury Camera Pull-Back Intro
+   Timing:
+   0.0s - 1.0s: Moderately close villa crop (scale ~1.24x, zero pixelation, no UI/logo/text)
+   1.0s - 4.5s: Very slow cinematic camera pull-back (cubic-bezier(0.16, 1, 0.3, 1))
+   4.5s - 5.0s: Camera reaches final homepage composition & holds perfectly still
+   5.0s - 5.8s: Existing SJ Logo appears (soft opacity + blur-to-sharp)
+   5.8s - 6.5s: Reveal SHAH JUNCTION VILLA
+   6.5s - 7.0s: Reveal WHERE COMFORT MEETS LUXURY
+   7.0s - 8.0s: Hold complete composition & smoothly transition into homepage
    ========================================================================== */
 
 #shah-cinematic-intro {
@@ -403,7 +403,7 @@ html {
   z-index: 999999;
   background-color: #000000;
   pointer-events: auto;
-  transition: opacity 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #shah-cinematic-intro.is-fading {
@@ -411,43 +411,67 @@ html {
   pointer-events: none !important;
 }
 
-/* Step 1, 2, 3: Extreme Close-Up -> Cinematic Camera Pull-Back / Zoom-Out */
+/* Moderate, High-Resolution Camera Pull-Back (Desktop: 1.24x, Mobile: 1.18x) */
 .intro-camera-pullback {
-  animation: intro-camera-pullback 7.6s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+  animation: intro-camera-pullback 8.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform;
-  transform-origin: 50% 36%;
+  transform-origin: 50% 28%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 @keyframes intro-camera-pullback {
   0% {
-    /* Starting Frame: Extreme close-up on upper architectural dome & sunset sky (no text on building visible) */
-    transform: scale(2.75) translateY(12%) translateZ(0);
+    /* 0.0s: Moderate cinematic crop, building text naturally outside initial visible frame */
+    transform: scale(1.24) translateY(3.5%) translateZ(0);
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-  6.5% { /* 0.5s: brief initial hold in close-up */
-    transform: scale(2.75) translateY(12%) translateZ(0);
+  12.5% { /* 1.0s: hold initial composition */
+    transform: scale(1.24) translateY(3.5%) translateZ(0);
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-  48% { /* 3.65s: camera pulls back smoothly and reaches exact full-screen composition */
+  56.25% { /* 4.5s: camera arrives at exact 1.0 full frame of homepage */
     transform: scale(1.0) translateY(0) translateZ(0);
   }
-  100% { /* 3.65s - 7.6s: stationary perfect frame matching homepage hero */
+  100% { /* 4.5s - 8.0s: stationary perfect frame matching homepage hero */
     transform: scale(1.0) translateY(0) translateZ(0);
   }
 }
 
-/* Contrast Overlay: Subtle during pull-back, soft luxury vignette when branding appears */
+@media (max-width: 640px) {
+  @keyframes intro-camera-pullback {
+    0% {
+      /* Mobile: 1.18x ensures razor sharpness on mobile retina screens */
+      transform: scale(1.18) translateY(2.5%) translateZ(0);
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    12.5% { /* 1.0s */
+      transform: scale(1.18) translateY(2.5%) translateZ(0);
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    56.25% { /* 4.5s */
+      transform: scale(1.0) translateY(0) translateZ(0);
+    }
+    100% { /* 8.0s */
+      transform: scale(1.0) translateY(0) translateZ(0);
+    }
+  }
+}
+
+/* Subtle Contrast Vignette: Minimal during camera pull-back, soft overlay when branding reveals */
 .intro-camera-overlay {
-  animation: intro-camera-overlay-fade 7.6s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+  animation: intro-camera-overlay-fade 8.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: opacity;
 }
 
 @keyframes intro-camera-overlay-fade {
-  0%, 46% {
-    /* 0.0s - 3.5s: very subtle so the camera pull-back of the villa is pure & clear */
-    opacity: 0.15;
+  0%, 56.25% {
+    /* 0.0s - 4.5s: completely subtle so pure camera pull-back is crystal clear */
+    opacity: 0.12;
   }
-  58%, 88% {
-    /* 4.4s - 6.7s: gentle soft contrast for logo & typography readability */
-    opacity: 0.52;
+  62.5%, 89% {
+    /* 5.0s - 7.1s: soft luxury vignette for branding readability */
+    opacity: 0.48;
   }
   100% {
     /* Smoothly fades into homepage */
@@ -455,17 +479,17 @@ html {
   }
 }
 
-/* Subtle Warm Gold Highlight behind the logo */
+/* Subtle Warm Gold Halo behind logo */
 .intro-ambient-highlight {
-  animation: intro-highlight-fade 7.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: intro-highlight-fade 8.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: opacity;
 }
 
 @keyframes intro-highlight-fade {
-  0%, 50% {
+  0%, 60% {
     opacity: 0;
   }
-  63%, 88% {
+  66%, 89% {
     opacity: 1;
   }
   100% {
@@ -473,65 +497,97 @@ html {
   }
 }
 
-/* Step 4: Existing SJ Logo appears ONLY after camera reaches final frame (~3.8s) */
+/* 5.0s - 5.8s: Existing SJ Logo Reveal */
 .intro-logo-reveal {
-  animation: intro-logo-blur-sharp 7.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: intro-logo-blur-sharp 8.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: opacity, filter, transform;
 }
 
 @keyframes intro-logo-blur-sharp {
-  0%, 50% { /* 0.0s - 3.8s: completely hidden */
+  0%, 62.5% { /* 0.0s - 5.0s: completely hidden */
     opacity: 0;
-    filter: blur(10px);
-    transform: scale(0.96) translateZ(0);
+    filter: blur(8px);
+    transform: scale(0.97) translateZ(0);
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-  63% { /* 4.8s: fully revealed, sharp */
+  72.5% { /* 5.8s: fully revealed, sharp */
     opacity: 1;
     filter: blur(0px);
     transform: scale(1.0) translateZ(0);
   }
-  88% { /* 4.8s - 6.7s: hold branding */
+  89% { /* 7.1s: hold */
     opacity: 1;
     filter: blur(0px);
     transform: scale(1.0) translateZ(0);
   }
-  100% { /* 6.7s - 7.6s: smoothly dissolve */
+  100% { /* 8.0s: dissolve into homepage */
     opacity: 0;
-    filter: blur(4px);
+    filter: blur(3px);
     transform: scale(1.008) translateZ(0);
   }
 }
 
-/* Step 5: Typography revealed underneath (SHAH JUNCTION VILLA + WHERE COMFORT MEETS LUXURY) */
-.intro-typography-reveal {
-  animation: intro-text-fade-up 7.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+/* 5.8s - 6.5s: Reveal SHAH JUNCTION VILLA */
+.intro-title-reveal {
+  animation: intro-title-fade-up 8.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: opacity, filter, transform;
 }
 
-@keyframes intro-text-fade-up {
-  0%, 62% { /* 0.0s - 4.7s: completely hidden */
+@keyframes intro-title-fade-up {
+  0%, 72.5% { /* 0.0s - 5.8s: completely hidden */
     opacity: 0;
     filter: blur(6px);
-    transform: translateY(8px) translateZ(0);
+    transform: translateY(7px) translateZ(0);
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-  73% { /* 5.55s: fully revealed */
+  81.25% { /* 6.5s: fully revealed */
     opacity: 1;
     filter: blur(0px);
     transform: translateY(0) translateZ(0);
   }
-  88% { /* 5.55s - 6.7s: hold branding */
+  89% { /* 7.1s: hold */
     opacity: 1;
     filter: blur(0px);
     transform: translateY(0) translateZ(0);
   }
-  100% { /* 6.7s - 7.6s: smoothly dissolve */
+  100% { /* 8.0s: dissolve into homepage */
     opacity: 0;
     filter: blur(3px);
-    transform: translateY(-3px) translateZ(0);
+    transform: translateY(-2px) translateZ(0);
   }
 }
 
-/* Minimal Skip Button Fade (Appears only after camera pull-back) */
+/* 6.5s - 7.0s: Reveal WHERE COMFORT MEETS LUXURY */
+.intro-tagline-reveal {
+  animation: intro-tagline-fade-up 8.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, filter, transform;
+}
+
+@keyframes intro-tagline-fade-up {
+  0%, 81.25% { /* 0.0s - 6.5s: completely hidden */
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(5px) translateZ(0);
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  87.5% { /* 7.0s: fully revealed */
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) translateZ(0);
+  }
+  89% { /* 7.1s: hold */
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0) translateZ(0);
+  }
+  100% { /* 8.0s: dissolve into homepage */
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(-2px) translateZ(0);
+  }
+}
+
+/* Minimal Skip Button Fade (Appears only after camera pull-back, ~4.6s) */
 @keyframes intro-skip-fade {
   0% {
     opacity: 0;

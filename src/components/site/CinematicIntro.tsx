@@ -52,10 +52,10 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
     // Lock scrolling while intro is active
     document.body.style.overflow = "hidden";
 
-    // Auto-transition into homepage at 6.7s (finishes around 7.55s)
+    // Auto-transition into homepage at 7.1s (finishes around 7.95s)
     const fadeTimer = setTimeout(() => {
       handleDismiss();
-    }, 6700);
+    }, 7100);
     timerRef.current.push(fadeTimer);
 
     return () => {
@@ -84,11 +84,11 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
       aria-hidden={isFading ? "true" : "false"}
       onClick={handleDismiss}
       onTouchEnd={handleDismiss}
-      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center overflow-hidden select-none bg-black w-full h-[100dvh] min-h-[100dvh] cursor-pointer touch-manipulation transition-opacity duration-850 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center overflow-hidden select-none bg-black w-full h-[100dvh] min-h-[100dvh] cursor-pointer touch-manipulation transition-opacity duration-850 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isFading ? "is-fading pointer-events-none" : ""
       }`}
     >
-      {/* Steps 1, 2, 3: Full-Screen Existing Villa Image with Camera Pull-Back / Zoom-Out */}
+      {/* Steps 1, 2, 3: Full-Screen Existing Villa Image with Moderate High-Res Camera Pull-Back */}
       <div className="absolute inset-0 size-full overflow-hidden pointer-events-none">
         <img
           src={shahiVillaReal}
@@ -98,7 +98,7 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
           fetchPriority="high"
           loading="eager"
           decoding="sync"
-          className="size-full object-cover object-[center_40%] will-change-transform intro-camera-pullback"
+          className="size-full object-cover object-[center_40%] will-change-transform intro-camera-pullback [image-rendering:high-quality]"
         />
       </div>
 
@@ -107,7 +107,7 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
         className="absolute inset-0 pointer-events-none intro-camera-overlay"
         style={{
           background:
-            "radial-gradient(ellipse 95% 85% at 50% 45%, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.52) 65%, rgba(0, 0, 0, 0.75) 100%)",
+            "radial-gradient(ellipse 95% 85% at 50% 45%, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.48) 65%, rgba(0, 0, 0, 0.72) 100%)",
         }}
       />
 
@@ -122,7 +122,7 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
 
       {/* Steps 4, 5, 6: Centered branding reveal AFTER camera pull-back settles */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full max-w-2xl mx-auto pointer-events-none">
-        {/* Step 4: Existing SJ Logo (Soft opacity + blur-to-sharp transition, no box/card) */}
+        {/* 5.0s - 5.8s: Existing SJ Logo (Soft opacity + blur-to-sharp transition, no box/card) */}
         <div className="intro-logo-reveal relative flex items-center justify-center overflow-hidden h-[120px] sm:h-[150px] md:h-[180px] w-[180px] sm:w-[220px] md:w-[260px] will-change-transform">
           <img
             src={logoPng}
@@ -133,15 +133,15 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
           />
         </div>
 
-        {/* Step 5: Typography revealed underneath (SHAH JUNCTION / VILLA / WHERE COMFORT MEETS LUXURY) */}
-        <div className="intro-typography-reveal flex flex-col items-center text-center mt-3 sm:mt-4 md:mt-5 will-change-transform">
-          <h1 className="font-display font-normal text-xl sm:text-2xl md:text-3xl lg:text-[2.35rem] tracking-[0.24em] sm:tracking-[0.30em] uppercase text-[#f7edd8] leading-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
-            <span className="block">SHAH JUNCTION</span>
-            <span className="block font-light text-[#dfb76c] tracking-[0.38em] sm:tracking-[0.44em] mt-0.5 sm:mt-1 text-lg sm:text-xl md:text-2xl lg:text-[2.0rem]">
-              VILLA
-            </span>
+        {/* Sequential Typography Reveals: 5.8s - 6.5s (Title) & 6.5s - 7.0s (Tagline) */}
+        <div className="flex flex-col items-center text-center mt-3 sm:mt-4 md:mt-5">
+          {/* 5.8s - 6.5s: Reveal SHAH JUNCTION VILLA */}
+          <h1 className="intro-title-reveal font-display font-normal text-xl sm:text-2xl md:text-3xl lg:text-[2.35rem] tracking-[0.24em] sm:tracking-[0.30em] uppercase text-[#f7edd8] leading-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] will-change-transform">
+            SHAH JUNCTION VILLA
           </h1>
-          <p className="mt-2 sm:mt-2.5 text-[0.62rem] sm:text-xs md:text-[0.78rem] font-sans font-medium tracking-[0.38em] sm:tracking-[0.46em] uppercase text-[#dfb76c]/90 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+
+          {/* 6.5s - 7.0s: Reveal WHERE COMFORT MEETS LUXURY */}
+          <p className="intro-tagline-reveal mt-2 sm:mt-2.5 text-[0.62rem] sm:text-xs md:text-[0.78rem] font-sans font-medium tracking-[0.38em] sm:tracking-[0.46em] uppercase text-[#dfb76c] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] will-change-transform">
             WHERE COMFORT MEETS LUXURY
           </p>
         </div>
@@ -163,7 +163,7 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
         style={{
           marginBottom: "max(0px, env(safe-area-inset-bottom))",
           marginRight: "max(0px, env(safe-area-inset-right))",
-          animation: "intro-skip-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 3.8s both",
+          animation: "intro-skip-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 4.6s both",
         }}
       >
         <span>Skip Intro</span>
