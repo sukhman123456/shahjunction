@@ -81,16 +81,15 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
     return null;
   }
 
-  const isFading = introState === "fading";
-
-  return (
+  const isFading = introState === "fading";  return (
     <div
       id="shah-cinematic-intro"
       aria-label="Shah Junction Villa Brand Film Opening"
       role="region"
       aria-hidden={isFading ? "true" : "false"}
       onClick={handleDismiss}
-      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-start overflow-hidden select-none bg-[#050403] w-screen h-screen min-h-[100dvh] pt-6 sm:pt-8 md:pt-10 lg:pt-12 cursor-pointer ${
+      onTouchEnd={handleDismiss}
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-start overflow-hidden select-none bg-[#050403] w-full h-[100dvh] min-h-[100dvh] pt-[max(env(safe-area-inset-top,0px),1.25rem)] sm:pt-8 md:pt-10 lg:pt-12 cursor-pointer touch-manipulation ${
         isFading ? "is-fading pointer-events-none" : ""
       }`}
     >
@@ -118,17 +117,17 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
       />
       <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_160px_rgba(0,0,0,0.75)]" />
 
-      {/* 2. Logo Layer: Positioned proudly in the sky above the palace roofline */}
-      <div className="intro-logo-container relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-xl mx-auto transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
+      {/* 3. Logo Layer: Positioned proudly in the sky above the palace roofline */}
+      <div className="intro-logo-container relative z-10 flex flex-col items-center justify-center px-4 w-full max-w-xl mx-auto will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]">
         <div
-          className="relative flex items-center justify-center w-[76vw] max-w-[240px] sm:max-w-[290px] md:max-w-[340px] lg:max-w-[380px] aspect-[4/3]"
+          className="relative flex items-center justify-center w-[72vw] max-w-[210px] sm:max-w-[270px] md:max-w-[330px] lg:max-w-[370px] aspect-[4/3] will-change-transform"
           style={{
             animation: "intro-logo-subtle-hold 4.0s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards",
           }}
         >
           {/* Volumetric Warm Golden Ambient Backlight centered behind the logo in the sky */}
           <div
-            className="absolute -inset-8 sm:-inset-14 rounded-full pointer-events-none"
+            className="absolute -inset-6 sm:-inset-10 md:-inset-14 rounded-full pointer-events-none"
             style={{
               background:
                 "radial-gradient(circle at center, rgba(212, 175, 55, 0.28) 0%, rgba(185, 135, 45, 0.12) 45%, rgba(120, 80, 20, 0.01) 70%, transparent 80%)",
@@ -140,7 +139,7 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
           <img
             src={logoPng}
             alt="Shah Junction Villa"
-            className="relative z-10 w-full h-full object-contain pointer-events-none select-none"
+            className="relative z-10 w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_6px_20px_rgba(0,0,0,0.92)] drop-shadow-[0_0_16px_rgba(212,175,55,0.28)]"
             loading="eager"
             decoding="sync"
             style={{
@@ -157,7 +156,7 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
             }}
           >
             <div
-              className="w-[45%] h-full bg-gradient-to-r from-transparent via-[#fff5d0]/50 to-transparent"
+              className="w-[45%] h-full bg-gradient-to-r from-transparent via-[#fff5d0]/50 to-transparent will-change-transform"
               style={{
                 animation: "intro-metallic-glint-clean 1.0s cubic-bezier(0.16, 1, 0.3, 1) 1.6s both",
               }}
@@ -166,15 +165,19 @@ export function CinematicIntro({ introState, setIntroState }: CinematicIntroProp
         </div>
       </div>
 
-      {/* 3. Elegant Subtle Skip Button */}
+      {/* 4. Elegant Subtle Skip Button (Optimized for Mobile Touch) */}
       <button
         type="button"
         onClick={(e) => {
           e.stopPropagation();
           handleDismiss();
         }}
+        onTouchEnd={(e) => {
+          e.stopPropagation();
+          handleDismiss();
+        }}
         aria-label="Skip intro animation and view website"
-        className="fixed bottom-6 right-6 z-[1000000] group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/12 bg-black/45 hover:bg-black/80 hover:border-[#dfb76c]/60 text-[10px] sm:text-[11px] font-sans font-medium tracking-[0.22em] uppercase text-white/50 hover:text-white transition-all duration-300 backdrop-blur-md focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-[#dfb76c] cursor-pointer"
+        className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[1000000] group inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full border border-white/20 bg-black/60 hover:bg-black/85 hover:border-[#dfb76c]/70 text-[9px] sm:text-[11px] font-sans font-medium tracking-[0.22em] uppercase text-white/70 hover:text-white transition-all duration-300 backdrop-blur-lg shadow-[0_4px_24px_rgba(0,0,0,0.6)] active:scale-95 cursor-pointer touch-manipulation"
         style={{
           marginBottom: "max(0px, env(safe-area-inset-bottom))",
           marginRight: "max(0px, env(safe-area-inset-right))",

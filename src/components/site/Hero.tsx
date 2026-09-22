@@ -14,7 +14,7 @@ export function Hero({ introState = "finished" }: HeroProps) {
   return (
     <section
       id="home"
-      className="relative flex h-screen min-h-[560px] w-full items-start justify-center overflow-hidden bg-[#0c1420] text-on-dark"
+      className="relative flex h-[100dvh] min-h-[560px] w-full items-start justify-center overflow-hidden bg-[#0c1420] text-on-dark"
     >
       {/* 1. Authentic Shahi Junction Villa Hero Image (Single Live Source of Truth) */}
       <div className="absolute inset-0 size-full overflow-hidden pointer-events-none">
@@ -56,7 +56,7 @@ export function Hero({ introState = "finished" }: HeroProps) {
       {/* 5. Clean, Streamlined Sky Text Block */}
       <div
         className={cn(
-          "container-site relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center px-4 sm:px-6 pt-16 sm:pt-18 lg:pt-14 xl:pt-16 transition-all duration-1000 ease-out",
+          "container-site relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center px-4 sm:px-6 pt-[max(env(safe-area-inset-top,0px),4.25rem)] sm:pt-18 lg:pt-14 xl:pt-16 transition-all duration-1000 ease-out",
           isIntroPlaying && "opacity-0 pointer-events-none translate-y-3",
           isIntroFading && "opacity-100 translate-y-0 duration-1200 delay-150",
         )}
