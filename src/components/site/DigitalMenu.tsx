@@ -293,35 +293,11 @@ export function DigitalMenu() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Custom Uploaded Photos from Admin Portal
-  const [customPhotos, setCustomPhotos] = useState<Record<string, string>>(() => getAllCustomMenuPhotos());
-
-  useEffect(() => {
-    const unsub = subscribeToMenuPhotoChanges(() => {
-      setCustomPhotos(getAllCustomMenuPhotos());
-    });
-    return unsub;
-  }, []);
-
-  // Active Category Visual Information (with custom photo override if uploaded)
-  const baseVisual =
+  // Active Category Visual Information
+  const activeVisual =
     activeTab !== "All" && activeTab !== "Important"
       ? CATEGORY_VISUALS[activeTab]
       : null;
-
-  const activeVisual = useMemo(() => {
-    if (!baseVisual) return null;
-    const matchingSection = MENU_SECTION_DEFINITIONS.find(
-      (s) => s.category === activeTab && customPhotos[s.id]
-    );
-    if (matchingSection && customPhotos[matchingSection.id]) {
-      return {
-        ...baseVisual,
-        image: customPhotos[matchingSection.id],
-      };
-    }
-    return baseVisual;
-  }, [baseVisual, activeTab, customPhotos]);
 
   // Monitor scroll for back-to-top button
   useEffect(() => {
