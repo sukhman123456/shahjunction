@@ -14,6 +14,7 @@ import {
   Sun,
   X,
   ArrowUp,
+  ArrowRight,
   Award,
   ShieldAlert,
   Check,
@@ -27,7 +28,173 @@ import {
   type DietType,
 } from "@/lib/digitalMenuData";
 import { RESERVATION_CONTACT } from "@/lib/reservations";
+import {
+  menuDrinks,
+  menuTandoori,
+  menuCurries,
+  menuChinese,
+  menuChineseNonVeg,
+  menuBreakfast,
+  menuOmelette,
+  menuFish,
+  menuSoups,
+  menuChicken,
+  menuPizza,
+  menuTandooriChicken,
+  menuRaita,
+} from "@/lib/venue";
 import { Reveal } from "./Reveal";
+
+/* ========================================================================== */
+/* CATEGORY VISUAL METADATA & FOOD PHOTOGRAPHY                                */
+/* ========================================================================== */
+interface CategoryVisualInfo {
+  tabKey: MenuCategoryTab;
+  image: string;
+  punjabiTag: string;
+  title: string;
+  description: string;
+  chefPicks: string[];
+  tag: string;
+}
+
+const CATEGORY_VISUALS: Partial<Record<MenuCategoryTab, CategoryVisualInfo>> = {
+  Drinks: {
+    tabKey: "Drinks",
+    image: menuDrinks,
+    punjabiTag: "ਸ਼ਾਹੀ ਕਾਕਟੇਲ ਅਤੇ ਮੌਕਟੇਲ",
+    title: "Signature Cocktails, Draught Beers & Royal Mocktails",
+    description:
+      "Handcrafted virgin mojitos, chilled draught beers, thick craft shakes, and exotic fruit coolers served in ice-chilled glassware at our pergola bar counter.",
+    chefPicks: ["Virgin Mojito", "Shah Junction Punch", "Draught Beer On Tap", "Choco Fudge Shake"],
+    tag: "Bar & Drinks",
+  },
+  Breakfast: {
+    tabKey: "Breakfast",
+    image: menuBreakfast,
+    punjabiTag: "ਸ਼ਾਹੀ ਅੰਮ੍ਰਿਤਸਰੀ ਨਾਸ਼ਤਾ",
+    title: "Crispy Amritsari Stuffed Kulcha & Desi Ghee Breakfast",
+    description:
+      "Golden crispy tandoor kulchas smothered with homemade white butter, served with spicy Amritsari chole, pickled onions, and tall frothy lassi.",
+    chefPicks: ["Amritsari Aloo Kulcha", "Paneer Kulcha & Chole", "Desi Ghee Parantha", "Shahi Pista Lassi"],
+    tag: "Morning Special",
+  },
+  Snacks: {
+    tabKey: "Snacks",
+    image: menuChinese,
+    punjabiTag: "ਸ਼ਾਹੀ ਸਟਾਰਟਰਸ ਤੇ ਸਨੈਕਸ",
+    title: "Crispy Sizzlers, Golden Pakoras & Evening Starters",
+    description:
+      "Crisp paneer pakoras, golden fries, crunchy bites, and sizzlers tossed fresh with authentic aromatic spices.",
+    chefPicks: ["Crispy Paneer Pakora", "Cheese Corn Roll", "Aloo Tikki Chaat", "Peri Peri Fries"],
+    tag: "Crispy Bites",
+  },
+  Veg: {
+    tabKey: "Veg",
+    image: menuCurries,
+    punjabiTag: "ਸ਼ਾਹੀ ਸ਼ਾਕਾਹਾਰੀ ਦਸਤਰਖ਼ਾਨ",
+    title: "Slow-Simmered Royal Vegetarian Handi Curries",
+    description:
+      "Rich 24-hour slow-cooked Dal Makhani, Paneer Lababdar, and Mughlai gravies simmered with fresh cream and cashews in hammered copper handis.",
+    chefPicks: ["24-Hour Dal Makhani", "Shahi Paneer Lababdar", "Kadhai Paneer", "Malai Kofta"],
+    tag: "100% Pure Veg",
+  },
+  "Non-Veg": {
+    tabKey: "Non-Veg",
+    image: menuChicken,
+    punjabiTag: "ਸ਼ਾਹੀ ਬਟਰ ਚਿਕਨ ਤੇ ਨੌਨ-ਵੈੱਜ ਸਵਾਦ",
+    title: "Authentic Butter Chicken, Mutton Curries & Sizzlers",
+    description:
+      "Tender tandoori chicken simmered in rich velvety tomato butter gravy, slow-braised mutton rogan josh, and fresh crispy fish delicacies.",
+    chefPicks: ["Old Delhi Butter Chicken", "Shahi Nawan Spl. Chicken", "Mutton Rogan Josh", "Amritsari Fish Fry"],
+    tag: "Shahi Chicken & Meat",
+  },
+  Chinese: {
+    tabKey: "Chinese",
+    image: menuChinese,
+    punjabiTag: "ਇੰਡੋ-ਚਾਈਨੀਜ਼ ਵੌਕ ਫਲੇਵਰ",
+    title: "Wok-Tossed Veg Manchurian, Golden Baby Corn & Noodles",
+    description:
+      "Glazed vegetable Manchurian dumplings in soy garlic gravy, crispy golden fried baby corn with chilli dip, wok-tossed Hakka noodles, and fragrant fried rice.",
+    chefPicks: ["Veg Manchurian Dry/Gravy", "Golden Fried Baby Corn", "Veg Hakka Noodles", "Chilli Paneer"],
+    tag: "Chinese Veg & Oriental",
+  },
+  Tandoori: {
+    tabKey: "Tandoori",
+    image: menuTandoori,
+    punjabiTag: "ਲਾਈਵ ਕੋਲੇ ਦਾ ਤੰਦੂਰ",
+    title: "Live Charcoal Sizzlers, Tikka Kebabs & Fresh Breads",
+    description:
+      "Charcoal-roasted succulent chicken malai tikka, paneer tikka sizzlers, and butter garlic naans straight from our live clay oven.",
+    chefPicks: ["Shahi Murgh Malai Tikka", "Paneer Tikka Sizzler", "Amritsari Fish Tikka", "Butter Garlic Naan"],
+    tag: "Clay Tandoor",
+  },
+  "Main Course": {
+    tabKey: "Main Course",
+    image: menuCurries,
+    punjabiTag: "ਸ਼ਾਹੀ ਮੁੱਖ ਖਾਣਾ ਤੇ ਬਿਰਯਾਨੀ",
+    title: "Handcrafted Royal Gravies, Basmati Rice & Dum Biryani",
+    description:
+      "A complete royal feast prepared with pure ghee, slow-cooked gravies, fragrant saffron basmati rice, and hot tandoori breads.",
+    chefPicks: ["Handi Dal Makhani", "Butter Chicken", "Hyderabadi Dum Biryani", "Stuffed Chur Chur Naan"],
+    tag: "Royal Feast",
+  },
+  Raita: {
+    tabKey: "Raita",
+    image: menuRaita,
+    punjabiTag: "ਤਾਜ਼ਾ ਦਹੀਂ ਤੇ ਸ਼ਾਹੀ ਰਾਇਤਾ",
+    title: "Chilled Farm-Fresh Curd & Spiced Raitas",
+    description:
+      "Thick velvety whipped curd garnished with golden crispy boondi, garden mint, roasted cumin, and fresh fruits served with roasted papad.",
+    chefPicks: ["Boondi Raita", "Mint Raita", "Mix Veg Raita", "Pineapple Raita"],
+    tag: "Cooling & Fresh",
+  },
+};
+
+const ALL_CUISINE_CARDS = [
+  {
+    tabKey: "Drinks" as MenuCategoryTab,
+    image: menuDrinks,
+    title: "Cocktails & Bar",
+    punjabi: "ਕਾਕਟੇਲ ਤੇ ਡਰਿੰਕਸ",
+    subtitle: "Draught beer, mojitos & shakes",
+  },
+  {
+    tabKey: "Tandoori" as MenuCategoryTab,
+    image: menuTandoori,
+    title: "Clay Tandoor",
+    punjabi: "ਤੰਦੂਰੀ ਸਿੱਜ਼ਲਰਸ",
+    subtitle: "Smoky kebabs, tikkas & naans",
+  },
+  {
+    tabKey: "Main Course" as MenuCategoryTab,
+    image: menuCurries,
+    title: "Royal Curries",
+    punjabi: "ਸ਼ਾਹੀ ਗ੍ਰੇਵੀਆਂ",
+    subtitle: "Dal Makhani & Butter Chicken",
+  },
+  {
+    tabKey: "Non-Veg" as MenuCategoryTab,
+    image: menuChicken,
+    title: "Butter Chicken",
+    punjabi: "ਸ਼ਾਹੀ ਬਟਰ ਚਿਕਨ",
+    subtitle: "Tandoori chicken, gravies & meat",
+  },
+  {
+    tabKey: "Chinese" as MenuCategoryTab,
+    image: menuChinese,
+    title: "Indo-Chinese",
+    punjabi: "ਚਾਈਨੀਜ਼ ਵੈੱਜ ਤੇ ਸੂਪ",
+    subtitle: "Veg Manchurian, Baby Corn & Noodles",
+  },
+  {
+    tabKey: "Breakfast" as MenuCategoryTab,
+    image: menuBreakfast,
+    title: "Amritsari Kulcha",
+    punjabi: "ਅੰਮ੍ਰਿਤਸਰੀ ਨਾਸ਼ਤਾ",
+    subtitle: "Butter kulchas & chilled lassi",
+  },
+];
 
 /* ========================================================================== */
 /* DIET BADGE: FSSAI Authentic Luxury Styling                                */
@@ -126,6 +293,36 @@ export function DigitalMenu() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
+  // Custom Uploaded Photos from Admin Portal
+  const [customPhotos, setCustomPhotos] = useState<Record<string, string>>(() => getAllCustomMenuPhotos());
+
+  useEffect(() => {
+    const unsub = subscribeToMenuPhotoChanges(() => {
+      setCustomPhotos(getAllCustomMenuPhotos());
+    });
+    return unsub;
+  }, []);
+
+  // Active Category Visual Information (with custom photo override if uploaded)
+  const baseVisual =
+    activeTab !== "All" && activeTab !== "Important"
+      ? CATEGORY_VISUALS[activeTab]
+      : null;
+
+  const activeVisual = useMemo(() => {
+    if (!baseVisual) return null;
+    const matchingSection = MENU_SECTION_DEFINITIONS.find(
+      (s) => s.category === activeTab && customPhotos[s.id]
+    );
+    if (matchingSection && customPhotos[matchingSection.id]) {
+      return {
+        ...baseVisual,
+        image: customPhotos[matchingSection.id],
+      };
+    }
+    return baseVisual;
+  }, [baseVisual, activeTab, customPhotos]);
+
   // Monitor scroll for back-to-top button
   useEffect(() => {
     const handleScroll = () => {
@@ -219,7 +416,7 @@ export function DigitalMenu() {
     <section
       id="restaurant-menu"
       ref={sectionRef}
-      className="relative bg-[#f5ede0] text-[#2c221a] py-20 sm:py-28 lg:py-32 border-b-2 border-[#d9c4a8] font-sans overflow-hidden transition-colors duration-500"
+      className="relative bg-[#f5ede0] text-[#2c221a] py-16 sm:py-28 lg:py-32 border-b-2 border-[#d9c4a8] font-sans overflow-x-hidden w-full max-w-full transition-colors duration-500"
       style={{
         background:
           "radial-gradient(ellipse at 50% 0%, #fcf7ef 0%, #f6eee2 45%, #efe3d0 100%)",
@@ -235,7 +432,7 @@ export function DigitalMenu() {
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[450px] bg-gradient-to-b from-[#dcae5f]/20 via-[#f3dfba]/15 to-transparent blur-3xl rounded-full" />
       <div className="pointer-events-none absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-[#e0bb70]/10 via-transparent to-transparent blur-2xl rounded-full" />
 
-      <div className="container-site relative z-10 max-w-6xl">
+      <div className="container-site relative z-10 max-w-6xl w-full min-w-0 px-3 sm:px-6">
         {/* ================================================================ */}
         {/* ROYAL MENU COVER HEADER                                          */}
         {/* ================================================================ */}
@@ -345,7 +542,7 @@ export function DigitalMenu() {
             </div>
 
             {/* Diet Quick Enamel Filters */}
-            <div className="flex items-center gap-1.5 text-xs">
+            <div className="flex flex-wrap items-center gap-1.5 text-xs">
               <span className="text-[#6d594a] font-bold text-[11px] uppercase tracking-wider hidden md:inline">
                 Diet:
               </span>
@@ -478,6 +675,135 @@ export function DigitalMenu() {
           /* MENU ITEMS DISPLAY BY SUBCATEGORY                                */
           /* ================================================================ */
           <div className="mt-10 space-y-12">
+            {/* Visual Spotlight Banner for Individual Active Category */}
+            {!searchQuery && activeVisual && (
+              <div className="rounded-3xl border-2 border-[#cfb895] bg-gradient-to-br from-[#fffefc] via-[#fcf8f0] to-[#f6ede0] shadow-md overflow-hidden animate-in fade-in-50 duration-300">
+                <div className="grid md:grid-cols-12 items-center">
+                  <div className="md:col-span-5 relative h-56 sm:h-64 md:h-full min-h-[240px] overflow-hidden">
+                    <img
+                      src={activeVisual.image}
+                      alt={activeVisual.title}
+                      className="size-full object-cover object-center transition-transform duration-700 hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:hidden" />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-3 py-1 rounded-full bg-black/75 backdrop-blur-xs border border-[#e0b85a]/60 text-[#e0b85a] text-xs font-bold uppercase tracking-wider shadow-sm">
+                        {activeVisual.tag}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-7 p-5 sm:p-7 lg:p-8">
+                    <div className="flex items-center gap-2 text-xs font-bold text-[#885718] uppercase tracking-widest mb-1.5">
+                      <span className="size-1.5 rounded-full bg-[#885718]" />
+                      <span className="font-gurmukhi text-sm">{activeVisual.punjabiTag}</span>
+                      <span>•</span>
+                      <span>CHEF'S PALACE SPECIAL</span>
+                    </div>
+
+                    <h3 className="font-display text-xl sm:text-2.5xl font-bold text-[#231911] leading-tight">
+                      {activeVisual.title}
+                    </h3>
+
+                    <p className="mt-2 text-xs sm:text-sm text-[#5a483a] leading-relaxed font-sans">
+                      {activeVisual.description}
+                    </p>
+
+                    <div className="mt-4 pt-3.5 border-t border-[#dfcbaf]">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-[#735128] block mb-2">
+                        Signature Highlights:
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {activeVisual.chefPicks.map((pick, pIdx) => (
+                          <span
+                            key={pIdx}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#efe3d1] border border-[#d2bd9f] text-[11px] font-semibold text-[#3b2c20]"
+                          >
+                            <Sparkles className="size-2.5 text-[#885718]" />
+                            <span>{pick}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap items-center gap-3">
+                      <a
+                        href={RESERVATION_CONTACT.whatsAppUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#146b3a] to-[#0f542c] hover:brightness-110 text-white text-xs font-bold shadow-xs transition-all"
+                      >
+                        <MessageCircle className="size-3.5" />
+                        <span>Order from this Section</span>
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => setActiveTab("All")}
+                        className="px-4 py-2 rounded-xl bg-[#fffefb] border border-[#d2bd9f] hover:bg-[#ebdcc7] text-xs font-bold text-[#5e432a] shadow-2xs transition-colors cursor-pointer"
+                      >
+                        View Full Menu
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 5-Section Visual Gallery for "All" Tab */}
+            {!searchQuery && activeTab === "All" && (
+              <div className="rounded-3xl border-2 border-[#cfb895] bg-[#fffefc]/80 p-5 sm:p-7 shadow-sm">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-[#dfcbaf]">
+                  <div>
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-[#885718] block">
+                      ROYAL KITCHEN & BAR SHOWCASE · ਸ਼ਾਹੀ ਵੰਨਗੀਆਂ
+                    </span>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-[#231911]">
+                      Explore Our Signature Culinary Sections
+                    </h3>
+                  </div>
+                  <span className="text-xs text-[#78614e] font-medium hidden sm:inline">
+                    Click any card to jump to that category
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+                  {ALL_CUISINE_CARDS.map((card) => (
+                    <button
+                      key={card.tabKey}
+                      type="button"
+                      onClick={() => setActiveTab(card.tabKey)}
+                      className="group relative flex flex-col justify-end h-48 sm:h-56 rounded-2xl overflow-hidden border border-[#d6c1a5] hover:border-[#b58728] shadow-xs hover:shadow-md transition-all duration-300 text-left p-3.5 cursor-pointer hover:-translate-y-1"
+                    >
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="absolute inset-0 size-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent" />
+
+                      <div className="relative z-10">
+                        <span className="font-gurmukhi text-[11px] text-[#e0b85a] block mb-0.5">
+                          {card.punjabi}
+                        </span>
+                        <h4 className="font-display text-sm sm:text-base font-bold text-white group-hover:text-[#f4d17c] transition-colors leading-tight">
+                          {card.title}
+                        </h4>
+                        <p className="text-[11px] text-[#cfbeaa] mt-0.5 line-clamp-1">
+                          {card.subtitle}
+                        </p>
+                        <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-[#e0b85a] uppercase tracking-wider group-hover:underline">
+                          <span>Explore</span>
+                          <ArrowRight className="size-2.5" />
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Search summary or empty state */}
             {searchQuery && (
               <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#ebdcc9]/80 border border-[#cfba9d] text-xs font-bold text-[#564131]">
@@ -516,80 +842,363 @@ export function DigitalMenu() {
                 </button>
               </div>
             ) : (
-              subcategoryNames.map((subcategoryTitle) => {
-                const items = groupedItems[subcategoryTitle];
+              (() => {
+                const getSubcategoryPhotoCard = (title: string) => {
+                  const SUBCATEGORY_PHOTO_CARDS: Record<
+                    string,
+                    { image: string; tag: string; punjabi: string; title: string; desc: string }
+                  > = {
+                    // 1. DRINKS
+                    "Mocktails": {
+                      image: menuDrinks,
+                      tag: "Signature Mocktails",
+                      punjabi: "ਸ਼ਾਹੀ ਮੌਕਟੇਲ ਤੇ ਕੂਲਰਸ",
+                      title: "Handcrafted Fresh Fruit Mocktails & Coolers",
+                      desc: "Crisp crushed mint virgin mojitos, Blue Lagoon, passion fruit punches, and chilled craft mocktails.",
+                    },
+                    "Beverages": {
+                      image: menuDrinks,
+                      tag: "Hot & Cold Brews",
+                      punjabi: "ਗਰਮ ਤੇ ਠੰਡੇ ਪੀਣ ਵਾਲੇ ਪਦਾਰਥ",
+                      title: "Palace Special Coffees & Masala Teas",
+                      desc: "Fresh brewed cappuccino, aromatic kadak masala tea, Kashmiri kahwa, and rich hot chocolate.",
+                    },
+                    "Shakes & Cold Drinks": {
+                      image: menuDrinks,
+                      tag: "Creamy Shakes & Floats",
+                      punjabi: "ਸ਼ਾਹੀ ਸ਼ੇਕਸ ਤੇ ਠੰਡੀਆਂ ਡਰਿੰਕਸ",
+                      title: "Thick Shakes, Smoothies & Cold Drinks",
+                      desc: "Velvety Oreo, Belgian chocolate, strawberry and mango thick shakes topped with cream and dry fruits.",
+                    },
+
+                    // 2. BREAKFAST
+                    "Parathas with Curd": {
+                      image: menuBreakfast,
+                      tag: "Desi Ghee Parathas",
+                      punjabi: "ਦੇਸੀ ਘਿਓ ਪਰੌਂਠੇ ਤੇ ਤਾਜ਼ਾ ਦਹੀਂ",
+                      title: "Tandoori Stuffed Parathas with Farm Curd",
+                      desc: "Crispy golden Aloo, Gobhi, Paneer, and Mix parathas smothered in homemade white butter and fresh spiced dahi.",
+                    },
+                    "Egg & Chicken Sandwich": {
+                      image: menuOmelette,
+                      tag: "Club Sandwiches",
+                      punjabi: "ਐੱਗ ਤੇ ਚਿਕਨ ਗ੍ਰਿਲਡ ਸੈਂਡਵਿਚ",
+                      title: "Loaded Egg & Chicken Grilled Sandwiches",
+                      desc: "Golden toasted double-decker sandwiches layered with juicy chicken tikka, eggs, melted cheese, and herbs.",
+                    },
+                    "Veg Sandwich": {
+                      image: menuOmelette,
+                      tag: "Toasted Sandwiches",
+                      punjabi: "ਤਾਜ਼ਾ ਵੈੱਜ ਗ੍ਰਿਲਡ ਸੈਂਡਵਿਚ",
+                      title: "Artisan Veg & Cheese Grilled Sandwiches",
+                      desc: "Crispy toasted jumbo bread stuffed with garden vegetables, spiced cottage cheese, and gooey mozzarella.",
+                    },
+                    "Toast & Egg": {
+                      image: menuOmelette,
+                      tag: "Eggs & Butter Toast",
+                      punjabi: "ਮਸਾਲਾ ਆਮਲੇਟ, ਭੁਰਜੀ ਤੇ ਬਟਰ ਟੋਸਟ",
+                      title: "Fluffy Masala Omelettes & Buttered Toast",
+                      desc: "Farm-fresh eggs whisked with green chillies, onions, and herbs, served with golden crisp butter toast.",
+                    },
+
+                    // 3. SNACKS & SIZZLERS
+                    "Soups": {
+                      image: menuSoups,
+                      tag: "Piping Hot Soups",
+                      punjabi: "ਗਰਮਾ-ਗਰਮ ਸ਼ਾਹੀ ਸੂਪ",
+                      title: "Gourmet Steaming Manchow & Shorba",
+                      desc: "Rich slow-simmered broths infused with ginger, garlic, veggies, and crunchy fried golden noodles.",
+                    },
+                    "Continental Sizzlers": {
+                      image: menuTandoori,
+                      tag: "Smoking Hot Sizzlers",
+                      punjabi: "ਲਾਈਵ ਕਾਂਟੀਨੈਂਟਲ ਸਿੱਜ਼ਲਰ",
+                      title: "Live Steaming Continental Sizzlers",
+                      desc: "Cast iron smoking sizzlers with grilled paneer, herb butter rice, crisp fries, and pepper sauce.",
+                    },
+                    "Continental Veg & Non-Veg": {
+                      image: menuChineseNonVeg,
+                      tag: "Crispy Starters & Pakoras",
+                      punjabi: "ਕਰਿਸਪੀ ਪਨੀਰ ਪਕੌੜਾ ਤੇ ਫਰਾਈਜ਼",
+                      title: "Golden Crisp Pakoras, Fingers & Fries",
+                      desc: "Melt-in-mouth stuffed paneer pakodas, cheese corn fingers, peri peri fries, and crispy cutlets.",
+                    },
+                    "Veg Burger": {
+                      image: menuPizza,
+                      tag: "Artisan Burgers",
+                      punjabi: "ਤਾਜ਼ਾ ਕਰਿਸਪੀ ਬਰਗਰ",
+                      title: "Jumbo Crispy Patty Cheese Burgers",
+                      desc: "Toasted sesame buns stuffed with spiced herb patties, iceberg lettuce, melted cheese, and royal dips.",
+                    },
+                    "Veg Pizza": {
+                      image: menuPizza,
+                      tag: "Stone-Baked Veg Pizza",
+                      punjabi: "ਤਾਜ਼ਾ ਪਨੀਰ ਟਿੱਕਾ ਤੇ ਚੀਜ਼ ਪੀਜ਼ਾ",
+                      title: "Stone-Baked Loaded Veggie & Paneer Pizza",
+                      desc: "Crispy hand-stretched crust topped with rich marinara sauce, mozzarella cheese, grilled paneer tikka, and oregano.",
+                    },
+                    "Non-Veg Pizza": {
+                      image: menuPizza,
+                      tag: "Artisan Chicken Pizza",
+                      punjabi: "ਚਿਕਨ ਟਿੱਕਾ ਤੇ ਬਾਰਬੀਕਿਊ ਪੀਜ਼ਾ",
+                      title: "Clay Oven Chicken Tikka & Cheesy Pizza",
+                      desc: "Loaded with smokey tandoori chicken chunks, sliced sausages, melted mozzarella cheese, and chilli flakes.",
+                    },
+
+                    // 4. TANDOORI
+                    "Fish - Seasonal": {
+                      image: menuFish,
+                      tag: "Fresh Amritsari Fish",
+                      punjabi: "ਅੰਮ੍ਰਿਤਸਰੀ ਫਿਸ਼ ਟਿੱਕਾ ਤੇ ਫਰਾਈ",
+                      title: "Crispy Amritsari Ajwaini Fish Fry & Tikka",
+                      desc: "Fresh river sole marinated in roasted ajwain, Punjabi spices, and deep fried to golden crispy perfection with mint chutney.",
+                    },
+                    "Tandoori Snacks - Veg": {
+                      image: menuTandoori,
+                      tag: "Clay Tandoor Veg",
+                      punjabi: "ਤੰਦੂਰੀ ਪਨੀਰ ਟਿੱਕਾ ਤੇ ਮਸ਼ਰੂਮ",
+                      title: "Charcoal Roasted Paneer Tikka & Soya Chaap",
+                      desc: "Cottage cheese skewers, stuffed tandoori aloo, and juicy malai soya chaap roasted over live red coals.",
+                    },
+                    "Tandoori Non-Veg": {
+                      image: menuTandooriChicken,
+                      tag: "Live Tandoor Non-Veg",
+                      punjabi: "ਕੋਲੇ 'ਤੇ ਭੁੰਨਿਆ ਤੰਦੂਰੀ ਚਿਕਨ ਤੇ ਟਿੱਕਾ",
+                      title: "Clay-Oven Tandoori Chicken & Malai Tikka",
+                      desc: "Succulent chicken marinated in hung curd and shahi spices, flame-roasted in our traditional clay oven.",
+                    },
+
+                    // 5. CHINESE
+                    "Chinese Veg. Oriental": {
+                      image: menuChinese,
+                      tag: "Chinese Veg Oriental",
+                      punjabi: "ਵੈੱਜ ਮੰਚੂਰੀਅਨ ਤੇ ਗੋਲਡਨ ਬੇਬੀ ਕੌਰਨ",
+                      title: "Wok-Glazed Veg Manchurian & Crispy Baby Corn",
+                      desc: "Steaming vegetable Manchurian in garlic soy sauce, crispy golden fried baby corn, and wok noodles.",
+                    },
+                    "Chinese Non-Veg": {
+                      image: menuChineseNonVeg,
+                      tag: "Chinese Non-Veg Specials",
+                      punjabi: "ਚਿੱਲੀ ਚਿਕਨ ਤੇ ਚਿਕਨ ਲੌਲੀਪੌਪ",
+                      title: "Wok-Tossed Chilli Chicken & Crispy Lollipops",
+                      desc: "Tender chicken tossed with crunchy bell peppers, green chillies, garlic soya glaze, and drumsticks.",
+                    },
+                    "Chinese Rice": {
+                      image: menuChinese,
+                      tag: "Fragrant Wok Rice",
+                      punjabi: "ਸ਼ਾਹੀ ਚਾਈਨੀਜ਼ ਫਰਾਈਡ ਰਾਈਸ",
+                      title: "Wok-Tossed Fried Rice & Schezwan Bowls",
+                      desc: "Fragrant long-grain basmati rice wok-tossed with fresh crunchy vegetables, garlic, and oriental sauces.",
+                    },
+
+                    // 6. MAIN COURSE
+                    "Indian Main Course - Veg": {
+                      image: menuCurries,
+                      tag: "Royal Handi Curries",
+                      punjabi: "ਸ਼ਾਹੀ ਦਾਲ ਮਖਣੀ ਤੇ ਪਨੀਰ ਲਬਾਬਦਾਰ",
+                      title: "Slow-Cooked Dal Makhani & Handi Gravies",
+                      desc: "Simmered overnight with white butter, cream, and ground spices in authentic hammered copper handis.",
+                    },
+                    "Indian Curry - Non-Veg": {
+                      image: menuChicken,
+                      tag: "Authentic Butter Chicken",
+                      punjabi: "ਸ਼ਾਹੀ ਬਟਰ ਚਿਕਨ ਤੇ ਮਟਨ ਰੋਗਨ ਜੋਸ਼",
+                      title: "Velvety Butter Chicken & Braised Mutton",
+                      desc: "Smokey shredded tandoori chicken in rich cashew-tomato butter makhani gravy and slow-cooked mutton.",
+                    },
+
+                    // 7. RAITA
+                    "Raita & Curd": {
+                      image: menuRaita,
+                      tag: "Chilled Spiced Raita",
+                      punjabi: "ਤਾਜ਼ਾ ਦਹੀਂ ਤੇ ਸ਼ਾਹੀ ਬੂੰਦੀ ਰਾਇਤਾ",
+                      title: "Chilled Farm-Fresh Spiced Raitas",
+                      desc: "Velvety whipped curd with crispy golden boondi, roasted jeera, garden mint, and pomegranate pearls.",
+                    },
+                  };
+
+                  // 1. Direct match
+                  if (SUBCATEGORY_PHOTO_CARDS[title]) {
+                    return SUBCATEGORY_PHOTO_CARDS[title];
+                  }
+
+                  // 2. Case-insensitive exact / partial match
+                  const s = title.toLowerCase();
+                  for (const [key, card] of Object.entries(SUBCATEGORY_PHOTO_CARDS)) {
+                    if (s.includes(key.toLowerCase()) || key.toLowerCase().includes(s)) {
+                      return card;
+                    }
+                  }
+
+                  // 3. Fallbacks by keyword
+                  if (s.includes("mocktail") || s.includes("shake") || s.includes("drink") || s.includes("beverage") || s.includes("beer")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Mocktails"];
+                  }
+                  if (s.includes("paratha") || s.includes("kulcha") || s.includes("breakfast")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Parathas with Curd"];
+                  }
+                  if (s.includes("egg") || s.includes("omelet") || s.includes("sandwich") || s.includes("toast")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Toast & Egg"];
+                  }
+                  if (s.includes("soup") || s.includes("shorba")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Soups"];
+                  }
+                  if (s.includes("pizza") || s.includes("burger")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Veg Pizza"];
+                  }
+                  if (s.includes("fish") || s.includes("machhi") || s.includes("seafood")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Fish - Seasonal"];
+                  }
+                  if (s.includes("tandoori") && (s.includes("non-veg") || s.includes("chicken") || s.includes("mutton"))) {
+                    return SUBCATEGORY_PHOTO_CARDS["Tandoori Non-Veg"];
+                  }
+                  if (s.includes("tandoor") || s.includes("tikka") || s.includes("sizzler") || s.includes("chaap")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Tandoori Snacks - Veg"];
+                  }
+                  if (s.includes("chinese") && (s.includes("non-veg") || s.includes("chicken"))) {
+                    return SUBCATEGORY_PHOTO_CARDS["Chinese Non-Veg"];
+                  }
+                  if (s.includes("chinese") || s.includes("oriental") || s.includes("manchurian") || s.includes("noodle") || s.includes("rice")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Chinese Veg. Oriental"];
+                  }
+                  if (s.includes("curry") && (s.includes("non-veg") || s.includes("chicken") || s.includes("mutton"))) {
+                    return SUBCATEGORY_PHOTO_CARDS["Indian Curry - Non-Veg"];
+                  }
+                  if (s.includes("main course") || s.includes("dal") || s.includes("paneer") || s.includes("curry") || s.includes("handi")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Indian Main Course - Veg"];
+                  }
+                  if (s.includes("raita") || s.includes("curd") || s.includes("dahi") || s.includes("salad") || s.includes("papad")) {
+                    return SUBCATEGORY_PHOTO_CARDS["Raita & Curd"];
+                  }
+
+                  return SUBCATEGORY_PHOTO_CARDS["Indian Main Course - Veg"];
+                };
+
+                return subcategoryNames.map((subcategoryTitle) => {
+                  const items = groupedItems[subcategoryTitle];
+                  const photoCard = getSubcategoryPhotoCard(subcategoryTitle);
 
                 return (
-                  <div key={subcategoryTitle} className="scroll-mt-44">
+                  <div key={subcategoryTitle} className="scroll-mt-44 w-full min-w-0">
                     {/* Royal Subcategory Divider Ribbon */}
-                    <div className="relative flex items-center justify-between pb-3.5 mb-6 border-b-2 border-[#d6c1a5]">
-                      <div className="flex items-center gap-3">
-                        <span className="flex size-7 items-center justify-center rounded-full bg-[#ebdcc6] border border-[#bfa478] text-[#865917] text-xs shadow-2xs">
+                    <div className="relative flex items-center justify-between pb-3.5 mb-5 sm:mb-6 border-b-2 border-[#d6c1a5] gap-2">
+                      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                        <span className="flex size-6 sm:size-7 shrink-0 items-center justify-center rounded-full bg-[#ebdcc6] border border-[#bfa478] text-[#865917] text-xs shadow-2xs">
                           ❖
                         </span>
-                        <h3 className="font-display text-xl sm:text-2.5xl font-bold text-[#241a12] tracking-tight uppercase">
+                        <h3 className="font-display text-lg sm:text-2.5xl font-bold text-[#241a12] tracking-tight uppercase truncate">
                           {subcategoryTitle}
                         </h3>
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-[#eee2d0] border border-[#d2bc9e] text-xs font-bold text-[#725227] shadow-2xs">
+                      <span className="shrink-0 px-2.5 sm:px-3 py-1 rounded-full bg-[#eee2d0] border border-[#d2bc9e] text-[11px] sm:text-xs font-bold text-[#725227] shadow-2xs">
                         {items.length} {items.length === 1 ? "Dish" : "Dishes"}
                       </span>
                     </div>
 
-                    {/* Luxury Dish Cards Grid */}
-                    <div className="grid gap-4 md:gap-5 md:grid-cols-2">
+                    {/* Luxury Dish Cards Grid - Mobile Friendly */}
+                    <div className="grid gap-3 sm:gap-4 md:gap-5 md:grid-cols-2 w-full min-w-0">
+                      {/* Tasteful In-Grid Food Photography Card */}
+                      {photoCard && (
+                        <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl border-2 border-[#c89836]/60 bg-[#1c140e] text-[#f7efe2] shadow-md group min-h-[220px] w-full min-w-0">
+                          <div className="absolute inset-0">
+                            <img
+                              src={photoCard.image}
+                              alt={photoCard.title}
+                              className="size-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/35" />
+                          </div>
+
+                          <div className="relative z-10 p-3.5 sm:p-4 pb-0 flex items-center justify-between gap-2">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-[#e0b85a]/50 text-[#e0b85a] text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-sm truncate">
+                              <Sparkles className="size-3 text-[#e0b85a] shrink-0" />
+                              <span className="truncate">{photoCard.tag}</span>
+                            </span>
+                            <span className="shrink-0 font-gurmukhi text-[11px] sm:text-xs text-[#ebd8b7] bg-black/60 px-2.5 py-0.5 rounded-full border border-white/10">
+                              {photoCard.punjabi}
+                            </span>
+                          </div>
+
+                          <div className="relative z-10 p-3.5 sm:p-4 pt-6 sm:pt-8">
+                            <h4 className="font-display text-base sm:text-xl font-bold text-white leading-tight drop-shadow-sm">
+                              {photoCard.title}
+                            </h4>
+                            <p className="mt-1 text-xs text-[#e2d5c5]/90 leading-relaxed font-sans line-clamp-2">
+                              {photoCard.desc}
+                            </p>
+
+                            <div className="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between text-xs gap-2">
+                              <span className="text-[10px] sm:text-[11px] text-[#e0b85a] font-semibold flex items-center gap-1 shrink-0">
+                                <span className="size-1.5 rounded-full bg-[#e0b85a] animate-pulse" />
+                                Fresh To Order
+                              </span>
+                              <a
+                                href={RESERVATION_CONTACT.whatsAppUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="shrink-0 inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] sm:text-[11px] shadow-sm transition-colors"
+                              >
+                                <MessageCircle className="size-3 shrink-0" />
+                                <span>Order via WhatsApp</span>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
                       {items.map((item) => (
                         <div
                           key={item.id}
-                          className="group relative flex flex-col justify-between p-4 sm:p-5 rounded-2xl bg-gradient-to-b from-[#fffefc] via-[#fffdf8] to-[#fbf6ec] border border-[#dcc8af] shadow-xs hover:border-[#b58728] hover:shadow-[0_8px_24px_rgba(75,55,25,0.1)] hover:-translate-y-0.5 transition-all duration-300"
+                          className="group relative flex flex-col justify-between p-3.5 sm:p-5 rounded-2xl bg-gradient-to-b from-[#fffefc] via-[#fffdf8] to-[#fbf6ec] border border-[#dcc8af] shadow-xs hover:border-[#b58728] hover:shadow-[0_8px_24px_rgba(75,55,25,0.1)] hover:-translate-y-0.5 transition-all duration-300 w-full min-w-0"
                         >
                           {/* Dish Top Row: Diet Badge, Name, Special Badge, Dotted Leader, Price */}
-                          <div>
-                            <div className="flex items-baseline justify-between gap-2">
+                          <div className="w-full min-w-0">
+                            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5 sm:gap-2 w-full min-w-0">
                               {/* Left: Indicator & Dish Name */}
-                              <div className="flex items-center gap-2.5 font-semibold min-w-0">
+                              <div className="flex items-center gap-2 font-semibold min-w-0 flex-1">
                                 <DietBadge diet={item.diet} />
-                                <h4 className="font-display text-base sm:text-lg font-bold text-[#221811] group-hover:text-[#885718] transition-colors truncate">
+                                <h4 className="font-display text-[15px] sm:text-lg font-bold text-[#221811] group-hover:text-[#885718] transition-colors break-words">
                                   {item.name}
                                 </h4>
                                 {item.isSpecial && (
-                                  <span className="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gradient-to-r from-[#ebd9be] to-[#dfbe87] text-[#5e3d10] text-[10px] font-bold tracking-wider uppercase border border-[#b8955a]">
+                                  <span className="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-gradient-to-r from-[#ebd9be] to-[#dfbe87] text-[#5e3d10] text-[9px] sm:text-[10px] font-bold tracking-wider uppercase border border-[#b8955a]">
                                     <Sparkles className="size-2.5 text-[#885718]" /> Spl
                                   </span>
                                 )}
                               </div>
 
-                              {/* Center: Dotted Leader Line */}
+                              {/* Center: Dotted Leader Line (tablet/desktop) */}
                               <div className="hidden sm:block flex-1 border-b-2 border-dotted border-[#d5c3aa] mx-2 self-center opacity-70" />
 
-                              {/* Right: Price Presentation */}
-                              <div className="shrink-0 text-right">
+                              {/* Right / Below on mobile: Price Presentation */}
+                              <div className="shrink-0 self-start sm:self-auto pl-6 sm:pl-0">
                                 {item.priceType === "portion" ? (
-                                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#f4e9da] border border-[#dccebc]">
-                                    <span className="text-[10px] font-bold text-[#725e4e] uppercase">H</span>
+                                  <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-[#f4e9da] border border-[#dccebc]">
+                                    <span className="text-[9px] sm:text-[10px] font-bold text-[#725e4e] uppercase">H</span>
                                     <span className="font-display text-xs sm:text-sm font-bold text-[#7a4b10]">
                                       {item.priceHalf}
                                     </span>
                                     <span className="text-[#a4917f] text-xs">/</span>
-                                    <span className="text-[10px] font-bold text-[#725e4e] uppercase">F</span>
+                                    <span className="text-[9px] sm:text-[10px] font-bold text-[#725e4e] uppercase">F</span>
                                     <span className="font-display text-xs sm:text-sm font-bold text-[#7a4b10]">
                                       {item.priceFull}
                                     </span>
                                   </div>
                                 ) : item.priceType === "diet_dual" ? (
-                                  <div className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-[#f4e9da] border border-[#dccebc]">
-                                    <span className="text-[10px] font-bold text-emerald-800">Veg</span>
+                                  <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg bg-[#f4e9da] border border-[#dccebc]">
+                                    <span className="text-[9px] sm:text-[10px] font-bold text-emerald-800">Veg</span>
                                     <span className="font-display text-xs font-bold text-[#7a4b10]">
                                       {item.priceVeg}
                                     </span>
                                     <span className="text-[#a4917f] text-xs">/</span>
-                                    <span className="text-[10px] font-bold text-rose-900">Non-Veg</span>
+                                    <span className="text-[9px] sm:text-[10px] font-bold text-rose-900">Non-Veg</span>
                                     <span className="font-display text-xs font-bold text-[#7a4b10]">
                                       {item.priceNonVeg}
                                     </span>
                                   </div>
                                 ) : (
-                                  <span className="inline-block px-2.5 py-0.5 rounded-lg bg-[#f4e9da] border border-[#dccebc] font-display text-base sm:text-lg font-bold text-[#7a4b10]">
+                                  <span className="inline-block px-2 sm:px-2.5 py-0.5 rounded-lg bg-[#f4e9da] border border-[#dccebc] font-display text-sm sm:text-lg font-bold text-[#7a4b10]">
                                     {item.price}
                                   </span>
                                 )}
@@ -598,20 +1207,20 @@ export function DigitalMenu() {
 
                             {/* Description if available (e.g. for mocktails) */}
                             {item.description && (
-                              <p className="mt-2 text-xs sm:text-[13px] text-[#695647] leading-relaxed italic pl-6 font-sans">
+                              <p className="mt-1.5 sm:mt-2 text-xs sm:text-[13px] text-[#695647] leading-relaxed italic pl-6 font-sans">
                                 {item.description}
                               </p>
                             )}
                           </div>
 
                           {/* Subtle Quick Order Link (Diners can click to WhatsApp this dish directly) */}
-                          <div className="mt-3 pt-2.5 border-t border-[#ede2d3] flex items-center justify-between text-[11px] text-[#735e4d]">
-                            <span className="italic opacity-80">{subcategoryTitle}</span>
+                          <div className="mt-3 pt-2.5 border-t border-[#ede2d3] flex items-center justify-between text-[11px] text-[#735e4d] gap-2">
+                            <span className="italic opacity-80 truncate">{subcategoryTitle}</span>
                             <a
                               href={getWhatsAppDishUrl(item)}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-[#0f5f33] hover:text-[#0b4827] font-bold hover:underline transition-colors"
+                              className="shrink-0 inline-flex items-center gap-1 text-[#0f5f33] hover:text-[#0b4827] font-bold hover:underline transition-colors"
                               title={`Order ${item.name} via WhatsApp`}
                             >
                               <MessageCircle className="size-3 text-[#15803d]" />
@@ -623,8 +1232,9 @@ export function DigitalMenu() {
                     </div>
                   </div>
                 );
-              })
-            )}
+              });
+            })()
+          )}
 
             {/* Bottom Important Notes Banner */}
             <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#f5ede0] via-[#f8f2e7] to-[#f4ebe0] border-2 border-[#cfb895] shadow-sm">

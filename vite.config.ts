@@ -323,6 +323,32 @@ function copyPalaceAssetsPlugin() {
         }
       }
 
+      // Food & Drinks Menu images
+      const menuBrainDir = "C:/Users/hp/.gemini/antigravity-ide/brain/531cc97a-bbd6-45d8-a8c0-9362f1210e40";
+      const menuPhotos: Record<string, string> = {
+        "menu_cocktail_drinks_1790240067722.jpg": "menu-drinks.jpg",
+        "menu_tandoori_sizzler_1790240100872.jpg": "menu-tandoori.jpg",
+        "menu_royal_curries_1790240120071.jpg": "menu-curries.jpg",
+        "menu_chinese_manchurian_1790247781109.jpg": "menu-chinese.jpg",
+        "menu_indo_chinese_1790240149688.jpg": "menu-chinese-nonveg.jpg",
+        "menu_breakfast_kulcha_1790240178998.jpg": "menu-breakfast.jpg",
+        "menu_omelette_sandwich_1790241168869.jpg": "menu-omelette.jpg",
+        "menu_fish_tikka_1790241692477.jpg": "menu-fish.jpg",
+        "menu_soups_1790241775702.jpg": "menu-soups.jpg",
+        "menu_butter_chicken_1790243318599.jpg": "menu-chicken.jpg",
+        "menu_woodfire_pizza_1790243778222.jpg": "menu-pizza.jpg",
+        "menu_tandoori_chicken_1790244158232.jpg": "menu-tandoori-chicken.jpg",
+        "menu_shahi_raita_1790245041854.jpg": "menu-raita.jpg",
+      };
+      for (const [srcFile, dstFile] of Object.entries(menuPhotos)) {
+        const fullSrc = path.join(menuBrainDir, srcFile);
+        if (fs.existsSync(fullSrc)) {
+          fs.copyFileSync(fullSrc, path.join(assetsDir, dstFile));
+          fs.copyFileSync(fullSrc, path.join(publicDir, dstFile));
+          console.log("[palace-plugin] Synced " + dstFile);
+        }
+      }
+
       // The Grand Entrance Palace Gate image
       const brainRoot = "C:/Users/hp/.gemini/antigravity-ide/brain/5a7ab2f5-13ed-4bdd-86ed-d8eb2c8836a4";
       const tempStorage = path.join(brainRoot, ".tempmediaStorage");

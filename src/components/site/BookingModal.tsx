@@ -132,16 +132,18 @@ export function BookingModal() {
       return;
     }
 
-    const cleanPhone = phone.replace(/[^0-9+]/g, "");
+    const cleanPhone = phone.replace(/[^0-9]/g, "");
     if (cleanPhone.length < 10) {
-      setErrorMessage("Please enter a valid 10-digit phone number.");
+      setErrorMessage("Please enter a valid 10-digit phone number (e.g. 98765 43210 or 87280 60036).");
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
-      setErrorMessage("Please enter a valid email address.");
-      return;
+    if (email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.trim())) {
+        setErrorMessage("Please enter a valid email address or leave it blank.");
+        return;
+      }
     }
 
     if (!eventDate) {
@@ -188,6 +190,14 @@ export function BookingModal() {
 
       setConfirmedReservation(res.reservation);
       setIsSubmitting(false);
+
+      // Build complete WhatsApp message and redirect directly to official WhatsApp (+91 87280 60036)
+      const waUrl = RESERVATION_CONTACT.buildWhatsAppUrl(res.reservation);
+      try {
+        window.open(waUrl, "_blank", "noopener,noreferrer");
+      } catch (err) {
+        console.warn("Direct popup trigger note:", err);
+      }
     } catch (err: any) {
       setErrorMessage(err.message || "An unexpected error occurred. Please try again.");
       setIsSubmitting(false);
@@ -278,24 +288,40 @@ export function BookingModal() {
           {confirmedReservation ? (
             /* SUCCESS CONFIRMATION VIEW */
             <div className="flex flex-col items-center text-center py-4 sm:py-6 animate-in fade-in-50 zoom-in-95 duration-300">
-              <div className="size-16 sm:size-20 rounded-full bg-brass/20 border-2 border-brass flex items-center justify-center text-brass shadow-[0_0_30px_rgba(202,168,106,0.4)] mb-4">
+              <div className="size-16 sm:size-20 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 shadow-[0_0_35px_rgba(16,185,129,0.35)] mb-3">
                 <CheckCircle2 className="size-9 sm:size-11" strokeWidth={2.2} />
               </div>
 
-              <span className="px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-2">
-                RESERVATION REQUEST SUBMITTED
-              </span>
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-2">
+                <span className="size-2 rounded-full bg-emerald-400 animate-ping mr-1" />
+                <span>Opening WhatsApp Chat (+91 87280 60036)</span>
+              </div>
 
               <h3 className="font-display text-2xl sm:text-3xl font-bold text-soft-cream">
                 Thank You, {confirmedReservation.customerName}!
               </h3>
               <p className="mt-2 max-w-md text-xs sm:text-sm text-soft-cream/80 leading-relaxed">
-                Your celebration reservation request has been received by the Shahi Junction Villa team.
-                Our venue coordinator will review and confirm your reservation shortly.
+                Your celebration reservation has been recorded. We are redirecting you directly to the official Shahi Junction Villa WhatsApp (<strong className="text-emerald-400 font-semibold">{RESERVATION_CONTACT.phoneDisplay}</strong>) with all your event details.
               </p>
 
+              {/* Primary Direct WhatsApp Action Button */}
+              <div className="mt-5 w-full max-w-md">
+                <a
+                  href={RESERVATION_CONTACT.buildWhatsAppUrl(confirmedReservation)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-600 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-sm shadow-[0_4px_22px_rgba(16,185,129,0.45)] hover:scale-[1.01] active:translate-y-px transition-all duration-200"
+                >
+                  <MessageCircle className="size-5 fill-white text-emerald-600 shrink-0" />
+                  <span>Open WhatsApp Chat Now</span>
+                </a>
+                <p className="mt-1.5 text-[11px] text-soft-cream/60">
+                  Tap above if WhatsApp did not open automatically on your device.
+                </p>
+              </div>
+
               {/* Unique Reservation ID Card */}
-              <div className="mt-6 w-full max-w-md p-4 sm:p-5 rounded-2xl bg-black/60 border border-brass/35 shadow-inner">
+              <div className="mt-5 w-full max-w-md p-4 sm:p-5 rounded-2xl bg-black/60 border border-brass/35 shadow-inner">
                 <div className="flex items-center justify-between pb-3 border-b border-brass/20">
                   <div className="text-left">
                     <span className="text-[10px] font-bold uppercase tracking-widest text-brass-light block">
@@ -308,7 +334,7 @@ export function BookingModal() {
                   <button
                     type="button"
                     onClick={() => handleCopyId(confirmedReservation.id)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brass/15 hover:bg-brass/25 border border-brass/40 text-brass-light text-xs font-semibold transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brass/15 hover:bg-brass/25 border border-brass/40 text-brass-light text-xs font-semibold transition-colors cursor-pointer"
                   >
                     {copiedId ? <Check className="size-3.5 text-emerald-400" /> : <Copy className="size-3.5" />}
                     <span>{copiedId ? "Copied" : "Copy ID"}</span>
@@ -345,44 +371,39 @@ export function BookingModal() {
                   <div className="col-span-2 pt-2 border-t border-white/10">
                     <span className="text-soft-cream/50 text-[11px] block">Contact Details:</span>
                     <strong className="text-soft-cream font-medium">
-                      {confirmedReservation.phone} · {confirmedReservation.email}
+                      {confirmedReservation.phone}
+                      {confirmedReservation.email ? ` · ${confirmedReservation.email}` : ""}
                     </strong>
                   </div>
+                  {confirmedReservation.message && (
+                    <div className="col-span-2 pt-1 border-t border-white/5">
+                      <span className="text-soft-cream/50 text-[11px] block">Special Message:</span>
+                      <p className="text-soft-cream/80 text-[11px] italic mt-0.5 line-clamp-2">
+                        "{confirmedReservation.message}"
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="mt-6 flex flex-col sm:flex-row gap-3 w-full max-w-md">
-                <a
-                  href={RESERVATION_CONTACT.getWhatsAppBookingUrl(
-                    confirmedReservation.id,
-                    confirmedReservation.eventDate,
-                    confirmedReservation.customerName
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow-md transition-all duration-200"
-                >
-                  <MessageCircle className="size-4" />
-                  <span>Confirm on WhatsApp</span>
-                </a>
-
+              {/* Secondary Actions */}
+              <div className="mt-4 flex flex-col sm:flex-row gap-3 w-full max-w-md">
                 <a
                   href={RESERVATION_CONTACT.phoneTel}
-                  className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brass hover:bg-brass-light text-charcoal font-bold text-xs sm:text-sm shadow-md transition-all duration-200"
+                  className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-brass/20 hover:bg-brass/30 border border-brass/40 text-brass-light font-bold text-xs sm:text-sm transition-all duration-200"
                 >
-                  <Phone className="size-4" />
+                  <Phone className="size-4 text-brass" />
                   <span>Call {RESERVATION_CONTACT.phoneDisplay}</span>
                 </a>
-              </div>
 
-              <button
-                type="button"
-                onClick={closeBookingModal}
-                className="mt-4 text-xs font-semibold text-soft-cream/70 hover:text-white underline transition-colors"
-              >
-                Close & Return to Website
-              </button>
+                <button
+                  type="button"
+                  onClick={closeBookingModal}
+                  className="flex-1 inline-flex items-center justify-center py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-soft-cream/80 hover:text-white text-xs font-semibold transition-colors"
+                >
+                  Close & Return
+                </button>
+              </div>
             </div>
           ) : (
             /* RESERVATION FORM */
@@ -446,16 +467,15 @@ export function BookingModal() {
                     htmlFor="res-email"
                     className="block text-xs font-semibold uppercase tracking-wider text-brass-light mb-1.5"
                   >
-                    Email Address <span className="text-rose-400">*</span>
+                    Email Address <span className="text-soft-cream/50 text-[11px] font-normal lowercase">(optional)</span>
                   </label>
                   <div className="relative">
                     <input
                       type="email"
                       id="res-email"
-                      required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="e.g. balwinder@gmail.com"
+                      placeholder="e.g. balwinder@gmail.com (optional)"
                       className="h-11 sm:h-12 w-full rounded-xl border border-brass/35 bg-black/40 px-3.5 pl-10 text-sm text-soft-cream placeholder:text-soft-cream/35 focus:border-brass focus:bg-black/60 focus:outline-hidden focus:ring-1 focus:ring-brass transition-all"
                     />
                     <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-brass-light/60" />
@@ -645,22 +665,28 @@ export function BookingModal() {
                 <button
                   type="submit"
                   disabled={isSubmitting || availability?.isBooked}
-                  className="inline-flex h-12 sm:h-14 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brass-deep via-brass to-brass-light px-8 text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-charcoal shadow-lg hover:scale-[1.01] hover:shadow-[0_8px_25px_rgba(202,168,106,0.35)] active:translate-y-px transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="inline-flex h-12 sm:h-14 w-full items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-emerald-600 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold uppercase tracking-[0.14em] shadow-[0_4px_22px_rgba(16,185,129,0.38)] hover:scale-[1.01] active:translate-y-px transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 cursor-pointer text-xs sm:text-sm"
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="size-4 animate-spin text-charcoal" />
-                      <span>Submitting Reservation...</span>
+                      <Loader2 className="size-4 animate-spin text-white" />
+                      <span>Saving & Opening WhatsApp...</span>
                     </>
                   ) : (
                     <>
-                      <CalendarIcon className="size-4 text-charcoal" />
+                      <MessageCircle className="size-5 fill-white text-emerald-600 shrink-0" />
                       <span>
-                        {availability?.isBooked ? "Date Already Booked" : "Submit Reservation Request"}
+                        {availability?.isBooked
+                          ? "Date Already Booked"
+                          : "Book Date & Send to WhatsApp (+91 87280 60036)"}
                       </span>
                     </>
                   )}
                 </button>
+                <p className="mt-2 text-center text-[11px] text-soft-cream/65">
+                  Direct official WhatsApp line: Your booking is saved and opens directly with management at{" "}
+                  <strong className="text-emerald-400 font-semibold">{RESERVATION_CONTACT.phoneDisplay}</strong>.
+                </p>
               </div>
             </form>
           )}

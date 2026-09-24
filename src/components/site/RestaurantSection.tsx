@@ -12,7 +12,14 @@ import {
   ShieldCheck,
   ArrowUpRight,
 } from "lucide-react";
-import { shahiBarCounter, shahiRestaurantLounge } from "@/lib/venue";
+import {
+  shahiBarCounter,
+  shahiRestaurantLounge,
+  menuDrinks,
+  menuTandoori,
+  menuCurries,
+  menuFish,
+} from "@/lib/venue";
 import { business, directionsUrl } from "@/lib/business";
 import { Reveal } from "./Reveal";
 
@@ -60,6 +67,7 @@ const menuHighlights = [
     category: "Clay Tandoor & Starters",
     punjabi: "ਤੰਦੂਰੀ ਸਟਾਰਟਰਸ",
     icon: Flame,
+    image: menuTandoori,
     items: [
       { name: "Shahi Murgh Malai Tikka", desc: "Tender chicken morsels in cashew cream and green cardamom marinade" },
       { name: "Amritsari Crispy Fish Tikka", desc: "Fresh fish flavored with carom seeds, ginger, and golden crust" },
@@ -71,6 +79,7 @@ const menuHighlights = [
     category: "Royal Curries & Breads",
     punjabi: "ਸ਼ਾਹੀ ਗ੍ਰੇਵੀਆਂ ਤੇ ਨਾਨ",
     icon: ChefHat,
+    image: menuCurries,
     items: [
       { name: "24-Hour Slow-Cooked Dal Makhani", desc: "Black lentils gently simmered overnight with fresh churned cream" },
       { name: "Old Delhi Butter Chicken", desc: "Tandoori chicken simmered in a velvety satin-smooth tomato sauce" },
@@ -79,9 +88,22 @@ const menuHighlights = [
     ],
   },
   {
+    category: "Fresh Amritsari Fish & Seafood",
+    punjabi: "ਅੰਮ੍ਰਿਤਸਰੀ ਫਿਸ਼ ਤੇ ਸੀ-ਫੂਡ",
+    icon: UtensilsCrossed,
+    image: menuFish,
+    items: [
+      { name: "Amritsari Crispy Fish Fry", desc: "Fresh fish marinated in crushed ajwain and deep fried to golden perfection" },
+      { name: "Tandoori Fish Tikka Sizzler", desc: "Charcoal roasted fish chunks with lemon mint chutney and charred onion rings" },
+      { name: "Fish Finger with Tartar Dip", desc: "Golden crumb-coated fish fingers served piping hot" },
+      { name: "Spicy Fish Curry & Masala", desc: "Rich river fish simmered in a spiced Punjabi tomato and onion gravy" },
+    ],
+  },
+  {
     category: "Bar & Signature Drinks",
     punjabi: "ਬਾਰ ਅਤੇ ਕਾਕਟੇਲ",
     icon: Wine,
+    image: menuDrinks,
     items: [
       { name: "Chilled Draught Beer on Tap", desc: "Freshly poured draught beer towers served at sub-zero temperatures" },
       { name: "Royal Saffron Gold Elixir", desc: "Palace signature mocktail with saffron syrup and sparkling soda" },
@@ -257,7 +279,7 @@ export function RestaurantSection() {
             </div>
 
             {/* Menu Columns */}
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {menuHighlights.map((col, colIdx) => {
                 const ColIcon = col.icon;
                 return (
@@ -272,6 +294,26 @@ export function RestaurantSection() {
                       <div>
                         <span className="text-[10px] font-semibold text-brass-light block">{col.punjabi}</span>
                         <h4 className="font-display text-lg font-bold text-soft-cream">{col.category}</h4>
+                      </div>
+                    </div>
+
+                    {/* Food Photo Showcase */}
+                    <div className="relative mb-5 h-38 w-full rounded-xl overflow-hidden border border-brass/30 shadow-md group/img">
+                      <img
+                        src={col.image}
+                        alt={col.category}
+                        className="size-full object-cover object-center transition-transform duration-700 ease-out group-hover/img:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-brass-light font-semibold">
+                        <span className="flex items-center gap-1">
+                          <span className="size-1.5 rounded-full bg-brass animate-pulse" />
+                          <span>Fresh To Order</span>
+                        </span>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-black/70 backdrop-blur-xs border border-brass/40 text-soft-cream/90">
+                          Royal Palace Recipe
+                        </span>
                       </div>
                     </div>
 

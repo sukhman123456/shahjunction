@@ -29,7 +29,7 @@ export function AvailabilitySection() {
   const [currentMonth, setCurrentMonth] = useState<Date>(() => new Date(today.getFullYear(), today.getMonth(), 1));
   const [selectedDateStr, setSelectedDateStr] = useState<string>(() => {
     const d = new Date();
-    return d.toISOString().split("T")[0];
+    return d.toISOString().split("T")[0] || "";
   });
 
   // Availability map: YYYY-MM-DD -> "AVAILABLE" | "PENDING" | "BOOKED"
@@ -62,7 +62,7 @@ export function AvailabilitySection() {
   };
   const goToToday = () => {
     setCurrentMonth(new Date(today.getFullYear(), today.getMonth(), 1));
-    setSelectedDateStr(today.toISOString().split("T")[0]);
+    setSelectedDateStr(today.toISOString().split("T")[0] || "");
   };
 
   // Status of the currently selected date
@@ -80,7 +80,10 @@ export function AvailabilitySection() {
 
   const formattedSelectedDate = useMemo(() => {
     if (!selectedDateStr) return "";
-    const [y, m, d] = selectedDateStr.split("-").map(Number);
+    const parts = selectedDateStr.split("-").map(Number);
+    const y = parts[0] ?? 2026;
+    const m = parts[1] ?? 1;
+    const d = parts[2] ?? 1;
     const dateObj = new Date(y, m - 1, d);
     return dateObj.toLocaleDateString("en-IN", {
       weekday: "long",
@@ -416,17 +419,6 @@ export function AvailabilitySection() {
                       <MessageCircle className="size-3.5 text-emerald-400" />
                       <span>WhatsApp</span>
                     </a>
-                  </div>
-
-                  {/* Staff Portal Link */}
-                  <div className="pt-2 text-center">
-                    <button
-                      type="button"
-                      onClick={openAdminModal}
-                      className="text-[11px] text-soft-cream/40 hover:text-brass-light transition-colors underline"
-                    >
-                      Staff & Venue Management Portal
-                    </button>
                   </div>
                 </div>
               </div>

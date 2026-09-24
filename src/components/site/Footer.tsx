@@ -141,16 +141,20 @@ export function Footer() {
 
       <div className="border-t border-line-dark">
         <div className="container-site flex flex-col gap-2 py-6 text-xs text-on-dark-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} {business.name}. All rights reserved.</p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <p>© {new Date().getFullYear()} {business.name}. All rights reserved.</p>
+            <span className="opacity-30">•</span>
             <button
               type="button"
               onClick={openAdminModal}
-              className="text-brass/70 hover:text-brass text-xs underline transition-colors cursor-pointer"
+              title="Villa Owner Portal (Password Protected)"
+              className="opacity-30 hover:opacity-100 hover:text-brass transition-all flex items-center gap-1 cursor-pointer text-[11px]"
             >
-              Staff Portal
+              <span>🔒</span>
+              <span>Owner Admin</span>
             </button>
-            <span className="text-line-dark">|</span>
+          </div>
+          <div className="flex items-center gap-4">
             <p lang="pa" className="font-gurmukhi text-sm text-brass">
               {business.namePunjabi} — {business.locality}
             </p>

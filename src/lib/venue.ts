@@ -13,6 +13,19 @@ import shahiParking from "@/assets/shahi-parking.jpg";
 import shahiWeddingTunnel from "@/assets/shahi-wedding-tunnel.jpg";
 import shahiBarCounter from "@/assets/shahi-bar-counter.jpg";
 import shahiRestaurantLounge from "@/assets/shahi-restaurant-lounge.jpg";
+import menuDrinks from "@/assets/menu-drinks.jpg";
+import menuTandoori from "@/assets/menu-tandoori.jpg";
+import menuCurries from "@/assets/menu-curries.jpg";
+import menuChinese from "@/assets/menu-chinese.jpg";
+import menuBreakfast from "@/assets/menu-breakfast.jpg";
+import menuOmelette from "@/assets/menu-omelette.jpg";
+import menuFish from "@/assets/menu-fish.jpg";
+import menuSoups from "@/assets/menu-soups.jpg";
+import menuChicken from "@/assets/menu-chicken.jpg";
+import menuPizza from "@/assets/menu-pizza.jpg";
+import menuTandooriChicken from "@/assets/menu-tandoori-chicken.jpg";
+import menuRaita from "@/assets/menu-raita.jpg";
+import menuChineseNonVeg from "@/assets/menu-chinese-nonveg.jpg";
 
 export {
   shahiVillaReal,
@@ -30,6 +43,19 @@ export {
   shahiWeddingTunnel,
   shahiBarCounter,
   shahiRestaurantLounge,
+  menuDrinks,
+  menuTandoori,
+  menuCurries,
+  menuChinese,
+  menuChineseNonVeg,
+  menuBreakfast,
+  menuOmelette,
+  menuFish,
+  menuSoups,
+  menuChicken,
+  menuPizza,
+  menuTandooriChicken,
+  menuRaita,
 };
 
 export interface VenueSpace {
