@@ -68,7 +68,7 @@ const celebrationCards: CelebrationCard[] = [
     description: "Celebrate your big day in an elegant and unforgettable setting.",
     longOverview:
       "Make your once-in-a-lifetime wedding celebration a royal masterpiece at Shah Junction Villa. From welcoming the Baraat under a shimmering floral walkway to the serene Anand Karaj or Jaimala rituals and an opulent feast, our expansive, fully air-conditioned neoclassical hall creates an atmosphere of pure splendour.",
-    capacity: "Up to 500+ Guests",
+    capacity: "Max 300 Guests",
     duration: "Full Day / Evening Booking",
     venueSetup: "Grand Indoor Banquet Hall & Lawns",
     highlights: [
@@ -119,7 +119,7 @@ const celebrationCards: CelebrationCard[] = [
     description: "Perfect spaces for beautiful beginnings and intimate family celebrations.",
     longOverview:
       "Your engagement or Roka marks the cherished union of two families. At Shah Junction Villa, we curate a warm, intimate, yet royally festive ambiance. Featuring our signature balloon ring arches, floral photo stages, and cozy lounge seating, both families can bond, exchange rings, and celebrate in supreme comfort.",
-    capacity: "50 to 250 Guests",
+    capacity: "Max 200 Guests",
     duration: "Day / Evening Slots Available",
     venueSetup: "Banquet Hall (Lounge & Ring Stage Configuration)",
     highlights: [
@@ -170,7 +170,7 @@ const celebrationCards: CelebrationCard[] = [
     description: "Make every birthday special with a vibrant and comfortable celebration space.",
     longOverview:
       "From a baby's 1st birthday milestone to a vibrant sweet sixteen or a 50th golden jubilee, Shah Junction Villa turns birthdays into magical celebrations. We offer custom themed balloon backdrops, dynamic lighting, high-energy dance floors, and mouth-watering menus that appeal to kids, youth, and elders alike.",
-    capacity: "30 to 300 Guests",
+    capacity: "Max 200 Guests",
     duration: "3 to 5 Hours Flexible Duration",
     venueSetup: "Banquet Party Floor (Open Dance & Dining)",
     highlights: [
@@ -221,7 +221,7 @@ const celebrationCards: CelebrationCard[] = [
     description: "Celebrate years of love with your family and loved ones.",
     longOverview:
       "Honor decades of companionship and enduring love surrounded by children, grandchildren, and dear friends. Whether it is a 25th Silver or 50th Golden Anniversary, Shah Junction Villa crafts a sophisticated, heartfelt experience filled with nostalgic slideshows, melodious tunes, and royal dining.",
-    capacity: "50 to 350 Guests",
+    capacity: "Max 300 Guests",
     duration: "Day or Evening Celebration",
     venueSetup: "Elegantly Lit Banquet & Family Dining",
     highlights: [
@@ -272,7 +272,7 @@ const celebrationCards: CelebrationCard[] = [
     description: "A welcoming venue for family gatherings, get-togethers and special occasions.",
     longOverview:
       "Family gatherings deserve a venue where generations can mingle comfortably without the stress of hosting at home. From retirement celebrations, NRI homecomings, baby showers (Godh Bharai), to festive get-togethers, Shah Junction Villa offers attentive hospitality where every relative feels genuinely cared for.",
-    capacity: "40 to 300 Guests",
+    capacity: "Max 200 Guests",
     duration: "Flexible Half-Day / Full-Day Slots",
     venueSetup: "Comfortable Cluster Seating & Open Buffet",
     highlights: [
@@ -323,7 +323,7 @@ const celebrationCards: CelebrationCard[] = [
     description: "Ideal for intimate ceremonies, traditional functions and meaningful moments.",
     longOverview:
       "Traditional ceremonies require reverence, spotless hygiene, and peaceful sanctity. Whether you are hosting a Sri Sukhmani Sahib Paath, Kirtan Darbar, Jaggo night, Mehndi, or Mayian ceremony, Shah Junction Villa provides a tranquil, clean, and respectful environment tailored to age-old customs.",
-    capacity: "30 to 200 Guests",
+    capacity: "Max 200 Guests",
     duration: "Morning / Afternoon / Evening Slots",
     venueSetup: "Custom Sacred Diwan or Cultural Folk Setup",
     highlights: [
@@ -520,8 +520,9 @@ export function CelebrationsSection() {
                   {/* Card Footer: "Explore Event" button */}
                   <div className="px-5 sm:px-6 lg:px-7 pb-5 sm:pb-6 pt-0 mt-auto">
                     <div className="pt-4 border-t border-brass/15 flex items-center justify-between">
-                      <span className="text-[11px] uppercase tracking-wider text-soft-cream/50 font-medium">
-                        Dedicated Space
+                      <span className="text-[11px] uppercase tracking-wider text-brass-light/80 font-semibold flex items-center gap-1.5">
+                        <span className="size-1.5 rounded-full bg-brass/70 animate-pulse" />
+                        <span>{card.capacity}</span>
                       </span>
 
                       <button
