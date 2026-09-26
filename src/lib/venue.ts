@@ -26,6 +26,16 @@ import menuPizza from "@/assets/menu-pizza.jpg";
 import menuTandooriChicken from "@/assets/menu-tandoori-chicken.jpg";
 import menuRaita from "@/assets/menu-raita.jpg";
 import menuChineseNonVeg from "@/assets/menu-chinese-nonveg.jpg";
+import menuSweets from "@/assets/menu-sweets.jpg";
+import menuBakery from "@/assets/menu-bakery.jpg";
+import menuCafe from "@/assets/menu-cafe.jpg";
+import menuChaatStalls from "@/assets/menu-chaat-stalls.jpg";
+import menuFruitShop from "@/assets/menu-fruit-shop.jpg";
+import menuSalads from "@/assets/menu-salads.jpg";
+import menuHotDesserts from "@/assets/menu-hot-desserts.jpg";
+import menuColdDesserts from "@/assets/menu-cold-desserts.jpg";
+import menuMocktails from "@/assets/menu-mocktails.jpg";
+import galleryNaan from "@/assets/gallery-naan.jpg";
 
 export {
   shahiVillaReal,
@@ -56,6 +66,16 @@ export {
   menuPizza,
   menuTandooriChicken,
   menuRaita,
+  menuSweets,
+  menuBakery,
+  menuCafe,
+  menuChaatStalls,
+  menuFruitShop,
+  menuSalads,
+  menuHotDesserts,
+  menuColdDesserts,
+  menuMocktails,
+  galleryNaan,
 };
 
 export interface VenueSpace {

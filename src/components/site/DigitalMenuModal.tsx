@@ -17,6 +17,52 @@ import {
 import { useBooking } from "@/context/BookingContext";
 import { GOLDEN_MENU_CATEGORIES, type GoldenMenuCategory } from "@/lib/goldenMenuData";
 import { SilverMenuView } from "./SilverMenuView";
+import {
+  menuDrinks,
+  menuBreakfast,
+  menuSoups,
+  menuPizza,
+  menuTandoori,
+  menuChineseNonVeg,
+  menuFish,
+  menuChicken,
+  menuCurries,
+  menuRaita,
+  menuSweets,
+  menuBakery,
+  menuCafe,
+  menuChaatStalls,
+  menuFruitShop,
+  menuSalads,
+  menuHotDesserts,
+  menuColdDesserts,
+  menuMocktails,
+  galleryNaan,
+} from "@/lib/venue";
+
+// Dedicated authentic food photography mapping for every Golden Menu category
+const GOLDEN_CATEGORY_IMAGES: Record<string, string> = {
+  welcome: menuDrinks,
+  breakfast: menuBreakfast,
+  "live-tawa": menuBreakfast,
+  sweets: menuSweets,
+  bakery: menuBakery,
+  soup: menuSoups,
+  "coffee-shakes": menuCafe,
+  stalls: menuChaatStalls,
+  children: menuPizza,
+  "fruit-shop": menuFruitShop,
+  "mocktail-bar": menuMocktails,
+  "veg-snacks": menuTandoori,
+  "non-veg-snacks": menuFish,
+  salad: menuSalads,
+  raita: menuRaita,
+  "veg-main-course": menuCurries,
+  "chinese-thai": menuChineseNonVeg,
+  "live-counters": menuCurries,
+  "non-veg-main-course": menuChicken,
+  chapati: galleryNaan,
+};
 
 export function DigitalMenuModal() {
   const { isDigitalMenuOpen, closeDigitalMenu } = useBooking();
@@ -298,93 +344,148 @@ export function DigitalMenuModal() {
 
                   {/* Complete 20 Categories Grid / Sections */}
                   <div className="space-y-6 sm:space-y-8">
-                    {GOLDEN_MENU_CATEGORIES.map((category, idx) => (
-                      <section
-                        key={category.id}
-                        id={`cat-${category.id}`}
-                        className="rounded-2xl sm:rounded-3xl border border-brass/30 bg-[#15110d] p-5 sm:p-7 lg:p-8 shadow-card scroll-mt-28"
-                      >
-                        {/* Category Header */}
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-brass/20">
-                          <div className="flex items-center gap-3">
-                            <span className="flex size-7 sm:size-8 items-center justify-center rounded-full bg-brass/15 border border-brass/40 text-brass text-xs font-bold">
-                              {idx + 1}
-                            </span>
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <h3 className="font-display text-xl sm:text-2xl font-bold tracking-wide text-white">
-                                  {category.title}
-                                </h3>
-                                {category.punjabiTitle && (
-                                  <span className="font-gurmukhi text-xs text-brass-light/70 hidden sm:inline">
-                                    {category.punjabiTitle}
+                    {GOLDEN_MENU_CATEGORIES.map((category, idx) => {
+                      const foodImg = GOLDEN_CATEGORY_IMAGES[category.id];
+
+                      return (
+                        <section
+                          key={category.id}
+                          id={`cat-${category.id}`}
+                          className="rounded-2xl sm:rounded-3xl border border-brass/30 bg-[#15110d] overflow-hidden shadow-card scroll-mt-28 transition-all hover:border-brass/60 group"
+                        >
+                          {/* Section Start Image Banner with Clean Section Text */}
+                          {foodImg && (
+                            <div className="relative h-44 sm:h-56 md:h-64 w-full overflow-hidden border-b border-brass/25 bg-black">
+                              <img
+                                src={foodImg}
+                                alt={`${category.title} royal banquet spread at Shah Junction Villa`}
+                                className="size-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                                loading="lazy"
+                              />
+                              {/* Cinematic Golden Overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-[#15110d] via-[#15110d]/40 to-transparent" />
+                              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/30" />
+
+                              {/* Top Glass Badges */}
+                              <div className="absolute top-3.5 sm:top-4 inset-x-3.5 sm:inset-x-5 flex items-center justify-between pointer-events-none">
+                                <span className="flex size-7 sm:size-8 items-center justify-center rounded-full bg-black/65 backdrop-blur-md border border-brass/50 text-brass text-xs font-bold shadow-md">
+                                  {idx + 1}
+                                </span>
+                                {category.note && (
+                                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/65 backdrop-blur-md border border-brass/40 text-brass-light text-[11px] sm:text-xs font-semibold shadow-md">
+                                    <Info className="size-3 text-brass shrink-0" />
+                                    <span>{category.note}</span>
                                   </span>
                                 )}
                               </div>
-                            </div>
-                          </div>
 
-                          {category.note && (
-                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brass/15 border border-brass/35 text-brass-light text-xs font-semibold self-start sm:self-auto">
-                              <Info className="size-3 text-brass shrink-0" />
-                              <span>{category.note}</span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Flat Items List (if category has direct items) */}
-                        {category.items && category.items.length > 0 && (
-                          <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            {category.items.map((item, itemIdx) => (
-                              <div
-                                key={itemIdx}
-                                className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-brass/15 hover:border-brass/40 transition-colors"
-                              >
-                                <span className="text-brass text-xs">✦</span>
-                                <span className="text-xs sm:text-sm text-soft-cream/90 font-medium font-sans">
-                                  {item}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* Subsections (for categories like Breakfast Veg/Non-Veg, Snacks Indian/Roasted/Chinese, etc.) */}
-                        {category.subSections && category.subSections.length > 0 && (
-                          <div className="mt-5 space-y-5">
-                            {category.subSections.map((sub, subIdx) => (
-                              <div key={subIdx} className="space-y-3 pt-3 first:pt-0 border-t first:border-t-0 border-brass/15">
-                                <div className="flex items-center justify-between">
-                                  <h4 className="text-xs sm:text-sm font-bold tracking-[0.16em] uppercase text-brass flex items-center gap-2">
-                                    <span className="size-1.5 rounded-full bg-brass" />
-                                    <span>{sub.title}</span>
-                                  </h4>
-                                  {sub.note && (
-                                    <span className="text-[11px] font-semibold text-brass-light/80 bg-brass/10 px-2.5 py-0.5 rounded-full border border-brass/25">
-                                      {sub.note}
+                              {/* Bottom Section Title & Clean Details */}
+                              <div className="absolute bottom-3.5 sm:bottom-4 inset-x-3.5 sm:inset-x-6 text-white">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-brass/25 backdrop-blur-md border border-brass/45 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-brass-light shadow-xs">
+                                    <Sparkles className="size-2.5 text-brass" />
+                                    <span>Royal Golden Selection</span>
+                                  </span>
+                                  {category.punjabiTitle && (
+                                    <span className="font-gurmukhi text-xs text-brass-light/80 bg-black/40 backdrop-blur-xs px-2.5 py-0.5 rounded-full border border-brass/20">
+                                      {category.punjabiTitle}
                                     </span>
                                   )}
                                 </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                  {sub.items.map((item, itemIdx) => (
-                                    <div
-                                      key={itemIdx}
-                                      className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-brass/15 hover:border-brass/40 transition-colors"
-                                    >
-                                      <span className="text-brass text-xs">✦</span>
-                                      <span className="text-xs sm:text-sm text-soft-cream/90 font-medium font-sans">
-                                        {item}
-                                      </span>
-                                    </div>
-                                  ))}
-                                </div>
+                                <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-wide text-white drop-shadow-md mt-1">
+                                  {category.title}
+                                </h3>
                               </div>
-                            ))}
+                            </div>
+                          )}
+
+                          {/* Section Body */}
+                          <div className="p-4 sm:p-6 lg:p-7">
+                            {/* Fallback Header if no image */}
+                            {!foodImg && (
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-brass/20">
+                                <div className="flex items-center gap-3">
+                                  <span className="flex size-7 sm:size-8 items-center justify-center rounded-full bg-brass/15 border border-brass/40 text-brass text-xs font-bold">
+                                    {idx + 1}
+                                  </span>
+                                  <div>
+                                    <div className="flex items-center gap-2">
+                                      <h3 className="font-display text-xl sm:text-2xl font-bold tracking-wide text-white">
+                                        {category.title}
+                                      </h3>
+                                      {category.punjabiTitle && (
+                                        <span className="font-gurmukhi text-xs text-brass-light/70 hidden sm:inline">
+                                          {category.punjabiTitle}
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {category.note && (
+                                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brass/15 border border-brass/35 text-brass-light text-xs font-semibold self-start sm:self-auto">
+                                    <Info className="size-3 text-brass shrink-0" />
+                                    <span>{category.note}</span>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+
+                            {/* Flat Items List (if category has direct items) */}
+                            {category.items && category.items.length > 0 && (
+                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                {category.items.map((item, itemIdx) => (
+                                  <div
+                                    key={itemIdx}
+                                    className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-brass/15 hover:border-brass/40 transition-colors"
+                                  >
+                                    <span className="text-brass text-xs">✦</span>
+                                    <span className="text-xs sm:text-sm text-soft-cream/90 font-medium font-sans">
+                                      {item}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+
+                            {/* Subsections (for categories like Breakfast Veg/Non-Veg, Snacks Indian/Roasted/Chinese, etc.) */}
+                            {category.subSections && category.subSections.length > 0 && (
+                              <div className="space-y-5">
+                                {category.subSections.map((sub, subIdx) => (
+                                  <div key={subIdx} className="space-y-3 pt-3 first:pt-0 border-t first:border-t-0 border-brass/15">
+                                    <div className="flex items-center justify-between">
+                                      <h4 className="text-xs sm:text-sm font-bold tracking-[0.16em] uppercase text-brass flex items-center gap-2">
+                                        <span className="size-1.5 rounded-full bg-brass" />
+                                        <span>{sub.title}</span>
+                                      </h4>
+                                      {sub.note && (
+                                        <span className="text-[11px] font-semibold text-brass-light/80 bg-brass/10 px-2.5 py-0.5 rounded-full border border-brass/25">
+                                          {sub.note}
+                                        </span>
+                                      )}
+                                    </div>
+
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                      {sub.items.map((item, itemIdx) => (
+                                        <div
+                                          key={itemIdx}
+                                          className="flex items-center gap-2.5 p-3 rounded-xl bg-white/[0.03] border border-brass/15 hover:border-brass/40 transition-colors"
+                                        >
+                                          <span className="text-brass text-xs">✦</span>
+                                          <span className="text-xs sm:text-sm text-soft-cream/90 font-medium font-sans">
+                                            {item}
+                                          </span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </section>
-                    ))}
+                        </section>
+                      );
+                    })}
                   </div>
 
                   {/* Bottom Note & Quality Assurance */}

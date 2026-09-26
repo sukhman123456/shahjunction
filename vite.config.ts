@@ -374,6 +374,28 @@ function copyPalaceAssetsPlugin() {
         console.log("[palace-plugin] Synced new shah-junction-owner.jpg");
       }
 
+      // Newly generated dedicated menu images for all 20 categories
+      const newMenuDir = "C:/Users/hp/.gemini/antigravity-ide/brain/9047ddc1-d796-4f1d-b108-d253cd1aa8c8";
+      const newMenuPhotos: Record<string, string> = {
+        "menu_sweets_1790423241366.jpg": "menu-sweets.jpg",
+        "menu_bakery_1790423277696.jpg": "menu-bakery.jpg",
+        "menu_cafe_1790423324976.jpg": "menu-cafe.jpg",
+        "menu_chaat_stalls_1790423342249.jpg": "menu-chaat-stalls.jpg",
+        "menu_fruit_shop_1790423363604.jpg": "menu-fruit-shop.jpg",
+        "menu_salads_1790423383080.jpg": "menu-salads.jpg",
+        "menu_hot_desserts_1790423409754.jpg": "menu-hot-desserts.jpg",
+        "menu_cold_desserts_1790423433233.jpg": "menu-cold-desserts.jpg",
+        "menu_mocktails_1790423455459.jpg": "menu-mocktails.jpg",
+      };
+      for (const [srcFile, dstFile] of Object.entries(newMenuPhotos)) {
+        const fullSrc = path.join(newMenuDir, srcFile);
+        if (fs.existsSync(fullSrc)) {
+          fs.copyFileSync(fullSrc, path.join(assetsDir, dstFile));
+          fs.copyFileSync(fullSrc, path.join(publicDir, dstFile));
+          console.log("[palace-plugin] Synced " + dstFile);
+        }
+      }
+
       // The Grand Entrance Palace Gate image
       const brainRoot = "C:/Users/hp/.gemini/antigravity-ide/brain/5a7ab2f5-13ed-4bdd-86ed-d8eb2c8836a4";
       const tempStorage = path.join(brainRoot, ".tempmediaStorage");
