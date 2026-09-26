@@ -158,7 +158,7 @@ export const venueFacilities: FacilityItem[] = [
   {
     id: "event-hall",
     name: "Climate-Controlled Grand Hall",
-    punjabiName: "ਸ਼ਾਹੀ ਏ.ਸੀ. ਬੈਂਕੁਇਟ ਹਾਲ",
+    punjabiName: "ਸ਼ਾਹ ਏ.ਸੀ. ਬੈਂਕੁਇਟ ਹਾਲ",
     description: "Soaring ceilings, multi-tier cove tray illumination, and classical Roman pillars accommodating up to 1,200 guests.",
     tag: "Fully Air-Conditioned",
     stat: "1,200 Guests",
@@ -174,7 +174,7 @@ export const venueFacilities: FacilityItem[] = [
   {
     id: "outdoor-space",
     name: "Royal Celebration Lawns",
-    punjabiName: "ਵਿਸ਼ਾਲ ਸ਼ਾਹੀ ਲੌਨ",
+    punjabiName: "ਵਿਸ਼ਾਲ ਸ਼ਾਹ ਲੌਨ",
     description: "Manicured green grounds for golden shamianas, open-sky dining, and starlit Anand Karaj celebrations under Punjab skies.",
     tag: "1,500+ Guest Capacity",
     stat: "1,500+ Capacity",
@@ -206,7 +206,7 @@ export const venueFacilities: FacilityItem[] = [
   {
     id: "entrance-area",
     name: "Procession & Barat Gateway",
-    punjabiName: "ਸ਼ਾਹੀ ਬਰਾਤ ਰੂਟ ਤੇ ਗੇਟ",
+    punjabiName: "ਸ਼ਾਹ ਬਰਾਤ ਰੂਟ ਤੇ ਗੇਟ",
     description: "Grand pillared portico and paved driveway designed for traditional barat arrivals, dhol beats, and warm greetings.",
     tag: "Royal Barat Route",
     stat: "Grand Procession",
@@ -238,7 +238,7 @@ export const venueFacilities: FacilityItem[] = [
   {
     id: "dining-area",
     name: "Dedicated Dining & Buffets",
-    punjabiName: "ਸ਼ਾਹੀ ਬੁਫੇ ਤੇ ਲਾਈਵ ਕਾਊਂਟਰ",
+    punjabiName: "ਸ਼ਾਹ ਬੁਫੇ ਤੇ ਲਾਈਵ ਕਾਊਂਟਰ",
     description: "Organized indoor and outdoor banquet catering zones with live tandoor and buffet counters for smooth service.",
     tag: "Banquet Hospitality",
     stat: "Multi-Cuisine",

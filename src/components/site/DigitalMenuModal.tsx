@@ -135,7 +135,7 @@ export function DigitalMenuModal() {
               <div id="digital-menu-description" className="text-center max-w-2xl mx-auto space-y-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brass/15 border border-brass/40 text-brass-light text-[11px] font-semibold tracking-widest uppercase">
                   <Sparkles className="size-3 text-brass" />
-                  <span>ROYAL BANQUET SELECTIONS · ਸ਼ਾਹੀ ਮੈਨਿਊ</span>
+                  <span>ROYAL BANQUET SELECTIONS · ਸ਼ਾਹ ਮੈਨਿਊ</span>
                 </span>
                 <p className="text-xs sm:text-sm text-soft-cream/70 font-sans">
                   Choose between our signature banquet packages below. Digitally presented in complete detail for your wedding and celebration planning.
@@ -187,7 +187,7 @@ export function DigitalMenuModal() {
 
                   <div className="mt-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-brass-light/70 font-gurmukhi">ਸ਼ਾਹੀ ਗੋਲਡਨ ਮੈਨਿਊ</span>
+                      <span className="text-xs text-brass-light/70 font-gurmukhi">ਸ਼ਾਹ ਗੋਲਡਨ ਮੈਨਿਊ</span>
                       <span className="text-[10px] text-brass">• 20 Categories</span>
                     </div>
                     <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-wide text-white mt-1 group-hover:text-brass-light transition-colors">
@@ -239,7 +239,7 @@ export function DigitalMenuModal() {
 
                   <div className="mt-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-slate-300 font-gurmukhi">ਸ਼ਾਹੀ ਸਿਲਵਰ ਮੈਨਿਊ</span>
+                      <span className="text-xs text-slate-300 font-gurmukhi">ਸ਼ਾਹ ਸਿਲਵਰ ਮੈਨਿਊ</span>
                       <span className="text-[10px] text-slate-400">• 20 Categories</span>
                     </div>
                     <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-wide text-white mt-1 group-hover:text-slate-200 transition-colors">

@@ -89,7 +89,7 @@ export const menuItems: MenuItem[] = [
   {
     id: "punjabi-deluxe-thali",
     name: "Shah Junction Royal Thali",
-    punjabiName: "ਸ਼ਾਹੀ ਥਾਲੀ",
+    punjabiName: "ਸ਼ਾਹ ਥਾਲੀ",
     description: "Complete traditional brass thali feast featuring Dal Makhani, Paneer specialty, seasonal subzi, jeera rice, 2 hot naans, salad, and raita.",
     price: "₹320",
     image: galleryThali,

@@ -62,7 +62,7 @@ const CATEGORY_VISUALS: Partial<Record<MenuCategoryTab, CategoryVisualInfo>> = {
   Drinks: {
     tabKey: "Drinks",
     image: menuDrinks,
-    punjabiTag: "ਸ਼ਾਹੀ ਕਾਕਟੇਲ ਅਤੇ ਮੌਕਟੇਲ",
+    punjabiTag: "ਸ਼ਾਹ ਕਾਕਟੇਲ ਅਤੇ ਮੌਕਟੇਲ",
     title: "Signature Cocktails, Draught Beers & Royal Mocktails",
     description:
       "Handcrafted virgin mojitos, chilled draught beers, thick craft shakes, and exotic fruit coolers served in ice-chilled glassware at our pergola bar counter.",
@@ -72,7 +72,7 @@ const CATEGORY_VISUALS: Partial<Record<MenuCategoryTab, CategoryVisualInfo>> = {
   Breakfast: {
     tabKey: "Breakfast",
     image: menuBreakfast,
-    punjabiTag: "ਸ਼ਾਹੀ ਅੰਮ੍ਰਿਤਸਰੀ ਨਾਸ਼ਤਾ",
+    punjabiTag: "ਸ਼ਾਹ ਅੰਮ੍ਰਿਤਸਰੀ ਨਾਸ਼ਤਾ",
     title: "Crispy Amritsari Stuffed Kulcha & Desi Ghee Breakfast",
     description:
       "Golden crispy tandoor kulchas smothered with homemade white butter, served with spicy Amritsari chole, pickled onions, and tall frothy lassi.",
@@ -82,7 +82,7 @@ const CATEGORY_VISUALS: Partial<Record<MenuCategoryTab, CategoryVisualInfo>> = {
   Snacks: {
     tabKey: "Snacks",
     image: menuChinese,
-    punjabiTag: "ਸ਼ਾਹੀ ਸਟਾਰਟਰਸ ਤੇ ਸਨੈਕਸ",
+    punjabiTag: "ਸ਼ਾਹ ਸਟਾਰਟਰਸ ਤੇ ਸਨੈਕਸ",
     title: "Crispy Sizzlers, Golden Pakoras & Evening Starters",
     description:
       "Crisp paneer pakoras, golden fries, crunchy bites, and sizzlers tossed fresh with authentic aromatic spices.",
@@ -92,7 +92,7 @@ const CATEGORY_VISUALS: Partial<Record<MenuCategoryTab, CategoryVisualInfo>> = {
   Veg: {
     tabKey: "Veg",
     image: menuCurries,
-    punjabiTag: "ਸ਼ਾਹੀ ਸ਼ਾਕਾਹਾਰੀ ਦਸਤਰਖ਼ਾਨ",
+    punjabiTag: "ਸ਼ਾਹ ਸ਼ਾਕਾਹਾਰੀ ਦਸਤਰਖ਼ਾਨ",
     title: "Slow-Simmered Royal Vegetarian Handi Curries",
     description:
       "Rich 24-hour slow-cooked Dal Makhani, Paneer Lababdar, and Mughlai gravies simmered with fresh cream and cashews in hammered copper handis.",
@@ -102,12 +102,12 @@ const CATEGORY_VISUALS: Partial<Record<MenuCategoryTab, CategoryVisualInfo>> = {
   "Non-Veg": {
     tabKey: "Non-Veg",
     image: menuChicken,
-    punjabiTag: "ਸ਼ਾਹੀ ਬਟਰ ਚਿਕਨ ਤੇ ਨੌਨ-ਵੈੱਜ ਸਵਾਦ",
+    punjabiTag: "ਸ਼ਾਹ ਬਟਰ ਚਿਕਨ ਤੇ ਨੌਨ-ਵੈੱਜ ਸਵਾਦ",
     title: "Authentic Butter Chicken, Mutton Curries & Sizzlers",
     description:
       "Tender tandoori chicken simmered in rich velvety tomato butter gravy, slow-braised mutton rogan josh, and fresh crispy fish delicacies.",
     chefPicks: ["Old Delhi Butter Chicken", "Shahi Nawan Spl. Chicken", "Mutton Rogan Josh", "Amritsari Fish Fry"],
-    tag: "Shahi Chicken & Meat",
+    tag: "Shah Chicken & Meat",
   },
   Chinese: {
     tabKey: "Chinese",
@@ -132,7 +132,7 @@ const CATEGORY_VISUALS: Partial<Record<MenuCategoryTab, CategoryVisualInfo>> = {
   "Main Course": {
     tabKey: "Main Course",
     image: menuCurries,
-    punjabiTag: "ਸ਼ਾਹੀ ਮੁੱਖ ਖਾਣਾ ਤੇ ਬਿਰਯਾਨੀ",
+    punjabiTag: "ਸ਼ਾਹ ਮੁੱਖ ਖਾਣਾ ਤੇ ਬਿਰਯਾਨੀ",
     title: "Handcrafted Royal Gravies, Basmati Rice & Dum Biryani",
     description:
       "A complete royal feast prepared with pure ghee, slow-cooked gravies, fragrant saffron basmati rice, and hot tandoori breads.",
@@ -142,7 +142,7 @@ const CATEGORY_VISUALS: Partial<Record<MenuCategoryTab, CategoryVisualInfo>> = {
   Raita: {
     tabKey: "Raita",
     image: menuRaita,
-    punjabiTag: "ਤਾਜ਼ਾ ਦਹੀਂ ਤੇ ਸ਼ਾਹੀ ਰਾਇਤਾ",
+    punjabiTag: "ਤਾਜ਼ਾ ਦਹੀਂ ਤੇ ਸ਼ਾਹ ਰਾਇਤਾ",
     title: "Chilled Farm-Fresh Curd & Spiced Raitas",
     description:
       "Thick velvety whipped curd garnished with golden crispy boondi, garden mint, roasted cumin, and fresh fruits served with roasted papad.",
@@ -170,14 +170,14 @@ const ALL_CUISINE_CARDS = [
     tabKey: "Main Course" as MenuCategoryTab,
     image: menuCurries,
     title: "Royal Curries",
-    punjabi: "ਸ਼ਾਹੀ ਗ੍ਰੇਵੀਆਂ",
+    punjabi: "ਸ਼ਾਹ ਗ੍ਰੇਵੀਆਂ",
     subtitle: "Dal Makhani & Butter Chicken",
   },
   {
     tabKey: "Non-Veg" as MenuCategoryTab,
     image: menuChicken,
     title: "Butter Chicken",
-    punjabi: "ਸ਼ਾਹੀ ਬਟਰ ਚਿਕਨ",
+    punjabi: "ਸ਼ਾਹ ਬਟਰ ਚਿਕਨ",
     subtitle: "Tandoori chicken, gravies & meat",
   },
   {
@@ -272,9 +272,9 @@ const CATEGORY_META: Record<
 > = {
   All: { label: "All Dishes", icon: "✦", subtitle: "Complete 260+ Royal Menu" },
   Drinks: { label: "Drinks & Mocktails", icon: "🍸", subtitle: "Cocktails & Chilled Delights" },
-  Breakfast: { label: "Shahi Breakfast", icon: "🍳", subtitle: "Fresh Morning Specials" },
+  Breakfast: { label: "Shah Breakfast", icon: "🍳", subtitle: "Fresh Morning Specials" },
   Snacks: { label: "Starters & Snacks", icon: "🍟", subtitle: "Crispy Sizzlers & Bites" },
-  Veg: { label: "Shahi Veg", icon: "🥬", subtitle: "Royal Vegetarian Curries" },
+  Veg: { label: "Shah Veg", icon: "🥬", subtitle: "Royal Vegetarian Curries" },
   "Non-Veg": { label: "Royal Non-Veg", icon: "🍗", subtitle: "Chicken, Mutton & Fish" },
   Chinese: { label: "Indo-Chinese", icon: "🥢", subtitle: "Wok Gravies, Noodles & Rice" },
   Tandoori: { label: "Clay Tandoor", icon: "🍢", subtitle: "Live Charcoal Sizzlers & Breads" },
@@ -418,7 +418,7 @@ export function DigitalMenu() {
             <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#ebdcc6] border border-[#cfb895] text-[#734c16] text-xs font-bold tracking-widest uppercase mb-4 shadow-xs">
               <Sparkles className="size-3.5 text-[#a87425]" />
               <span className="font-gurmukhi text-[13px] tracking-wider">
-                ਸ਼ਾਹੀ ਦਸਤਰਖ਼ਾਨ · ਸ਼ਾਹੀ ਮੀਨੂ
+                ਸ਼ਾਹ ਦਸਤਰਖ਼ਾਨ · ਸ਼ਾਹ ਮੀਨੂ
               </span>
               <span className="text-[#a87425]">•</span>
               <span>ROYAL PALACE MENU</span>
@@ -732,7 +732,7 @@ export function DigitalMenu() {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-[#dfcbaf]">
                   <div>
                     <span className="text-[11px] font-bold uppercase tracking-widest text-[#885718] block">
-                      ROYAL KITCHEN & BAR SHOWCASE · ਸ਼ਾਹੀ ਵੰਨਗੀਆਂ
+                      ROYAL KITCHEN & BAR SHOWCASE · ਸ਼ਾਹ ਵੰਨਗੀਆਂ
                     </span>
                     <h3 className="font-display text-xl sm:text-2xl font-bold text-[#231911]">
                       Explore Our Signature Culinary Sections
@@ -828,7 +828,7 @@ export function DigitalMenu() {
                     "Mocktails": {
                       image: menuDrinks,
                       tag: "Signature Mocktails",
-                      punjabi: "ਸ਼ਾਹੀ ਮੌਕਟੇਲ ਤੇ ਕੂਲਰਸ",
+                      punjabi: "ਸ਼ਾਹ ਮੌਕਟੇਲ ਤੇ ਕੂਲਰਸ",
                       title: "Handcrafted Fresh Fruit Mocktails & Coolers",
                       desc: "Crisp crushed mint virgin mojitos, Blue Lagoon, passion fruit punches, and chilled craft mocktails.",
                     },
@@ -842,7 +842,7 @@ export function DigitalMenu() {
                     "Shakes & Cold Drinks": {
                       image: menuDrinks,
                       tag: "Creamy Shakes & Floats",
-                      punjabi: "ਸ਼ਾਹੀ ਸ਼ੇਕਸ ਤੇ ਠੰਡੀਆਂ ਡਰਿੰਕਸ",
+                      punjabi: "ਸ਼ਾਹ ਸ਼ੇਕਸ ਤੇ ਠੰਡੀਆਂ ਡਰਿੰਕਸ",
                       title: "Thick Shakes, Smoothies & Cold Drinks",
                       desc: "Velvety Oreo, Belgian chocolate, strawberry and mango thick shakes topped with cream and dry fruits.",
                     },
@@ -881,7 +881,7 @@ export function DigitalMenu() {
                     "Soups": {
                       image: menuSoups,
                       tag: "Piping Hot Soups",
-                      punjabi: "ਗਰਮਾ-ਗਰਮ ਸ਼ਾਹੀ ਸੂਪ",
+                      punjabi: "ਗਰਮਾ-ਗਰਮ ਸ਼ਾਹ ਸੂਪ",
                       title: "Gourmet Steaming Manchow & Shorba",
                       desc: "Rich slow-simmered broths infused with ginger, garlic, veggies, and crunchy fried golden noodles.",
                     },
@@ -962,7 +962,7 @@ export function DigitalMenu() {
                     "Chinese Rice": {
                       image: menuChinese,
                       tag: "Fragrant Wok Rice",
-                      punjabi: "ਸ਼ਾਹੀ ਚਾਈਨੀਜ਼ ਫਰਾਈਡ ਰਾਈਸ",
+                      punjabi: "ਸ਼ਾਹ ਚਾਈਨੀਜ਼ ਫਰਾਈਡ ਰਾਈਸ",
                       title: "Wok-Tossed Fried Rice & Schezwan Bowls",
                       desc: "Fragrant long-grain basmati rice wok-tossed with fresh crunchy vegetables, garlic, and oriental sauces.",
                     },
@@ -971,14 +971,14 @@ export function DigitalMenu() {
                     "Indian Main Course - Veg": {
                       image: menuCurries,
                       tag: "Royal Handi Curries",
-                      punjabi: "ਸ਼ਾਹੀ ਦਾਲ ਮਖਣੀ ਤੇ ਪਨੀਰ ਲਬਾਬਦਾਰ",
+                      punjabi: "ਸ਼ਾਹ ਦਾਲ ਮਖਣੀ ਤੇ ਪਨੀਰ ਲਬਾਬਦਾਰ",
                       title: "Slow-Cooked Dal Makhani & Handi Gravies",
                       desc: "Simmered overnight with white butter, cream, and ground spices in authentic hammered copper handis.",
                     },
                     "Indian Curry - Non-Veg": {
                       image: menuChicken,
                       tag: "Authentic Butter Chicken",
-                      punjabi: "ਸ਼ਾਹੀ ਬਟਰ ਚਿਕਨ ਤੇ ਮਟਨ ਰੋਗਨ ਜੋਸ਼",
+                      punjabi: "ਸ਼ਾਹ ਬਟਰ ਚਿਕਨ ਤੇ ਮਟਨ ਰੋਗਨ ਜੋਸ਼",
                       title: "Velvety Butter Chicken & Braised Mutton",
                       desc: "Smokey shredded tandoori chicken in rich cashew-tomato butter makhani gravy and slow-cooked mutton.",
                     },
@@ -987,7 +987,7 @@ export function DigitalMenu() {
                     "Raita & Curd": {
                       image: menuRaita,
                       tag: "Chilled Spiced Raita",
-                      punjabi: "ਤਾਜ਼ਾ ਦਹੀਂ ਤੇ ਸ਼ਾਹੀ ਬੂੰਦੀ ਰਾਇਤਾ",
+                      punjabi: "ਤਾਜ਼ਾ ਦਹੀਂ ਤੇ ਸ਼ਾਹ ਬੂੰਦੀ ਰਾਇਤਾ",
                       title: "Chilled Farm-Fresh Spiced Raitas",
                       desc: "Velvety whipped curd with crispy golden boondi, roasted jeera, garden mint, and pomegranate pearls.",
                     },

@@ -27,7 +27,7 @@ const realDiningSpaces = [
   {
     id: "bar-counter",
     title: "The Royal Bar Counter & Draught Beers",
-    punjabiTitle: "ਸ਼ਾਹੀ ਬਾਰ ਕਾਊਂਟਰ",
+    punjabiTitle: "ਸ਼ਾਹ ਬਾਰ ਕਾਊਂਟਰ",
     subtitle: "Draught Beers On Tap, Spirits & Signature Cocktails",
     image: shahiBarCounter,
     icon: Wine,
@@ -77,7 +77,7 @@ const menuHighlights = [
   },
   {
     category: "Royal Curries & Breads",
-    punjabi: "ਸ਼ਾਹੀ ਗ੍ਰੇਵੀਆਂ ਤੇ ਨਾਨ",
+    punjabi: "ਸ਼ਾਹ ਗ੍ਰੇਵੀਆਂ ਤੇ ਨਾਨ",
     icon: ChefHat,
     image: menuCurries,
     items: [
@@ -130,12 +130,12 @@ export function RestaurantSection() {
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brass/15 border border-brass/40 text-brass-light text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm">
               <Sparkles className="size-3.5 text-brass" />
-              <span>AUTHENTIC DINING & BAR · ਸ਼ਾਹੀ ਰੈਸਟੋਰੈਂਟ ਅਤੇ ਬਾਰ</span>
+              <span>AUTHENTIC DINING & BAR · ਸ਼ਾਹ ਰੈਸਟੋਰੈਂਟ ਅਤੇ ਬਾਰ</span>
               <Sparkles className="size-3.5 text-brass" />
             </div>
 
             <h2 className="font-display text-[clamp(2.1rem,4.8vw,3.75rem)] font-bold tracking-tight text-soft-cream leading-[1.12]">
-              THE SHAHI RESTAURANT & BAR
+              THE SHAH RESTAURANT & BAR
             </h2>
 
             <div className="mt-3 flex items-center justify-center gap-3">
@@ -267,7 +267,7 @@ export function RestaurantSection() {
               <div>
                 <p className="text-xs font-bold uppercase tracking-widest text-brass-light flex items-center gap-2">
                   <span className="inline-block size-2 rounded-full bg-brass animate-ping" />
-                  CURATED PALACE SPECIALTIES · ਸ਼ਾਹੀ ਸਵਾਦ
+                  CURATED PALACE SPECIALTIES · ਸ਼ਾਹ ਸਵਾਦ
                 </p>
                 <h3 className="mt-2 font-display text-2xl sm:text-3xl font-bold text-soft-cream">
                   Crafted Daily In Our Royal Kitchen & Bar
