@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react";
+import type { EventType } from "@/lib/reservations";
 
 interface BookingContextType {
   isBookingModalOpen: boolean;
   prefilledDate: string | null;
-  openBookingModal: (date?: string) => void;
+  prefilledEventType: EventType | null;
+  openBookingModal: (date?: string, eventType?: EventType) => void;
   closeBookingModal: () => void;
   isAdminModalOpen: boolean;
   openAdminModal: () => void;
@@ -15,13 +17,19 @@ const BookingContext = createContext<BookingContextType | undefined>(undefined);
 export function BookingProvider({ children }: { children: ReactNode }) {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [prefilledDate, setPrefilledDate] = useState<string | null>(null);
+  const [prefilledEventType, setPrefilledEventType] = useState<EventType | null>(null);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
-  const openBookingModal = useCallback((date?: string) => {
+  const openBookingModal = useCallback((date?: string, eventType?: EventType) => {
     if (date) {
       setPrefilledDate(date);
     } else {
       setPrefilledDate(null);
+    }
+    if (eventType) {
+      setPrefilledEventType(eventType);
+    } else {
+      setPrefilledEventType(null);
     }
     setIsBookingModalOpen(true);
   }, []);
@@ -29,6 +37,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   const closeBookingModal = useCallback(() => {
     setIsBookingModalOpen(false);
     setPrefilledDate(null);
+    setPrefilledEventType(null);
   }, []);
 
   const openAdminModal = useCallback(() => {

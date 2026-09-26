@@ -13,7 +13,7 @@ export function FinalCta() {
       {/* Background real palace photography */}
       <img
         src={shahiVillaReal}
-        alt="Shahi Junction Villa illuminated marriage palace in Sahaipur, Punjab"
+        alt="Shah Junction Villa illuminated marriage palace in Sahaipur, Punjab"
         width={1920}
         height={1080}
         loading="lazy"

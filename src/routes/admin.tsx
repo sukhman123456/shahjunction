@@ -50,7 +50,7 @@ import { business } from "@/lib/business";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Owner Admin Portal | Shahi Junction Villa" },
+      { title: "Owner Admin Portal | Shah Junction Villa" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -358,7 +358,7 @@ function AdminPage() {
                 {passwordError && (
                   <div className="p-2.5 rounded-lg bg-rose-950/70 border border-rose-500/50 text-rose-200 text-xs flex items-center justify-center gap-1.5 animate-in fade-in-50">
                     <AlertTriangle className="size-3.5 shrink-0 text-rose-400" />
-                    <span>ਗਲਤ ਪਾਸਵਰਡ ਹੈ! (Default: <strong>shahi2026</strong> ਜਾਂ <strong>1234</strong>)</span>
+                    <span>ਗਲਤ ਪਾਸਵਰਡ ਹੈ! (Default: <strong>shah2026</strong> ਜਾਂ <strong>1234</strong>)</span>
                   </div>
                 )}
 
@@ -373,7 +373,7 @@ function AdminPage() {
 
               <div className="mt-6 p-3.5 rounded-xl bg-black/40 border border-brass/20 text-[11px] text-soft-cream/65 text-left space-y-1">
                 <p>
-                  🔑 <strong>ਪਾਸਵਰਡ ਸੁਝਾਅ:</strong> <strong>shahi2026</strong> ਜਾਂ <strong>1234</strong>
+                  🔑 <strong>ਪਾਸਵਰਡ ਸੁਝਾਅ:</strong> <strong>shah2026</strong> ਜਾਂ <strong>1234</strong>
                 </p>
                 <p className="text-soft-cream/50 text-[10px]">
                   ਇਹ ਲਿੰਕ ਸਿਰਫ਼ ਤੁਹਾਨੂੰ ਪਤਾ ਹੈ (URL: <strong>/admin</strong>). ਵੈੱਬਸਾਈਟ 'ਤੇ ਕਿਸੇ ਆਮ ਯੂਜ਼ਰ ਨੂੰ ਇਹ ਬਟਨ ਨਹੀਂ ਦਿਸੇਗਾ।
@@ -820,7 +820,7 @@ function AdminPage() {
                   <div className="space-y-3.5">
                     {filteredReservations.map((r) => {
                       const cleanPhone = r.phone.replace(/[^0-9]/g, "");
-                      const waDirectUrl = `https://wa.me/${cleanPhone.startsWith("91") ? cleanPhone : `91${cleanPhone}`}?text=${encodeURIComponent(`Hello ${r.customerName}, this is regarding your celebration booking inquiry (ID: ${r.id}) at Shahi Junction Villa.`)}`;
+                      const waDirectUrl = `https://wa.me/${cleanPhone.startsWith("91") ? cleanPhone : `91${cleanPhone}`}?text=${encodeURIComponent(`Hello ${r.customerName}, this is regarding your celebration booking inquiry (ID: ${r.id}) at Shah Junction Villa.`)}`;
 
                       return (
                         <div

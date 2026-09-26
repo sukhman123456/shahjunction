@@ -30,7 +30,7 @@ export function Facilities() {
               <span className="text-brass">✦</span> LEADERSHIP & VISION · ਮਾਲਕ ਦਾ ਸੁਨੇਹਾ <span className="text-brass">✦</span>
             </div>
             <h2 className="font-display text-[clamp(2.1rem,4.8vw,3.75rem)] font-bold tracking-tight text-charcoal leading-[1.12]">
-              HEART OF SHAHI JUNCTION VILLA
+              HEART OF SHAH JUNCTION VILLA
             </h2>
             <div className="mt-3 flex items-center justify-center gap-3">
               <span className="h-[1.5px] w-14 bg-gradient-to-r from-transparent via-brass to-brass/40" />
@@ -68,7 +68,7 @@ export function Facilities() {
                     {ownerPhotoUrl ? (
                       <img
                         src={ownerPhotoUrl}
-                        alt="Owner of Shahi Junction Villa"
+                        alt="Owner of Shah Junction Villa"
                         className="absolute inset-0 size-full object-cover object-center"
                       />
                     ) : (
@@ -103,7 +103,7 @@ export function Facilities() {
                             "Welcoming families with royal warmth"
                           </p>
                           <p className="mt-0.5 text-[11px] text-white/60 tracking-wider uppercase">
-                            Shahi Junction Villa · Sahaipur
+                            Shah Junction Villa · Sahaipur
                           </p>
                         </div>
                       </>
@@ -147,14 +147,14 @@ export function Facilities() {
                   </p>
                   <p className="mt-3 text-xs sm:text-sm font-semibold uppercase tracking-wider text-brass-deep flex items-center gap-2">
                     <span>—</span>
-                    <span>Founder & Managing Director, Shahi Junction Villa</span>
+                    <span>Founder & Managing Director, Shah Junction Villa</span>
                   </p>
                 </div>
 
                 {/* Editorial Story */}
                 <div className="space-y-4 text-sm sm:text-base text-charcoal/80 leading-relaxed font-sans">
                   <p>
-                    Rising as a landmark of celebration in Sahaipur, Punjab, <strong className="text-charcoal font-semibold">Shahi Junction Villa</strong> was born from a simple yet ambitious vision: to offer families in Gurdaspur and surrounding regions a wedding palace that effortlessly blends the grandeur of royal architecture with genuine, heartfelt Punjabi hospitality.
+                    Rising as a landmark of celebration in Sahaipur, Punjab, <strong className="text-charcoal font-semibold">Shah Junction Villa</strong> was born from a simple yet ambitious vision: to offer families in Gurdaspur and surrounding regions a wedding palace that effortlessly blends the grandeur of royal architecture with genuine, heartfelt Punjabi hospitality.
                   </p>
                   <p>
                     We believe that a dream wedding shouldn't come with stress or compromises. That is why we personally built every detail from the ground up — from our <strong className="text-charcoal font-semibold">climate-controlled grand ballroom</strong> with cove tray lighting, to vast <strong className="text-charcoal font-semibold">golden shamiana lawns</strong>, and a dedicated <strong className="text-charcoal font-semibold">2-acre secure parking area</strong> with valet marshals.
@@ -209,7 +209,7 @@ export function Facilities() {
                       MEET PERSONALLY OVER TEA
                     </p>
                     <p className="text-xs text-charcoal/70 mt-0.5">
-                      Visit Shahi Junction Villa · Sahaipur, Gurdaspur, Punjab
+                      Visit Shah Junction Villa · Sahaipur, Gurdaspur, Punjab
                     </p>
                   </div>
 

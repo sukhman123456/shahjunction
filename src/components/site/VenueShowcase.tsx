@@ -39,7 +39,7 @@ export function VenueShowcase() {
           </h2>
 
           <p className="mt-4 text-sm sm:text-base lg:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
-            Explore each signature zone of Shahi Junction Villa — from the soaring cove-lit ballroom to open-air royal shamiana marquees and enchanting jaimala walkway.
+            Explore each signature zone of Shah Junction Villa — from the soaring cove-lit ballroom to open-air royal shamiana marquees and enchanting jaimala walkway.
           </p>
         </Reveal>
 
@@ -135,7 +135,7 @@ export function VenueShowcase() {
                 <div>
                   <div className="flex items-center justify-between text-xs tracking-[0.25em] text-brass-light uppercase font-semibold">
                     <span>SPACE 0{activeIdx + 1} OF 0{venueSpaces.length}</span>
-                    <span className="text-white/40 font-mono">SHAHI JUNCTION</span>
+                    <span className="text-white/40 font-mono">SHAH JUNCTION</span>
                   </div>
 
                   <h3 className="mt-2.5 font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight">

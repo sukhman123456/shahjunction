@@ -349,6 +349,23 @@ function copyPalaceAssetsPlugin() {
         }
       }
 
+      // New Celebrations & Parties uploaded banquet hall images
+      const celebrationBrainDir = "C:/Users/hp/.gemini/antigravity-ide/brain/9047ddc1-d796-4f1d-b108-d253cd1aa8c8/.user_uploaded";
+      const celebrationPhotos: Record<string, string> = {
+        "media_1790407746094.jpg": "banquet-celebration-hall.jpg",
+        "media_1790407750965.jpg": "banquet-engagement-arch.jpg",
+        "media_1790407754498.jpg": "banquet-ceremony-stage.jpg",
+        "media_1790407758494.jpg": "banquet-birthday-party.jpg",
+      };
+      for (const [srcFile, dstFile] of Object.entries(celebrationPhotos)) {
+        const fullSrc = path.join(celebrationBrainDir, srcFile);
+        if (fs.existsSync(fullSrc)) {
+          fs.copyFileSync(fullSrc, path.join(assetsDir, dstFile));
+          fs.copyFileSync(fullSrc, path.join(publicDir, dstFile));
+          console.log("[palace-plugin] Synced celebration photo " + dstFile);
+        }
+      }
+
       // The Grand Entrance Palace Gate image
       const brainRoot = "C:/Users/hp/.gemini/antigravity-ide/brain/5a7ab2f5-13ed-4bdd-86ed-d8eb2c8836a4";
       const tempStorage = path.join(brainRoot, ".tempmediaStorage");

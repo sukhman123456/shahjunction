@@ -15,6 +15,7 @@ import { CinematicIntro } from "@/components/site/CinematicIntro";
 import { Location } from "@/components/site/Location";
 import { Navbar } from "@/components/site/Navbar";
 import { Occasions } from "@/components/site/Occasions";
+import { CelebrationsSection } from "@/components/site/CelebrationsSection";
 import { RestaurantSection } from "@/components/site/RestaurantSection";
 import { DigitalMenu } from "@/components/site/DigitalMenu";
 import { Reviews } from "@/components/site/Reviews";
@@ -22,9 +23,9 @@ import { VenueShowcase } from "@/components/site/VenueShowcase";
 import { BookingProvider } from "@/context/BookingContext";
 import { business } from "@/lib/business";
 
-const title = "Shahi Junction Villa | Marriage Palace & Wedding Resort in Punjab";
+const title = "Shah Junction Villa | Marriage Palace & Wedding Resort in Punjab";
 const description =
-  "Discover Shahi Junction Villa in Sahaipur, Punjab. A premier marriage palace featuring illuminated neoclassical twin domes, royal crimson marquee wedding lawns, and celebrations.";
+  "Discover Shah Junction Villa in Sahaipur, Punjab. A premier marriage palace featuring illuminated neoclassical twin domes, royal crimson marquee wedding lawns, and celebrations.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -102,6 +103,9 @@ function Index() {
 
         {/* 5. Life's Special Occasions */}
         <Occasions />
+
+        {/* 5b. Celebrations & Parties: Celebrate Every Special Moment */}
+        <CelebrationsSection />
 
         {/* 6. Visual Gallery & Lightbox */}
         <Gallery />

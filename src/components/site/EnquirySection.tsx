@@ -17,7 +17,7 @@ export function EnquirySection() {
 
   const getWhatsAppUrl = () => {
     const lines = [
-      "✨ *New Event Enquiry — Shahi Junction Villa*",
+      "✨ *New Event Enquiry — Shah Junction Villa*",
       `👤 *Name:* ${formData.name.trim()}`,
       `📞 *Phone:* ${formData.phone.trim()}`,
       `🎉 *Event Type:* ${formData.eventType}`,
@@ -45,7 +45,7 @@ export function EnquirySection() {
           <SectionHeading
             eyebrow="DIRECT WHATSAPP & PHONE ENQUIRIES"
             title="PLAN YOUR CELEBRATION WITH US"
-            lead="Connect directly with the management team at Shahi Junction Villa via WhatsApp (+91 87280 60036) to discuss dates, spaces, and celebration requirements."
+            lead="Connect directly with the management team at Shah Junction Villa via WhatsApp (+91 87280 60036) to discuss dates, spaces, and celebration requirements."
             align="center"
           />
         </Reveal>

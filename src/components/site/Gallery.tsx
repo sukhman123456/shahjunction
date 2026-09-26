@@ -40,7 +40,7 @@ export function Gallery() {
         <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             eyebrow="AUTHENTIC VENUE GALLERY"
-            title="GLIMPSES OF SHAHI JUNCTION VILLA"
+            title="GLIMPSES OF SHAH JUNCTION VILLA"
             lead="Authentic venue photography capturing our neoclassical entrance facade, climate-controlled grand banquet hall, cascading wisteria jaimala walkway, golden shamiana wedding lawns, and twilight sunset panorama."
           />
         </Reveal>

@@ -14,7 +14,7 @@ export function About() {
           <div className="relative aspect-[3/4] sm:aspect-[4/5] overflow-hidden rounded-sm border-2 border-brass/40 bg-soft-cream p-2 sm:p-2.5 shadow-lift group">
             <img
               src={palaceGate}
-              alt="Grand ceremonial entrance gate of Shahi Junction Villa with neoclassical white columns, arched portico, hanging lantern, and cascading marigold flower staircase in Sahaipur, Punjab"
+              alt="Grand ceremonial entrance gate of Shah Junction Villa with neoclassical white columns, arched portico, hanging lantern, and cascading marigold flower staircase in Sahaipur, Punjab"
               width={1200}
               height={1500}
               loading="lazy"

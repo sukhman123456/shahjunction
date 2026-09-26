@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 echo ================================================================
-echo   Uploading Shahi Junction to GitHub (sukhman123456/shahjunction)
+echo   Uploading Shah Junction to GitHub (sukhman123456/shahjunction)
 echo ================================================================
 echo.
 

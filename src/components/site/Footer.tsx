@@ -23,7 +23,7 @@ export function Footer() {
         <div className="lg:col-span-4">
           <Logo tone="light" />
           <p className="mt-5 sm:mt-6 max-w-sm text-xs sm:text-sm leading-relaxed text-on-dark-muted">
-            Shahi Junction Villa is a premier marriage palace, wedding and celebration venue located in Sahaipur, Punjab.
+            Shah Junction Villa is a premier marriage palace, wedding and celebration venue located in Sahaipur, Punjab.
             Crafted for unforgettable weddings, grand receptions, and cherished family gatherings.
           </p>
           <div className="mt-5 sm:mt-6 inline-flex max-w-full flex-wrap items-center gap-2 rounded-sm border border-line-dark bg-charcoal-soft/70 px-3.5 py-1.5 text-xs text-brass">

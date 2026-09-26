@@ -284,7 +284,7 @@ export function AdminDashboardModal() {
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="font-display text-lg sm:text-2xl font-bold text-soft-cream">
-                  Shahi Junction Villa
+                  Shah Junction Villa
                 </h2>
                 <span className="text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full bg-brass/25 border border-brass/45 text-brass-light uppercase tracking-wider font-semibold">
                   Owner Admin Portal
@@ -372,7 +372,7 @@ export function AdminDashboardModal() {
               {passwordError && (
                 <div className="p-2.5 rounded-lg bg-rose-950/70 border border-rose-500/50 text-rose-200 text-xs flex items-center justify-center gap-1.5 animate-in fade-in-50">
                   <AlertTriangle className="size-3.5 shrink-0 text-rose-400" />
-                  <span>ਗਲਤ ਪਾਸਵਰਡ ਹੈ! (Default Password: <strong>shahi2026</strong> ਜਾਂ <strong>1234</strong>)</span>
+                  <span>ਗਲਤ ਪਾਸਵਰਡ ਹੈ! (Default Password: <strong>shah2026</strong> ਜਾਂ <strong>1234</strong>)</span>
                 </div>
               )}
 
@@ -386,7 +386,7 @@ export function AdminDashboardModal() {
 
               <div className="p-3 rounded-xl bg-black/40 border border-brass/20 text-[11px] text-soft-cream/65 text-left space-y-1">
                 <p>
-                  🔑 <strong>ਪਾਸਵਰਡ ਸੁਝਾਅ (Hint):</strong> ਤੁਸੀਂ <strong>shahi2026</strong>, <strong>shahi</strong> ਜਾਂ <strong>1234</strong> ਭਰ ਕੇ ਲੌਗਇਨ ਕਰ ਸਕਦੇ ਹੋ।
+                  🔑 <strong>ਪਾਸਵਰਡ ਸੁਝਾਅ (Hint):</strong> ਤੁਸੀਂ <strong>shah2026</strong> ਜਾਂ <strong>1234</strong> ਭਰ ਕੇ ਲੌਗਇਨ ਕਰ ਸਕਦੇ ਹੋ।
                 </p>
                 <p className="text-soft-cream/50 text-[10px]">
                   ਲੌਗਇਨ ਕਰਨ ਤੋਂ ਬਾਅਦ ਤੁਸੀਂ "ਪਾਸਵਰਡ ਬਦਲੋ" ਟੈਬ ਵਿੱਚ ਜਾ ਕੇ ਆਪਣਾ ਮਰਜ਼ੀ ਦਾ ਪਾਸਵਰਡ ਰੱਖ ਸਕਦੇ ਹੋ।
@@ -840,7 +840,7 @@ export function AdminDashboardModal() {
                     <div className="space-y-3.5">
                       {filteredReservations.map((r) => {
                         const cleanPhone = r.phone.replace(/[^0-9]/g, "");
-                        const waDirectUrl = `https://wa.me/${cleanPhone.startsWith("91") ? cleanPhone : `91${cleanPhone}`}?text=${encodeURIComponent(`Hello ${r.customerName}, this is regarding your celebration booking inquiry (ID: ${r.id}) at Shahi Junction Villa.`)}`;
+                        const waDirectUrl = `https://wa.me/${cleanPhone.startsWith("91") ? cleanPhone : `91${cleanPhone}`}?text=${encodeURIComponent(`Hello ${r.customerName}, this is regarding your celebration booking inquiry (ID: ${r.id}) at Shah Junction Villa.`)}`;
 
                         return (
                           <div

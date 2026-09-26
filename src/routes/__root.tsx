@@ -79,8 +79,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Shahi Junction Villa | Marriage Palace & Wedding Resort in Punjab" },
-      { property: "og:site_name", content: "Shahi Junction Villa" },
+      { title: "Shah Junction Villa | Marriage Palace & Wedding Resort in Punjab" },
+      { property: "og:site_name", content: "Shah Junction Villa" },
       { property: "og:image", content: shahJunctionLogo },
       { name: "twitter:image", content: shahJunctionLogo },
       { name: "twitter:card", content: "summary_large_image" },

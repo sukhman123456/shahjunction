@@ -388,7 +388,7 @@ html {
    1. 0.0s - 0.8s: Moderate High-Res Architectural Crop (1.24x desktop, 1.18x mobile), zero UI
    2. 0.8s - 4.2s: Smooth Cinematic Camera Pull-Back (cubic-bezier(0.16, 1, 0.3, 1))
    3. 4.2s: Camera Reaches Exact Full Frame & Holds Still (effectively BECOMES the live hero)
-   4. 4.35s - 5.15s: "WELCOME TO SHAHI JUNCTION VILLA" headline emerges smoothly (opacity + upward + blur-to-sharp)
+   4. 4.35s - 5.15s: "WELCOME TO SHAH JUNCTION VILLA" headline emerges smoothly (opacity + upward + blur-to-sharp)
    5. 4.60s - 5.35s: Subtitle ("Where Every Celebration Becomes a Memory") emerges
    6. 4.85s - 5.55s: Action Buttons ("BOOK YOUR EVENT" & "CHECK DATES") emerge
    7. 5.10s - 5.75s: Navbar, watermark, scroll indicator emerge

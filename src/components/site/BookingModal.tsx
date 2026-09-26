@@ -31,7 +31,7 @@ import {
 } from "@/lib/reservations";
 
 export function BookingModal() {
-  const { isBookingModalOpen, closeBookingModal, prefilledDate } = useBooking();
+  const { isBookingModalOpen, closeBookingModal, prefilledDate, prefilledEventType } = useBooking();
 
   // Form state
   const [customerName, setCustomerName] = useState("");
@@ -60,12 +60,15 @@ export function BookingModal() {
   // Today's date in YYYY-MM-DD for min date
   const todayStr = new Date().toISOString().split("T")[0];
 
-  // Sync prefilled date
+  // Sync prefilled date and event type
   useEffect(() => {
     if (prefilledDate) {
       setEventDate(prefilledDate);
     }
-  }, [prefilledDate]);
+    if (prefilledEventType) {
+      setEventType(prefilledEventType);
+    }
+  }, [prefilledDate, prefilledEventType]);
 
   // Check availability whenever date changes
   useEffect(() => {
@@ -245,7 +248,7 @@ export function BookingModal() {
               Reserve Your Celebration Date
             </h2>
             <p className="text-xs sm:text-sm text-soft-cream/75 mt-1 font-sans">
-              Planning a celebration? Reserve your date with Shahi Junction Villa.
+              Planning a celebration? Reserve your date with Shah Junction Villa.
             </p>
           </div>
 
@@ -301,7 +304,7 @@ export function BookingModal() {
                 Thank You, {confirmedReservation.customerName}!
               </h3>
               <p className="mt-2 max-w-md text-xs sm:text-sm text-soft-cream/80 leading-relaxed">
-                Your celebration reservation has been recorded. We are redirecting you directly to the official Shahi Junction Villa WhatsApp (<strong className="text-emerald-400 font-semibold">{RESERVATION_CONTACT.phoneDisplay}</strong>) with all your event details.
+                Your celebration reservation has been recorded. We are redirecting you directly to the official Shah Junction Villa WhatsApp (<strong className="text-emerald-400 font-semibold">{RESERVATION_CONTACT.phoneDisplay}</strong>) with all your event details.
               </p>
 
               {/* Primary Direct WhatsApp Action Button */}

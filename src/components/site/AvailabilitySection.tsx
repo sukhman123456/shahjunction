@@ -337,7 +337,7 @@ export function AvailabilitySection() {
                           <span>Date Confirmed & Reserved</span>
                         </div>
                         <p className="mt-1.5 text-xs text-soft-cream/75 leading-relaxed">
-                          This date is confirmed for an event at Shahi Junction Villa. To maintain exclusivity,
+                          This date is confirmed for an event at Shah Junction Villa. To maintain exclusivity,
                           double bookings are not accepted for confirmed dates.
                         </p>
                         <p className="mt-2 text-xs text-brass-light font-medium">

@@ -41,11 +41,11 @@ export function Hero({ introState = "playing", setIntroState }: HeroProps) {
       id="home"
       className="relative flex h-[100dvh] min-h-[560px] w-full items-start justify-center overflow-hidden bg-[#0c1420] text-on-dark"
     >
-      {/* 1. Authentic Shahi Junction Villa Hero Image (Single Live Source of Truth) */}
+      {/* 1. Authentic Shah Junction Villa Hero Image (Single Live Source of Truth) */}
       <div className="absolute inset-0 size-full overflow-hidden pointer-events-none">
         <img
           src={shahiVillaReal}
-          alt="Shahi Junction Villa — Grand illuminated marriage palace with twin domes, royal crimson marquee, chandeliers and sunset sky in Punjab"
+          alt="Shah Junction Villa — Grand illuminated marriage palace with twin domes, royal crimson marquee, chandeliers and sunset sky in Punjab"
           width={1920}
           height={1080}
           fetchPriority="high"
@@ -82,7 +82,7 @@ export function Hero({ introState = "playing", setIntroState }: HeroProps) {
 
       {/* 4. Clean, Streamlined Sky Text Block with Staggered Entrance */}
       <div className="container-site relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center px-4 sm:px-6 pt-[max(env(safe-area-inset-top,0px),4.25rem)] sm:pt-18 lg:pt-14 xl:pt-16">
-        {/* Step 1 & 2: “WELCOME TO” + “SHAHI JUNCTION VILLA” Headline Block */}
+        {/* Step 1 & 2: “WELCOME TO” + “SHAH JUNCTION VILLA” Headline Block */}
         <div className={cn("flex flex-col items-center text-center", isPlaying ? "hero-anim-headline" : "opacity-100")}>
           <div className="inline-flex items-center gap-2.5 sm:gap-3 text-brass-light">
             <span className="h-px w-6 sm:w-12 bg-brass-light/70 shadow-sm" aria-hidden="true" />
@@ -93,7 +93,7 @@ export function Hero({ introState = "playing", setIntroState }: HeroProps) {
           </div>
 
           <h1 className="mt-1 sm:mt-1.5 font-display text-2xl sm:text-4xl lg:text-[2.65rem] xl:text-[3.15rem] font-bold uppercase tracking-[0.1em] sm:tracking-[0.14em] text-white leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)] break-words">
-            <span className="block sm:inline">SHAHI </span>
+            <span className="block sm:inline">SHAH </span>
             <span className="block sm:inline">JUNCTION VILLA</span>
           </h1>
         </div>
@@ -139,7 +139,7 @@ export function Hero({ introState = "playing", setIntroState }: HeroProps) {
       {/* 5. Scroll Indicator */}
       <a
         href="#about"
-        aria-label="Scroll to explore Shahi Junction Villa"
+        aria-label="Scroll to explore Shah Junction Villa"
         className={cn(
           "absolute bottom-3 sm:bottom-4 inset-x-0 mx-auto w-fit z-20 flex flex-col items-center gap-0.5 text-white/80 hover:text-brass-light transition-colors duration-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]",
           isPlaying ? "hero-anim-scroll" : "opacity-100"

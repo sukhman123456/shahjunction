@@ -384,7 +384,7 @@ export function DigitalMenu() {
 
   // Generate WhatsApp Direct Order Link for any item
   const getWhatsAppDishUrl = (item: DigitalMenuItem) => {
-    const text = `Hello Shahi Junction Villa, I would like to order: ${item.name} (${item.price}). Please let me know table/takeaway availability.`;
+    const text = `Hello Shah Junction Villa, I would like to order: ${item.name} (${item.price}). Please let me know table/takeaway availability.`;
     return `https://wa.me/918728060036?text=${encodeURIComponent(text)}`;
   };
 
@@ -427,7 +427,7 @@ export function DigitalMenu() {
 
             {/* Majestic Display Title */}
             <h2 className="font-display text-[clamp(2.4rem,5.5vw,4.25rem)] font-bold tracking-tight text-[#231911] uppercase leading-[1.05] drop-shadow-xs">
-              SHAHI JUNCTION VILLA
+              SHAH JUNCTION VILLA
             </h2>
 
             {/* Vintage Ornate Divider */}

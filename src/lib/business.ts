@@ -5,10 +5,10 @@
  * https://maps.app.goo.gl/TB73yXrVohNo6cWWA
  */
 export const business = {
-  name: "Shahi Junction Villa",
+  name: "Shah Junction Villa",
   alternateName: "Shah Junction Villa",
-  legalName: "Shahi Junction Villa Marriage Palace",
-  namePunjabi: "ਸ਼ਾਹੀ ਜੰਕਸ਼ਨ ਵਿਲਾ",
+  legalName: "Shah Junction Villa Marriage Palace",
+  namePunjabi: "ਸ਼ਾਹ ਜੰਕਸ਼ਨ ਵਿਲਾ",
   type: "Marriage Palace & Wedding Venue",
   tagline: "Where Royal Celebrations Begin",
   subTagline: "An elegant destination for weddings, celebrations and unforgettable gatherings.",

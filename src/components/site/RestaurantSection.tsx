@@ -145,7 +145,7 @@ export function RestaurantSection() {
             </div>
 
             <p className="mt-4 text-base sm:text-lg text-soft-cream/80 leading-relaxed font-sans">
-              Welcome to the genuine on-site restaurant and bar at Shahi Junction Villa. From freshly poured draught beers at our pergola bar to plush red velvet booth dining for the family.
+              Welcome to the genuine on-site restaurant and bar at Shah Junction Villa. From freshly poured draught beers at our pergola bar to plush red velvet booth dining for the family.
             </p>
           </div>
         </Reveal>
@@ -241,7 +241,7 @@ export function RestaurantSection() {
                     <div className="p-4 rounded-xl bg-black/40 border border-brass/20 flex items-center justify-between">
                       <div className="flex items-center gap-2 text-xs text-soft-cream/75">
                         <ShieldCheck className="size-4 text-brass" />
-                        <span>Genuine Shahi Junction On-Site Facility</span>
+                        <span>Genuine Shah Junction On-Site Facility</span>
                       </div>
                       <a
                         href={`tel:${business.phoneTel}`}

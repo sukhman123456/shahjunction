@@ -20,7 +20,7 @@ export function Occasions() {
           <SectionHeading
             eyebrow="CELEBRATIONS & GATHERINGS"
             title="LIFE'S SPECIAL OCCASIONS"
-            lead="Whether honoring sacred wedding vows or celebrating family milestones, Shahi Junction Villa provides the ideal setting."
+            lead="Whether honoring sacred wedding vows or celebrating family milestones, Shah Junction Villa provides the ideal setting."
             align="center"
           />
         </Reveal>

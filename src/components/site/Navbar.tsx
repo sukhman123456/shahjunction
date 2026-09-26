@@ -16,7 +16,7 @@ const navItems = [
 ];
 
 const whatsappUrl = `https://wa.me/918728060036?text=${encodeURIComponent(
-  "Hello Shahi Junction Villa, I would like to enquire about booking an event / checking dates."
+  "Hello Shah Junction Villa, I would like to enquire about booking an event / checking dates."
 )}`;
 
 interface NavbarProps {
@@ -90,7 +90,7 @@ export function Navbar({ introState = "finished" }: NavbarProps) {
                 <span className="size-1 rounded-full bg-emerald-400 animate-pulse" />
                 <span>PALACE & RESORT</span>
                 <span className="text-white/40 hidden sm:inline">•</span>
-                <span className="text-white/70 font-serif hidden sm:inline">ਸ਼ਾਹੀ ਜੰਕਸ਼ਨ ਵਿਲਾ</span>
+                <span className="text-white/70 font-serif hidden sm:inline">ਸ਼ਾਹ ਜੰਕਸ਼ਨ ਵਿਲਾ</span>
               </span>
             </div>
 

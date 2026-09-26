@@ -33,7 +33,7 @@ export function FloatingContact() {
           href={business.instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Follow Shahi Junction Villa on Instagram ${business.instagramHandle}`}
+          aria-label={`Follow Shah Junction Villa on Instagram ${business.instagramHandle}`}
           className="relative flex size-11 sm:size-12 items-center justify-center rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white shadow-[0_4px_16px_rgba(220,39,67,0.38)] hover:shadow-[0_6px_22px_rgba(220,39,67,0.6)] hover:scale-110 active:scale-95 transition-all duration-300 ring-2 ring-white/20 focus:outline-hidden focus:ring-2 focus:ring-pink-400"
         >
           {/* Crisp Instagram SVG Icon */}
@@ -82,7 +82,7 @@ export function FloatingContact() {
           href={RESERVATION_CONTACT.whatsAppUrl}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Chat with Shahi Junction Villa on WhatsApp: ${RESERVATION_CONTACT.phoneDisplay}`}
+          aria-label={`Chat with Shah Junction Villa on WhatsApp: ${RESERVATION_CONTACT.phoneDisplay}`}
           className="relative flex size-12 sm:size-13 items-center justify-center rounded-full bg-gradient-to-tr from-[#128C7E] via-[#25D366] to-[#1ebe5d] text-white shadow-[0_4px_18px_rgba(37,211,102,0.45)] hover:shadow-[0_8px_28px_rgba(37,211,102,0.7)] hover:scale-110 active:scale-95 transition-all duration-300 ring-2 ring-white/30 focus:outline-hidden focus:ring-2 focus:ring-emerald-400"
         >
           {/* Authentic High-Precision WhatsApp SVG Icon */}

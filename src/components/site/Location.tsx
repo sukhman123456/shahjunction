@@ -13,7 +13,7 @@ export function Location() {
         <Reveal className="lg:col-span-5">
           <SectionHeading
             eyebrow="DESTINATION & DIRECTIONS"
-            title="FIND SHAHI JUNCTION VILLA"
+            title="FIND SHAH JUNCTION VILLA"
             lead="Conveniently located in Sahaipur, Punjab for couples and celebratory parties arriving across the region."
           />
 
