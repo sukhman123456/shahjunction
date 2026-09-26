@@ -68,7 +68,7 @@ const celebrationCards: CelebrationCard[] = [
     description: "Celebrate your big day in an elegant and unforgettable setting.",
     longOverview:
       "Make your once-in-a-lifetime wedding celebration a royal masterpiece at Shah Junction Villa. From welcoming the Baraat under a shimmering floral walkway to the serene Anand Karaj or Jaimala rituals and an opulent feast, our expansive, fully air-conditioned neoclassical hall creates an atmosphere of pure splendour.",
-    capacity: "Max 300 Guests",
+    capacity: "More than 500 Guests",
     duration: "Full Day / Evening Booking",
     venueSetup: "Grand Indoor Banquet Hall & Lawns",
     highlights: [
@@ -221,7 +221,7 @@ const celebrationCards: CelebrationCard[] = [
     description: "Celebrate years of love with your family and loved ones.",
     longOverview:
       "Honor decades of companionship and enduring love surrounded by children, grandchildren, and dear friends. Whether it is a 25th Silver or 50th Golden Anniversary, Shah Junction Villa crafts a sophisticated, heartfelt experience filled with nostalgic slideshows, melodious tunes, and royal dining.",
-    capacity: "Max 300 Guests",
+    capacity: "More than 500 Guests",
     duration: "Day or Evening Celebration",
     venueSetup: "Elegantly Lit Banquet & Family Dining",
     highlights: [
