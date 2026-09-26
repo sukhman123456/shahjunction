@@ -18,6 +18,7 @@ import { Occasions } from "@/components/site/Occasions";
 import { CelebrationsSection } from "@/components/site/CelebrationsSection";
 import { RestaurantSection } from "@/components/site/RestaurantSection";
 import { DigitalMenu } from "@/components/site/DigitalMenu";
+import { DigitalMenuModal } from "@/components/site/DigitalMenuModal";
 import { Reviews } from "@/components/site/Reviews";
 import { VenueShowcase } from "@/components/site/VenueShowcase";
 import { BookingProvider } from "@/context/BookingContext";
@@ -139,6 +140,7 @@ function Index() {
       <BookingModal />
       <AdminDashboardModal />
       <FloatingContact />
+      <DigitalMenuModal />
     </BookingProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { ChevronRight, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { ChevronRight, Menu, MessageCircle, Phone, X, MoreVertical, UtensilsCrossed } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
@@ -27,7 +27,7 @@ export function Navbar({ introState = "finished" }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const { openBookingModal } = useBooking();
+  const { openBookingModal, openDigitalMenu } = useBooking();
   const isPlaying = introState === "playing";
 
   useEffect(() => {
@@ -151,6 +151,28 @@ export function Navbar({ introState = "finished" }: NavbarProps) {
               </svg>
             </a>
 
+            {/* Desktop Digital MENU Button */}
+            <button
+              type="button"
+              onClick={() => openDigitalMenu()}
+              className="group relative inline-flex items-center gap-1.5 rounded-full border border-brass/50 bg-brass/15 hover:bg-brass hover:text-charcoal backdrop-blur-xs px-4 py-2 text-[0.72rem] font-bold tracking-[0.16em] uppercase text-brass-light transition-all duration-300 shadow-sm hover:scale-105 active:scale-95 cursor-pointer"
+              title="Open Digital Menu"
+            >
+              <UtensilsCrossed className="size-3.5 text-brass group-hover:text-charcoal transition-colors" />
+              <span>MENU</span>
+            </button>
+
+            {/* Desktop Three-dot Menu Icon */}
+            <button
+              type="button"
+              aria-label="Open digital menu"
+              onClick={() => openDigitalMenu()}
+              className="flex size-9 items-center justify-center rounded-full border border-white/25 hover:border-brass hover:text-brass-light text-white/80 transition-all cursor-pointer"
+              title="Menu Options"
+            >
+              <MoreVertical className="size-4" />
+            </button>
+
             <button
               type="button"
               onClick={() => openBookingModal()}
@@ -233,6 +255,36 @@ export function Navbar({ introState = "finished" }: NavbarProps) {
 
           {/* Navigation Links */}
           <nav className="flex flex-col px-4 pt-3 pb-2" aria-label="Mobile Navigation">
+            {/* Prominent MENU option right at top of menu */}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openDigitalMenu();
+              }}
+              className="group flex items-center justify-between py-3 px-3.5 rounded-xl bg-gradient-to-r from-brass/25 via-brass/15 to-transparent border border-brass/45 hover:bg-brass/30 transition-all text-left mb-2 cursor-pointer shadow-sm"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex size-8.5 items-center justify-center rounded-lg bg-brass text-charcoal shadow-xs">
+                  <UtensilsCrossed className="size-4 text-charcoal" />
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <span className="font-display text-base font-bold tracking-[0.16em] uppercase text-brass-light">
+                      MENU
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full bg-brass/30 text-[10px] font-bold uppercase tracking-wider text-brass-light">
+                      Golden Menu
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-soft-cream/60">
+                    Palace Catering & Wedding Selection
+                  </span>
+                </div>
+              </div>
+              <ChevronRight className="size-4 text-brass-light group-hover:translate-x-1 transition-transform" />
+            </button>
+
             {navItems.map((item) => (
               <a
                 key={item.label}

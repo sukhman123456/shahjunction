@@ -10,6 +10,9 @@ interface BookingContextType {
   isAdminModalOpen: boolean;
   openAdminModal: () => void;
   closeAdminModal: () => void;
+  isDigitalMenuOpen: boolean;
+  openDigitalMenu: () => void;
+  closeDigitalMenu: () => void;
 }
 
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
@@ -19,6 +22,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   const [prefilledDate, setPrefilledDate] = useState<string | null>(null);
   const [prefilledEventType, setPrefilledEventType] = useState<EventType | null>(null);
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+  const [isDigitalMenuOpen, setIsDigitalMenuOpen] = useState(false);
 
   const openBookingModal = useCallback((date?: string, eventType?: EventType) => {
     if (date) {
@@ -51,13 +55,25 @@ export function BookingProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // Check URL path, hash, or search params for admin access
+  const openDigitalMenu = useCallback(() => {
+    setIsDigitalMenuOpen(true);
+  }, []);
+
+  const closeDigitalMenu = useCallback(() => {
+    setIsDigitalMenuOpen(false);
+    if (typeof window !== "undefined" && window.location.hash === "#menu") {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  }, []);
+
+  // Check URL path, hash, or search params for admin or menu access
   useEffect(() => {
-    const checkAdminRoute = () => {
+    const checkRoutes = () => {
       if (typeof window === "undefined") return;
       const path = window.location.pathname.toLowerCase();
       const hash = window.location.hash.toLowerCase();
       const search = window.location.search.toLowerCase();
+
       if (
         path === "/admin" ||
         path.startsWith("/admin/") ||
@@ -67,14 +83,18 @@ export function BookingProvider({ children }: { children: ReactNode }) {
       ) {
         setIsAdminModalOpen(true);
       }
+
+      if (hash === "#menu" || search.includes("menu=true") || search.includes("menu=1")) {
+        setIsDigitalMenuOpen(true);
+      }
     };
 
-    checkAdminRoute();
-    window.addEventListener("popstate", checkAdminRoute);
-    window.addEventListener("hashchange", checkAdminRoute);
+    checkRoutes();
+    window.addEventListener("popstate", checkRoutes);
+    window.addEventListener("hashchange", checkRoutes);
     return () => {
-      window.removeEventListener("popstate", checkAdminRoute);
-      window.removeEventListener("hashchange", checkAdminRoute);
+      window.removeEventListener("popstate", checkRoutes);
+      window.removeEventListener("hashchange", checkRoutes);
     };
   }, []);
 
@@ -100,6 +120,9 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         isAdminModalOpen,
         openAdminModal,
         closeAdminModal,
+        isDigitalMenuOpen,
+        openDigitalMenu,
+        closeDigitalMenu,
       }}
     >
       {children}
@@ -118,6 +141,9 @@ export function useBooking() {
       isAdminModalOpen: false,
       openAdminModal: () => {},
       closeAdminModal: () => {},
+      isDigitalMenuOpen: false,
+      openDigitalMenu: () => {},
+      closeDigitalMenu: () => {},
     };
   }
   return context;
