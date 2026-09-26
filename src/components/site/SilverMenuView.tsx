@@ -65,8 +65,8 @@ export function SilverMenuView() {
 
   return (
     <div className="space-y-6 sm:space-y-8 animate-in fade-in-0 duration-300">
-      {/* Category Quick Navigation (Sticky Silver Toolbar) */}
-      <div className="sticky top-0 z-20 py-3 -mx-3 sm:-mx-6 lg:-mx-12 px-3 sm:px-6 lg:px-12 bg-[#f8fafc]/95 backdrop-blur-md border-y border-slate-300/80 shadow-xs">
+      {/* Category Quick Navigation (Fixed in place at top, does not scroll along) */}
+      <div className="py-3 px-4 sm:px-6 rounded-2xl bg-white border-2 border-slate-300/80 shadow-xs">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div className="text-[11px] font-bold uppercase tracking-widest text-slate-700 flex items-center gap-1.5 shrink-0">
             <span className="text-slate-400">❖</span>
@@ -120,7 +120,7 @@ export function SilverMenuView() {
             <section
               key={category.id}
               id={`silver-cat-${category.id}`}
-              className="rounded-2xl sm:rounded-3xl border-2 border-slate-300/80 bg-white overflow-hidden shadow-[0_10px_30px_-10px_rgba(148,163,184,0.2)] scroll-mt-28 transition-all hover:border-slate-400 group"
+              className="rounded-2xl sm:rounded-3xl border-2 border-slate-300/80 bg-white overflow-hidden shadow-[0_10px_30px_-10px_rgba(148,163,184,0.2)] scroll-mt-6 transition-all hover:border-slate-400 group"
             >
               {/* Section Start Image Banner with Clean Section Text */}
               {foodImg && (

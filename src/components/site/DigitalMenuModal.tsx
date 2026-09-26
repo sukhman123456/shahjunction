@@ -296,8 +296,8 @@ export function DigitalMenuModal() {
               {/* ============================================================== */}
               {activeMenuTab === "golden" && (
                 <div className="space-y-6 sm:space-y-8 animate-in fade-in-0 slide-in-from-top-3 duration-300">
-                  {/* Category Quick Navigation */}
-                  <div className="sticky top-0 z-10 py-3 -mx-3 sm:-mx-6 lg:-mx-12 px-3 sm:px-6 lg:px-12 bg-[#0d0a08]/95 backdrop-blur-md border-y border-brass/20">
+                  {/* Category Quick Navigation (Fixed in place at top, does not scroll along) */}
+                  <div className="py-3 px-4 sm:px-6 rounded-2xl bg-[#140f0c] border border-brass/30 shadow-xs">
                     <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                       <div className="text-[11px] font-bold uppercase tracking-widest text-brass-light/80 flex items-center gap-1.5 shrink-0">
                         <Sparkles className="size-3 text-brass" />
@@ -351,7 +351,7 @@ export function DigitalMenuModal() {
                         <section
                           key={category.id}
                           id={`cat-${category.id}`}
-                          className="rounded-2xl sm:rounded-3xl border border-brass/30 bg-[#15110d] overflow-hidden shadow-card scroll-mt-28 transition-all hover:border-brass/60 group"
+                          className="rounded-2xl sm:rounded-3xl border border-brass/30 bg-[#15110d] overflow-hidden shadow-card scroll-mt-6 transition-all hover:border-brass/60 group"
                         >
                           {/* Section Start Image Banner with Clean Section Text */}
                           {foodImg && (
