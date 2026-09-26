@@ -366,6 +366,14 @@ function copyPalaceAssetsPlugin() {
         }
       }
 
+      // Owner portrait (formal tie & turban portrait)
+      const ownerSrc = path.join(celebrationBrainDir, "media_1790413898959.jpg");
+      if (fs.existsSync(ownerSrc)) {
+        fs.copyFileSync(ownerSrc, path.join(assetsDir, "shah-junction-owner.jpg"));
+        fs.copyFileSync(ownerSrc, path.join(publicDir, "shah-junction-owner.jpg"));
+        console.log("[palace-plugin] Synced new shah-junction-owner.jpg");
+      }
+
       // The Grand Entrance Palace Gate image
       const brainRoot = "C:/Users/hp/.gemini/antigravity-ide/brain/5a7ab2f5-13ed-4bdd-86ed-d8eb2c8836a4";
       const tempStorage = path.join(brainRoot, ".tempmediaStorage");

@@ -1,13 +1,13 @@
 import { Crown, PhoneCall, MessageCircle, ShieldCheck, HeartHandshake, Sparkles, MapPin, CheckCircle2 } from "lucide-react";
 import { business } from "@/lib/business";
 import { Reveal } from "./Reveal";
+import ownerPhotoImg from "@/assets/shah-junction-owner.jpg";
 
 // --------------------------------------------------------------------------
 // OWNER PHOTO CONFIGURATION
-// When you have the owner's photo, set its imported path or URL below.
-// If null, the elegant royal golden portrait frame is displayed!
+// Configured with the authentic portrait of the owner / Managing Director
 // --------------------------------------------------------------------------
-const ownerPhotoUrl: string | null = null;
+const ownerPhotoUrl: string | null = ownerPhotoImg;
 
 export function Facilities() {
   return (
@@ -60,17 +60,43 @@ export function Facilities() {
                   <span className="absolute bottom-2 left-2 text-brass text-sm">✦</span>
                   <span className="absolute bottom-2 right-2 text-brass text-sm">✦</span>
 
-                  {/* Inner Photo Container */}
-                  <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border border-brass/40 bg-gradient-to-b from-[#1c1815] via-charcoal to-[#120f0d] flex flex-col items-center justify-between p-7 text-center shadow-inner">
+                  {/* Inner Photo Container with 3/4 Aspect Ratio */}
+                  <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border border-brass/40 bg-gradient-to-b from-[#1c1815] via-charcoal to-[#120f0d] shadow-inner">
                     {/* Background Regal Mandala Motif */}
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(202,168,106,0.15)_0,transparent_70%)] pointer-events-none" />
 
                     {ownerPhotoUrl ? (
-                      <img
-                        src={ownerPhotoUrl}
-                        alt="Owner of Shah Junction Villa"
-                        className="absolute inset-0 size-full object-cover object-center"
-                      />
+                      <div className="absolute inset-0 size-full overflow-hidden">
+                        {/* Beautifully Cropped & Positioned Owner Photo */}
+                        <img
+                          src={ownerPhotoUrl}
+                          alt="Managing Director and Founder of Shah Junction Villa"
+                          loading="lazy"
+                          decoding="async"
+                          className="size-full object-cover object-[center_12%] transition-transform duration-700 ease-out group-hover:scale-105 will-change-transform"
+                        />
+
+                        {/* Subtle Cinematic Vignette Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent pointer-events-none" />
+
+                        {/* Top Left: Crown / Leadership Badge */}
+                        <div className="absolute top-3.5 left-3.5 z-10">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-brass/50 text-brass-light text-[11px] font-bold tracking-wider uppercase shadow-md">
+                            <Crown className="size-3 text-brass" />
+                            <span>Founder & Director</span>
+                          </span>
+                        </div>
+
+                        {/* Bottom Tagline & Gurmukhi Badge */}
+                        <div className="absolute bottom-3.5 inset-x-3.5 z-10 text-center">
+                          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-brass/45 shadow-lg">
+                            <span className="size-1.5 rounded-full bg-brass animate-pulse" />
+                            <span className="font-gurmukhi text-xs text-brass-light font-semibold">
+                              ਮਾਲਕ · ਸ਼ਾਹ ਜੰਕਸ਼ਨ ਵਿਲਾ
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     ) : (
                       <>
                         {/* Top Royal Monogram */}
