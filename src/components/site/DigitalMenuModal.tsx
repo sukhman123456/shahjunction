@@ -12,12 +12,15 @@ import {
   Info,
   ArrowRight,
   Flame,
+  Award,
 } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
 import { GOLDEN_MENU_CATEGORIES, type GoldenMenuCategory } from "@/lib/goldenMenuData";
+import { SilverMenuView } from "./SilverMenuView";
 
 export function DigitalMenuModal() {
   const { isDigitalMenuOpen, closeDigitalMenu } = useBooking();
+  const [activeMenuTab, setActiveMenuTab] = useState<"golden" | "silver">("golden");
   const [isGoldenMenuOpen, setIsGoldenMenuOpen] = useState(true);
   const [activeCategory, setActiveCategory] = useState<string>("welcome");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -41,7 +44,7 @@ export function DigitalMenuModal() {
           className="fixed inset-0 z-[80] flex flex-col bg-[#0d0a08] text-soft-cream outline-none overflow-hidden"
           aria-describedby="digital-menu-description"
         >
-          <Dialog.Title className="sr-only">Digital Menu - Shah Junction Villa</Dialog.Title>
+          <Dialog.Title className="sr-only">Digital Catering Menus - Shah Junction Villa</Dialog.Title>
 
           {/* Top Sticky Header */}
           <div className="relative z-20 flex items-center justify-between px-4 sm:px-8 py-3.5 sm:py-4 border-b border-brass/25 bg-[#14100c]/95 backdrop-blur-md shrink-0">
@@ -77,7 +80,10 @@ export function DigitalMenuModal() {
           </div>
 
           {/* Main Scrollable Body */}
-          <div ref={scrollContainerRef} className="flex-1 overflow-y-auto px-3 sm:px-6 lg:px-12 py-6 sm:py-8 space-y-6 sm:space-y-8 custom-scrollbar">
+          <div
+            ref={scrollContainerRef}
+            className="flex-1 overflow-y-auto px-3 sm:px-6 lg:px-12 py-6 sm:py-8 space-y-6 sm:space-y-8 custom-scrollbar"
+          >
             <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8">
               {/* Intro Banner */}
               <div id="digital-menu-description" className="text-center max-w-2xl mx-auto space-y-2">
@@ -86,73 +92,170 @@ export function DigitalMenuModal() {
                   <span>ROYAL BANQUET SELECTIONS · ਸ਼ਾਹੀ ਮੈਨਿਊ</span>
                 </span>
                 <p className="text-xs sm:text-sm text-soft-cream/70 font-sans">
-                  Explore our authentic banquet and wedding culinary offerings. Recreated in full digital detail for your celebration planning.
+                  Choose between our signature banquet packages below. Digitally presented in complete detail for your wedding and celebration planning.
                 </p>
               </div>
 
               {/* 
-                MAIN MENU OPTION: GOLDEN MENU
-                Displayed prominently at top of the Digital Menu screen
+                DUAL MENU OPTIONS:
+                1. GOLDEN MENU (Royal Gold Edition)
+                2. SILVER MENU (Royal Silver Edition)
               */}
-              <div
-                role="button"
-                tabIndex={0}
-                onClick={() => setIsGoldenMenuOpen((prev) => !prev)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setIsGoldenMenuOpen((prev) => !prev);
-                  }
-                }}
-                className="group relative cursor-pointer select-none rounded-2xl sm:rounded-3xl border-2 border-brass bg-gradient-to-r from-[#211a14] via-[#1a1410] to-[#211a14] p-5 sm:p-7 shadow-[0_12px_40px_-10px_rgba(202,168,106,0.35)] transition-all duration-300 hover:border-brass-light hover:shadow-[0_16px_50px_-8px_rgba(202,168,106,0.5)]"
-              >
-                {/* Background Shimmer & Glow */}
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(202,168,106,0.18)_0,transparent_70%)] rounded-2xl sm:rounded-3xl" />
-                <div className="pointer-events-none absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-brass to-transparent opacity-80" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                {/* 1. GOLDEN MENU CARD */}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => {
+                    setActiveMenuTab("golden");
+                    setIsGoldenMenuOpen(true);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveMenuTab("golden");
+                      setIsGoldenMenuOpen(true);
+                    }
+                  }}
+                  className={`group relative cursor-pointer select-none rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-300 ${
+                    activeMenuTab === "golden"
+                      ? "border-2 border-brass bg-gradient-to-br from-[#241c15] via-[#1a1410] to-[#211a14] shadow-[0_12px_40px_-10px_rgba(202,168,106,0.45)] ring-2 ring-brass/30"
+                      : "border border-brass/30 bg-[#16120e]/80 hover:border-brass/70 hover:bg-[#1a1511]"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex size-12 sm:size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brass-deep via-brass to-brass-light text-charcoal shadow-md">
+                      <Crown className="size-6 sm:size-7" strokeWidth={1.8} />
+                    </div>
 
-                <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex items-start sm:items-center gap-3.5 sm:gap-4">
-                    <div className="flex size-13 sm:size-15 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brass-deep via-brass to-brass-light text-charcoal shadow-md">
-                      <Crown className="size-7 sm:size-8" strokeWidth={1.8} />
-                    </div>
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="px-2.5 py-0.5 rounded-full bg-brass/25 border border-brass/50 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-brass-light">
-                          MAIN MENU OPTION
-                        </span>
-                        <span className="text-xs text-brass-light/70 font-gurmukhi">
-                          ਸ਼ਾਹੀ ਗੋਲਡਨ ਮੈਨਿਊ
-                        </span>
-                      </div>
-                      <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide text-white mt-1 group-hover:text-brass-light transition-colors">
-                        GOLDEN MENU
-                      </h2>
-                      <p className="text-xs sm:text-sm text-soft-cream/80 font-sans mt-0.5">
-                        Complete Wedding & Grand Banquet Catering Selection (20 Curated Categories)
-                      </p>
-                    </div>
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase border ${
+                        activeMenuTab === "golden"
+                          ? "bg-brass text-charcoal border-brass"
+                          : "bg-brass/20 text-brass-light border-brass/40"
+                      }`}
+                    >
+                      {activeMenuTab === "golden" ? "ACTIVE SELECTION" : "SELECT GOLD"}
+                    </span>
                   </div>
 
-                  <div className="flex items-center gap-2 self-end sm:self-center">
-                    <span className="text-xs font-bold uppercase tracking-wider text-brass-light">
-                      {isGoldenMenuOpen ? "Hide Complete Menu" : "Open Complete Menu"}
-                    </span>
-                    <div className="flex size-9 items-center justify-center rounded-full bg-brass/20 border border-brass/40 text-brass-light group-hover:bg-brass group-hover:text-charcoal transition-all">
-                      {isGoldenMenuOpen ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}
+                  <div className="mt-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-brass-light/70 font-gurmukhi">ਸ਼ਾਹੀ ਗੋਲਡਨ ਮੈਨਿਊ</span>
+                      <span className="text-[10px] text-brass">• 20 Categories</span>
                     </div>
+                    <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-wide text-white mt-1 group-hover:text-brass-light transition-colors">
+                      GOLDEN MENU
+                    </h2>
+                    <p className="text-xs sm:text-sm text-soft-cream/70 font-sans mt-1 leading-relaxed">
+                      Grand Wedding & Royal Banquet Catering Selection with deep charcoal & gold palace ambiance.
+                    </p>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-brass/20 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-brass-light">
+                    <span>{activeMenuTab === "golden" ? "Viewing Gold Edition" : "Switch to Golden Menu"}</span>
+                    <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+
+                {/* 2. SILVER MENU CARD */}
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setActiveMenuTab("silver")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveMenuTab("silver");
+                    }
+                  }}
+                  className={`group relative cursor-pointer select-none rounded-2xl sm:rounded-3xl p-5 sm:p-6 transition-all duration-300 ${
+                    activeMenuTab === "silver"
+                      ? "border-2 border-slate-300 bg-gradient-to-br from-[#2a303c] via-[#1e232d] to-[#151921] shadow-[0_12px_40px_-10px_rgba(203,213,225,0.35)] ring-2 ring-slate-400/50"
+                      : "border border-slate-600/50 bg-[#161a22]/80 hover:border-slate-400 hover:bg-[#1a202a]"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex size-12 sm:size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-200 via-slate-100 to-slate-400 text-slate-900 shadow-md">
+                      <Sparkles className="size-6 sm:size-7 text-slate-800" strokeWidth={1.8} />
+                    </div>
+
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase border ${
+                        activeMenuTab === "silver"
+                          ? "bg-slate-200 text-slate-900 border-white"
+                          : "bg-slate-700/50 text-slate-300 border-slate-500/40"
+                      }`}
+                    >
+                      {activeMenuTab === "silver" ? "ACTIVE SELECTION" : "SELECT SILVER"}
+                    </span>
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-slate-300 font-gurmukhi">ਸ਼ਾਹੀ ਸਿਲਵਰ ਮੈਨਿਊ</span>
+                      <span className="text-[10px] text-slate-400">• 20 Categories</span>
+                    </div>
+                    <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-wide text-white mt-1 group-hover:text-slate-200 transition-colors">
+                      SILVER MENU
+                    </h2>
+                    <p className="text-xs sm:text-sm text-soft-cream/70 font-sans mt-1 leading-relaxed">
+                      Platinum & Chrome Edition with crisp white backdrop, authentic food visuals, and curated festive dishes.
+                    </p>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-slate-500/30 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-300">
+                    <span>{activeMenuTab === "silver" ? "Viewing Silver Edition" : "Switch to Silver Menu"}</span>
+                    <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </div>
 
-              {/* COMPLETE GOLDEN MENU CONTENT */}
-              {isGoldenMenuOpen && (
+              {/* QUICK MENU EDITION SWITCHER PILL */}
+              <div className="flex items-center justify-center gap-2 pt-2">
+                <div className="inline-flex p-1.5 rounded-full bg-[#181310] border border-white/10 shadow-inner">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveMenuTab("golden");
+                      setIsGoldenMenuOpen(true);
+                    }}
+                    className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
+                      activeMenuTab === "golden"
+                        ? "bg-gradient-to-r from-brass-deep to-brass text-charcoal shadow-md"
+                        : "text-soft-cream/70 hover:text-white"
+                    }`}
+                  >
+                    <Crown className="size-3.5" />
+                    <span>GOLDEN MENU</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveMenuTab("silver")}
+                    className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
+                      activeMenuTab === "silver"
+                        ? "bg-gradient-to-r from-slate-200 via-slate-100 to-slate-300 text-slate-900 shadow-md font-extrabold"
+                        : "text-soft-cream/70 hover:text-white"
+                    }`}
+                  >
+                    <Sparkles className="size-3.5" />
+                    <span>SILVER MENU</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* ============================================================== */}
+              {/* TAB 1: GOLDEN MENU CONTENT (PRESERVED EXACTLY AS CREATED)     */}
+              {/* ============================================================== */}
+              {activeMenuTab === "golden" && (
                 <div className="space-y-6 sm:space-y-8 animate-in fade-in-0 slide-in-from-top-3 duration-300">
                   {/* Category Quick Navigation */}
                   <div className="sticky top-0 z-10 py-3 -mx-3 sm:-mx-6 lg:-mx-12 px-3 sm:px-6 lg:px-12 bg-[#0d0a08]/95 backdrop-blur-md border-y border-brass/20">
                     <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                       <div className="text-[11px] font-bold uppercase tracking-widest text-brass-light/80 flex items-center gap-1.5 shrink-0">
                         <Sparkles className="size-3 text-brass" />
-                        <span>Jump to Category:</span>
+                        <span>Golden Category Jump:</span>
                       </div>
 
                       {/* Mobile Dropdown (Prevents horizontal overflow on small screens) */}
@@ -296,6 +399,11 @@ export function DigitalMenuModal() {
                   </div>
                 </div>
               )}
+
+              {/* ============================================================== */}
+              {/* TAB 2: SILVER MENU CONTENT (SILVER/CHROME/WHITE EDITION)       */}
+              {/* ============================================================== */}
+              {activeMenuTab === "silver" && <SilverMenuView />}
             </div>
           </div>
         </Dialog.Content>

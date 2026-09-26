@@ -37,9 +37,11 @@ export function Navbar({ introState = "finished" }: NavbarProps) {
       const sections = ["home", "about", "occasions", "reservations", "gallery", "restaurant", "location"];
       const scrollPos = window.scrollY + 200;
       for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
+        const sectionId = sections[i];
+        if (!sectionId) continue;
+        const el = document.getElementById(sectionId);
         if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i]);
+          setActiveSection(sectionId);
           break;
         }
       }

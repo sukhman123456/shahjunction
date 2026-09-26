@@ -115,6 +115,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
       value={{
         isBookingModalOpen,
         prefilledDate,
+        prefilledEventType,
         openBookingModal,
         closeBookingModal,
         isAdminModalOpen,
@@ -136,6 +137,7 @@ export function useBooking() {
     return {
       isBookingModalOpen: false,
       prefilledDate: null,
+      prefilledEventType: null,
       openBookingModal: () => {},
       closeBookingModal: () => {},
       isAdminModalOpen: false,

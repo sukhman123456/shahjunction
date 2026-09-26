@@ -375,7 +375,7 @@ export function DigitalMenu() {
       if (!groups[item.subcategory]) {
         groups[item.subcategory] = [];
       }
-      groups[item.subcategory].push(item);
+      groups[item.subcategory]!.push(item);
     }
     return groups;
   }, [filteredItems]);
@@ -1051,7 +1051,7 @@ export function DigitalMenu() {
                 };
 
                 return subcategoryNames.map((subcategoryTitle) => {
-                  const items = groupedItems[subcategoryTitle];
+                  const items = groupedItems[subcategoryTitle] ?? [];
                   const photoCard = getSubcategoryPhotoCard(subcategoryTitle);
 
                 return (
