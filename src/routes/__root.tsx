@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { BookingProvider } from "@/context/BookingContext";
+import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 import shahJunctionLogo from "@/assets/shah-junction-villa-logo.jpg";
@@ -152,6 +153,7 @@ function RootComponent() {
       <BookingProvider>
         <Outlet />
       </BookingProvider>
+      <Analytics />
     </QueryClientProvider>
   );
 }
